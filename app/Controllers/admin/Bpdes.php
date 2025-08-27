@@ -8,11 +8,13 @@ use App\Models\AduanModel;
 use App\Models\ResponsModel;
 use App\Models\DesaModel;
 use App\Models\AcaraModel;
+use App\Models\TemplateModel;
 class Bpdes extends BaseController
 {
     protected $memberModel;
     protected $desaModel;
     protected $artikelModel;
+    protected $templateModel;
 
     protected $acaraModel;
     public function __construct()
@@ -21,6 +23,7 @@ class Bpdes extends BaseController
         $this->desaModel = new DesaModel();
         $this->artikelModel = new \App\Models\ArtikelModel();
         $this->acaraModel = new AcaraModel();
+        $this->templateModel = new TemplateModel();
     }
 
     public function index()
@@ -321,5 +324,32 @@ public function indexAcara()
 
         $this->acaraModel->delete($id);
         return redirect()->to('/admin/bpdes/acara')->with('success', 'Acara berhasil dihapus.');
+    }
+
+     public function template()
+    {
+        $data = [
+            'title' => 'Download Template',
+            'templates' => $this->templateModel->findAll()
+        ];
+        return view('admin/bpdes/template/index', $data);
+    }
+
+    // 📌 2. Download file template
+    public function downloadTemplate($id)
+    {
+        $template = $this->templateModel->find($id);
+
+        if (!$template || !$template['file_template']) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        $filePath = FCPATH . 'uploads/template/' . $template['file_template'];
+
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan di server.');
+        }
+
+        return $this->response->download($filePath, null);
     }
 }

@@ -7,18 +7,21 @@ use App\Models\MemberModel;
 use App\Models\AduanModel;
 use App\Models\ArtikelModel;
 use App\Models\AcaraModel;
-
+use App\Models\TemplateModel;
 class Bpn extends BaseController
 {
     protected $memberModel;
     protected $artikelModel;
     protected $acaraModel;
+    protected $templateModel;
+
 
     public function __construct()
     {
         $this->memberModel = new MemberModel();
         $this->artikelModel = new ArtikelModel();
         $this->acaraModel = new AcaraModel();
+        $this->templateModel = new TemplateModel();
     }
 
     public function index()
@@ -278,6 +281,98 @@ class Bpn extends BaseController
     private function resolvePublisherLabel(): string
     {
         return 'BPN'; // all BPN content uses this label
+    }
+
+    public function indexTemplate()
+    {
+        $data = [
+            'title' => 'Manajemen Template',
+            'templates' => $this->templateModel->findAll()
+        ];
+        return view('admin/bpn/template/index', $data);
+    }
+
+    // 📌 2. Form tambah template
+    public function tambahTemplate()
+    {
+        $data = [
+            'title' => 'Tambah Template'
+        ];
+        return view('admin/bpn/template/tambah', $data);
+    }
+
+    // 📌 3. Simpan template baru
+    public function simpanTemplate()
+    {
+        $file = $this->request->getFile('file_template');
+        $newName = null;
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getClientName();
+            $file->move('uploads/template/', $newName);
+
+        }
+
+        $this->templateModel->save([
+            'judul' => $this->request->getPost('judul'),
+            'deskripsi' => $this->request->getPost('deskripsi'),
+            'file_template' => $newName
+        ]);
+
+        return redirect()->to('/admin/bpn/template')->with('success', 'Template berhasil ditambahkan.');
+    }
+
+    // 📌 4. Form edit template
+    public function editTemplate($id)
+    {
+        $data = [
+            'title' => 'Edit Template',
+            'template' => $this->templateModel->find($id)
+        ];
+        return view('admin/bpn/template/edit', $data);
+    }
+
+    // 📌 5. Update template
+    public function updateTemplate($id)
+    {
+        $template = $this->templateModel->find($id);
+
+        $file = $this->request->getFile('file_template');
+        $newName = $template['file_template']; // default pakai file lama
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            // hapus file lama
+            if ($template['file_template'] && file_exists('uploads/template/' . $template['file_template'])) {
+                unlink('uploads/template/' . $template['file_template']);
+            }
+
+            // upload file baru
+            $newName = $file->getRandomName();
+            $file->move('uploads/template/', $newName);
+        }
+
+        $this->templateModel->update($id, [
+            'judul' => $this->request->getPost('judul'),
+            'deskripsi' => $this->request->getPost('deskripsi'),
+            'file_template' => $newName
+        ]);
+
+        return redirect()->to('/admin/bpn/template')->with('success', 'Template berhasil diupdate.');
+    }
+
+    // 📌 6. Hapus template
+    public function deleteTemplate($id)
+    {
+        $template = $this->templateModel->find($id);
+
+        // hapus file dari folder
+        if ($template && $template['file_template'] && file_exists('uploads/template/' . $template['file_template'])) {
+            unlink('uploads/template/' . $template['file_template']);
+        }
+
+        $this->templateModel->delete($id);
+
+        return redirect()->to('/admin/bpn/template')->with('success', 'Template berhasil dihapus.');
     }
 
 }

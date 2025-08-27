@@ -9,14 +9,15 @@ use App\Models\ResponsModel;
 use App\Models\KotaModel;
 use App\Models\ArtikelModel;
 use App\Models\AcaraModel;
+use App\Models\TemplateModel;
 
 class Bpd extends BaseController
 {
     protected $memberModel;
     protected $kotaModel;
     protected $artikelModel;
-
     protected $acaraModel;
+    protected $templateModel;
 
     public function __construct()
     {
@@ -24,6 +25,7 @@ class Bpd extends BaseController
         $this->kotaModel = new KotaModel();
         $this->artikelModel = new ArtikelModel();
         $this->acaraModel = new AcaraModel();
+        $this->templateModel = new TemplateModel();
 
     }
 
@@ -346,5 +348,32 @@ class Bpd extends BaseController
 
         $this->acaraModel->delete($id);
         return redirect()->to('/admin/bpd/acara')->with('success', 'Acara berhasil dihapus.');
+    }
+
+     public function template()
+    {
+        $data = [
+            'title' => 'Download Template',
+            'templates' => $this->templateModel->findAll()
+        ];
+        return view('admin/bpd/template/index', $data);
+    }
+
+    // 📌 2. Download file template
+    public function downloadTemplate($id)
+    {
+        $template = $this->templateModel->find($id);
+
+        if (!$template || !$template['file_template']) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        $filePath = FCPATH . 'uploads/template/' . $template['file_template'];
+
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan di server.');
+        }
+
+        return $this->response->download($filePath, null);
     }
 }

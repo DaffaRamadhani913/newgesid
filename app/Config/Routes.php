@@ -187,6 +187,12 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-acara/(:num)', 'Bpn::editAcara/$1');
     $routes->post('update-acara/(:num)', 'Bpn::updateAcara/$1');
     $routes->post('delete-acara/(:num)', 'Bpn::deleteAcara/$1');
+    $routes->get('template', 'Bpn::indexTemplate');
+    $routes->get('tambah-template', 'Bpn::tambahTemplate');
+    $routes->post('simpan-template', 'Bpn::simpanTemplate');
+    $routes->get('edit-template/(:num)', 'Bpn::editTemplate/$1');
+    $routes->post('update-template/(:num)', 'Bpn::updateTemplate/$1');
+    $routes->post('delete-template/(:num)', 'Bpn::deleteTemplate/$1');
     // $routes->get('aduan', 'Bpn::listAduan');
     // $routes->get('admin/adminbpn', 'Bpn::listAduan');
 
@@ -225,6 +231,8 @@ $routes->group('admin/bpd', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-acara/(:num)', 'Bpd::editAcara/$1');
     $routes->post('update-acara/(:num)', 'Bpd::updateAcara/$1');
     $routes->post('delete-acara/(:num)', 'Bpd::deleteAcara/$1');
+    $routes->get('template', 'Bpd::template');
+    $routes->get('download-template/(:num)', 'Bpd::downloadTemplate/$1');
 });
 
 $routes->group('admin/bpd', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
@@ -258,6 +266,8 @@ $routes->group('admin/bpw', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-acara/(:num)', 'Bpw::editAcara/$1');
     $routes->post('update-acara/(:num)', 'Bpw::updateAcara/$1');
     $routes->post('delete-acara/(:num)', 'Bpw::deleteAcara/$1');
+    $routes->get('template', 'Bpw::template');
+    $routes->get('download-template/(:num)', 'Bpw::downloadTemplate/$1');
 });
 
 $routes->group('admin/bpw', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
@@ -292,8 +302,8 @@ $routes->group('admin/bpdes', ['namespace' => 'App\Controllers\admin'], function
     $routes->get('edit-acara/(:num)', 'Bpdes::editAcara/$1');
     $routes->post('update-acara/(:num)', 'Bpdes::updateAcara/$1');
     $routes->post('delete-acara/(:num)', 'Bpdes::deleteAcara/$1');
-
-
+    $routes->get('template', 'Bpdes::template');
+    $routes->get('download-template/(:num)', 'Bpdes::downloadTemplate/$1');
 });
 
 
