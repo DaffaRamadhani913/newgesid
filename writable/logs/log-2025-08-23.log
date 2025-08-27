@@ -1,0 +1,121 @@
+INFO - 2025-08-23 00:44:46 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-23 02:45:51 --> REDIRECTED ROUTE at https://gesid.id/
+DEBUG - 2025-08-23 04:10:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 04:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 04:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 04:10:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 04:10:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 04:10:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-23 05:44:29 --> REDIRECTED ROUTE at https://gesid.id/
+DEBUG - 2025-08-23 05:45:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:46:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:47:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 05:48:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 07:24:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-23 07:24:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-23 11:45:32 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-23 12:38:31 --> REDIRECTED ROUTE at https://gesid.id/?fbclid=IwZXh0bgNhZW0CMTEAAR5AI4Zb95aJmoH5S-WAZu7qR42hOstY4bkU1oYtPa74G7Nqui3FWNyX71HlCg_aem_B03dJ2dsRw6dzsiPnJPKaA
+DEBUG - 2025-08-23 19:57:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-23 19:57:08 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin//navbar_.php"
+[Method: GET, Route: admin/bpn]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(475): CodeIgniter\View\View->render()
+ 3 APPPATH/Views/admin/layout/base_admin_template.php(23): CodeIgniter\View\View->include()
+ 4 SYSTEMPATH/View/View.php(224): include('/home/k9170490/gesid.id/app/Views/admin/layout/base_admin_template.php')
+ 5 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 7 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 8 APPPATH/Controllers/admin/Bpn.php(53): view()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Admin\Bpn->index()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-23 21:03:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-23 21:03:36 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin//navbar_.php"
+[Method: GET, Route: admin/superadmin]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(475): CodeIgniter\View\View->render()
+ 3 APPPATH/Views/admin/layout/base_admin_template.php(23): CodeIgniter\View\View->include()
+ 4 SYSTEMPATH/View/View.php(224): include('/home/k9170490/gesid.id/app/Views/admin/layout/base_admin_template.php')
+ 5 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 7 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 8 APPPATH/Controllers/admin/superadmin.php(32): view()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Admin\Superadmin->dashboard()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-23 21:04:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-23 21:04:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin//navbar_.php"
+[Method: GET, Route: admin/selayang-pandang]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(475): CodeIgniter\View\View->render()
+ 3 APPPATH/Views/admin/layout/base_admin_template.php(23): CodeIgniter\View\View->include()
+ 4 SYSTEMPATH/View/View.php(224): include('/home/k9170490/gesid.id/app/Views/admin/layout/base_admin_template.php')
+ 5 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 7 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 8 APPPATH/Controllers/SelayangController.php(22): view()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\SelayangController->index()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-23 21:04:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-23 21:04:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin//navbar_.php"
+[Method: GET, Route: admin/slider]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(475): CodeIgniter\View\View->render()
+ 3 APPPATH/Views/admin/layout/base_admin_template.php(23): CodeIgniter\View\View->include()
+ 4 SYSTEMPATH/View/View.php(224): include('/home/k9170490/gesid.id/app/Views/admin/layout/base_admin_template.php')
+ 5 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 7 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 8 APPPATH/Controllers/SliderController.php(21): view()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\SliderController->index()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-23 21:04:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-08-23 21:04:39 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "admin//navbar_.php"
+[Method: GET, Route: admin/visi-misi]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/View/View.php(475): CodeIgniter\View\View->render()
+ 3 APPPATH/Views/admin/layout/base_admin_template.php(23): CodeIgniter\View\View->include()
+ 4 SYSTEMPATH/View/View.php(224): include('/home/k9170490/gesid.id/app/Views/admin/layout/base_admin_template.php')
+ 5 SYSTEMPATH/View/View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH/View/View.php(240): CodeIgniter\View\View->render()
+ 7 SYSTEMPATH/Common.php(1173): CodeIgniter\View\View->render()
+ 8 APPPATH/Controllers/VisiMisiController.php(28): view()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\VisiMisiController->adminIndex()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()

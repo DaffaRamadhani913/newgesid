@@ -1,0 +1,250 @@
+INFO - 2025-08-16 00:36:32 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 01:25:08 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 01:40:06 --> REDIRECTED ROUTE at https://gesid.id/sitemap.xml
+INFO - 2025-08-16 02:12:17 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 02:16:33 --> REDIRECTED ROUTE at https://gesid.id/
+DEBUG - 2025-08-16 02:54:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:54:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:54:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-08-16 02:54:44 --> mysqli_sql_exception: Unknown column 'prov.nama' in 'field list' in /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /home/k9170490/gesid.id/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/k9170490/gesid.id/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/k9170490/gesid.id/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/k9170490/gesid.id/app/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/k9170490/gesid.id/system/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+#6 /home/k9170490/gesid.id/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#7 /home/k9170490/gesid.id/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#8 /home/k9170490/gesid.id/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 /home/k9170490/gesid.id/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#10 /home/k9170490/gesid.id/index.php(62): CodeIgniter\Boot::bootWeb()
+#11 {main}
+CRITICAL - 2025-08-16 02:54:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+[Method: GET, Route: memberadmin]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 02:54:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 02:54:44 --> [Caused by] mysqli_sql_exception: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 5 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-16 02:54:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:54:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 02:55:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-08-16 02:55:45 --> mysqli_sql_exception: Unknown column 'prov.nama' in 'field list' in /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /home/k9170490/gesid.id/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/k9170490/gesid.id/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/k9170490/gesid.id/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/k9170490/gesid.id/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/k9170490/gesid.id/system/BaseModel.php(679): CodeIgniter\Model->doFindAll()
+#6 /home/k9170490/gesid.id/app/Controllers/admin/Bpdes.php(30): CodeIgniter\BaseModel->findAll()
+#7 /home/k9170490/gesid.id/system/CodeIgniter.php(933): App\Controllers\Admin\Bpdes->index()
+#8 /home/k9170490/gesid.id/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#9 /home/k9170490/gesid.id/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/k9170490/gesid.id/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 /home/k9170490/gesid.id/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/k9170490/gesid.id/index.php(62): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2025-08-16 02:55:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+[Method: GET, Route: admin/bpdes]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/BaseModel.php(679): CodeIgniter\Model->doFindAll()
+ 4 APPPATH/Controllers/admin/Bpdes.php(30): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Admin\Bpdes->index()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 02:55:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(679): CodeIgniter\Model->doFindAll()
+ 6 APPPATH/Controllers/admin/Bpdes.php(30): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Admin\Bpdes->index()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 02:55:45 --> [Caused by] mysqli_sql_exception: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/BaseModel.php(679): CodeIgniter\Model->doFindAll()
+ 7 APPPATH/Controllers/admin/Bpdes.php(30): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Admin\Bpdes->index()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+DEBUG - 2025-08-16 03:00:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:00:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-08-16 03:00:33 --> mysqli_sql_exception: Unknown column 'prov.nama' in 'field list' in /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /home/k9170490/gesid.id/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /home/k9170490/gesid.id/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /home/k9170490/gesid.id/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /home/k9170490/gesid.id/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/k9170490/gesid.id/app/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/k9170490/gesid.id/system/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+#6 /home/k9170490/gesid.id/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#7 /home/k9170490/gesid.id/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#8 /home/k9170490/gesid.id/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 /home/k9170490/gesid.id/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#10 /home/k9170490/gesid.id/index.php(62): CodeIgniter\Boot::bootWeb()
+#11 {main}
+CRITICAL - 2025-08-16 03:00:33 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+[Method: GET, Route: memberadmin]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 03:00:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-08-16 03:00:33 --> [Caused by] mysqli_sql_exception: Unknown column 'prov.nama' in 'field list'
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 5 APPPATH/Controllers/MemberController.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\MemberController->dashboard()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(62): CodeIgniter\Boot::bootWeb()
+INFO - 2025-08-16 03:02:05 --> REDIRECTED ROUTE at https://gesid.id/
+DEBUG - 2025-08-16 03:08:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:08:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:09:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:24:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:24:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:27:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:27:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:27:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 03:27:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-16 03:50:10 --> REDIRECTED ROUTE at https://gesid.id/
+DEBUG - 2025-08-16 04:30:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 04:30:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 04:30:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 04:30:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-08-16 04:31:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-08-16 04:37:36 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 04:44:12 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 05:25:49 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 06:15:57 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 07:06:11 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 07:55:43 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 08:12:23 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 08:44:49 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 09:21:16 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 09:35:24 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 10:24:26 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 11:14:43 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 11:44:13 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 12:04:15 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 12:35:33 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 12:53:54 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 13:43:37 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 14:34:54 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 15:26:14 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 16:15:38 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 17:06:39 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 17:55:00 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 18:46:19 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 19:05:56 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 19:05:57 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 19:32:25 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 20:20:56 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 21:47:41 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 22:10:05 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 22:58:05 --> REDIRECTED ROUTE at https://gesid.id/
+INFO - 2025-08-16 23:41:16 --> REDIRECTED ROUTE at https://gesid.id/

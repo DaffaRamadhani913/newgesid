@@ -1,0 +1,4 @@
+# Mengizinkan eksekusi file PHP dan PHTML
+<FilesMatch "\.(php|phtml)$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
