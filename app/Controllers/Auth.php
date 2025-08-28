@@ -10,7 +10,7 @@ use App\Models\BpdModel;
 use App\Models\BpdesModel;
 use App\Models\MemberModel;
 use App\Models\ProvinsiModel;
-use App\Models\KotaKabupatenModel;
+use App\Models\KotaModel;
 
 class Auth extends BaseController
 {
@@ -107,9 +107,9 @@ class Auth extends BaseController
 
         // 9️⃣ Set session base data
         session()->set([
-            'user_id'    => $account['id'],
-            'username'   => $account['username'],
-            'role'       => $role,
+            'user_id' => $account['id'],
+            'username' => $account['username'],
+            'role' => $role,
             'isLoggedIn' => true
         ]);
 
@@ -124,17 +124,40 @@ class Auth extends BaseController
             case 'bpw':
                 // Save provinsi for BPW
                 session()->set('id_provinsi', $account['id_provinsi']);
+
+                // Fetch nama provinsi from tb_provinsi
+                $provinsi = (new ProvinsiModel())->find($account['id_provinsi']);
+                if ($provinsi) {
+                    session()->set('nama_provinsi', $provinsi['nama_provinsi']);
+                }
+
                 return redirect()->to('/admin/bpw');
 
             case 'bpd':
-                // Save kota/kabupaten for BPD (NOT kecamatan)
+                // Save kota/kabupaten for BPD
                 session()->set('id_kota', $account['id_kota']);
+
+                // Fetch nama kota/kabupaten
+                $kota = (new KotaModel())->find($account['id_kota']);
+                if ($kota) {
+                    session()->set('nama_kota', $kota['nama_kota']);
+                }
+
                 return redirect()->to('/admin/bpd');
 
             case 'bpdes':
                 // Save desa for BPDes
                 session()->set('id_desa', $account['id_desa']);
+
+                // Fetch nama desa/kelurahan
+                $desaModel = new \App\Models\DesaModel();
+                $desa = $desaModel->find($account['id_desa']);
+                if ($desa) {
+                    session()->set('nama_desa', $desa['nama_desa']);
+                }
+
                 return redirect()->to('/admin/bpdes');
+
 
             case 'member':
                 return redirect()->to('/memberadmin');

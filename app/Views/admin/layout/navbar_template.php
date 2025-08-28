@@ -1,4 +1,5 @@
 <?php
+$role = session()->get('role');
 $menuConfig = include(APPPATH . 'Config/menu_config.php');
 $menuItems = $menuConfig[$role] ?? [];
 ?>
@@ -7,14 +8,27 @@ $menuItems = $menuConfig[$role] ?? [];
 <div id="adminSidebar" class="gesid-sidebar d-flex flex-column flex-shrink-0 p-3 bg-dark text-white">
   <a href="<?= base_url() ?>" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none brand-link">
     <img src="<?= base_url('assets/img/logo_GESID.png') ?>" alt="Logo" width="32" height="32" class="me-2">
-    <span class="fs-6 fw-bold">GESID | <?= strtoupper($role) ?></span>
+    <span class="fs-6 fw-bold">
+      GESID |
+      <?php if ($role === 'bpw'): ?>
+        <?= esc(session()->get('nama_provinsi') ?? 'BPW') ?>
+      <?php elseif ($role === 'bpd'): ?>
+        <?= esc(session()->get('nama_kota') ?? 'BPD') ?>
+      <?php elseif ($role === 'bpdes'): ?>
+        <?= esc(session()->get('nama_desa') ?? 'BPDes') ?>
+      <?php else: ?>
+        <?= strtoupper($role) ?>
+      <?php endif; ?>
+    </span>
   </a>
+
   <hr class="sidebar-divider">
   <ul class="nav nav-pills flex-column mb-auto">
     <?php foreach ($menuItems as $item): ?>
       <?php if (isset($item['submenu'])): ?>
         <li class="nav-item">
-          <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#menu-<?= md5($item['label']) ?>" role="button" aria-expanded="false">
+          <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#menu-<?= md5($item['label']) ?>"
+            role="button" aria-expanded="false">
             <i class="mdi <?= esc($item['icon'] ?? '') ?> me-2"></i> <?= $item['label'] ?>
           </a>
           <div class="collapse" id="menu-<?= md5($item['label']) ?>">
