@@ -15,9 +15,9 @@ class BpdesController extends BaseController
 
     public function __construct()
     {
-        $this->bpdesModel     = new BpdesModel();
+        $this->bpdesModel = new BpdesModel();
         $this->kecamatanModel = new KecamatanModel();
-        $this->desaModel      = new DesaModel();
+        $this->desaModel = new DesaModel();
     }
 
     // List BPDes for the BPD's Kota (derived via kecamatan->kota)
@@ -49,7 +49,7 @@ class BpdesController extends BaseController
 
         $data = [
             'kecamatan' => $kecamatan,
-            'desa'      => [], // important to avoid "Undefined variable $desa" in the view
+            'desa' => [], // important to avoid "Undefined variable $desa" in the view
         ];
 
         return view('admin/bpd/tampilan/pengurus/create', $data);
@@ -58,7 +58,7 @@ class BpdesController extends BaseController
     public function store()
     {
         $idKecamatan = (int) $this->request->getPost('id_kecamatan');
-        $idDesa      = (int) $this->request->getPost('id_desa');
+        $idDesa = (int) $this->request->getPost('id_desa');
 
         // Validate the chain: desa must belong to selected kecamatan
         $desa = $this->desaModel
@@ -70,11 +70,12 @@ class BpdesController extends BaseController
         }
 
         $this->bpdesModel->insert([
-            'nama'     => $this->request->getPost('nama'),
+            'nama' => $this->request->getPost('nama'),
+            'email' => $this->request->getPost('email'),
             'username' => $this->request->getPost('username'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role'     => 'BPDes',
-            'id_desa'  => $idDesa,
+            'role' => 'BPDes',
+            'id_desa' => $idDesa,
         ]);
 
         return redirect()->to('admin/bpd/adminbpdes')->with('success', 'Akun BPDes berhasil dibuat');
@@ -104,9 +105,9 @@ class BpdesController extends BaseController
             : [];
 
         $data = [
-            'bpdes'             => $bpdes,
-            'kecamatan'         => $kecamatanList,
-            'desa'              => $desaList,
+            'bpdes' => $bpdes,
+            'kecamatan' => $kecamatanList,
+            'desa' => $desaList,
             'selectedKecamatan' => $idKecamatan,
         ];
 
@@ -121,7 +122,7 @@ class BpdesController extends BaseController
         }
 
         $idKecamatan = (int) $this->request->getPost('id_kecamatan');
-        $idDesa      = (int) $this->request->getPost('id_desa');
+        $idDesa = (int) $this->request->getPost('id_desa');
 
         // Validate desa belongs to the chosen kecamatan
         $desa = $this->desaModel
@@ -133,10 +134,11 @@ class BpdesController extends BaseController
         }
 
         $data = [
-            'nama'     => $this->request->getPost('nama'),
+            'nama' => $this->request->getPost('nama'),
+            'email' => $this->request->getPost('email'),
             'username' => $this->request->getPost('username'),
-            'id_desa'  => $idDesa,
-            'role'     => $bpdes['role'] ?? 'BPDes',
+            'id_desa' => $idDesa,
+            'role' => $bpdes['role'] ?? 'BPDes',
         ];
 
         $password = $this->request->getPost('password');
@@ -158,16 +160,14 @@ class BpdesController extends BaseController
     }
 
     // AJAX: list desa for a kecamatan
-   public function desaByKecamatan($id_kecamatan)
-{
-    $desaModel = new DesaModel();
-    $list = $desaModel
-        ->select('id_desa, nama_desa')
-        ->where('id_kecamatan', $id_kecamatan)
-        ->findAll();
+    public function desaByKecamatan($id_kecamatan)
+    {
+        $desaModel = new DesaModel();
+        $list = $desaModel
+            ->select('id_desa, nama_desa')
+            ->where('id_kecamatan', $id_kecamatan)
+            ->findAll();
 
-    return $this->response->setJSON($list);
-}
-
-
+        return $this->response->setJSON($list);
+    }
 }

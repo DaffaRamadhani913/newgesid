@@ -83,15 +83,17 @@
             <div class="table-responsive">
                 <table class="table table-hover align-middle text-center gold-border rounded-3">
                     <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Kota/Kabupaten</th>
-                            <th>Role</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Kota/Kabupaten</th>
+                                <th>Role</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
                     <tbody>
                         <?php if (!empty($bpd_admins) && is_array($bpd_admins)): ?>
                             <?php $no = 1; ?>
@@ -100,16 +102,20 @@
                                     <td><?= $no++ ?></td>
                                     <td class="text-start"><strong><?= esc($bpd['nama']) ?></strong></td>
                                     <td><?= esc($bpd['username']) ?></td>
+                                    <td><?= esc($bpd['email']) ?></td>
                                     <td><?= esc($bpd['nama_kota']) ?></td>
                                     <td>
-                                        <span class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpd['role'])) ?></span>
+                                        <span
+                                            class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpd['role'])) ?></span>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="<?= base_url('admin/bpw/adminbpd/edit/' . $bpd['id']) ?>" class="btn btn-warning btn-sm">
+                                            <a href="<?= base_url('admin/bpw/adminbpd/edit/' . $bpd['id']) ?>"
+                                                class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil-square"></i> Edit
                                             </a>
-                                            <a href="<?= base_url('admin/bpw/adminbpd/delete/' . $bpd['id']) ?>" class="btn btn-danger btn-sm"
+                                            <a href="<?= base_url('admin/bpw/adminbpd/delete/' . $bpd['id']) ?>"
+                                                class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus admin ini?')">
                                                 <i class="bi bi-trash3"></i> Hapus
                                             </a>
@@ -117,6 +123,7 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+
                         <?php else: ?>
                             <tr>
                                 <td colspan="6" class="text-center text-muted fst-italic">

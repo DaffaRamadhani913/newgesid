@@ -10,13 +10,8 @@
     </div>
 
     <div class="form-group mb-3">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" required>
-    </div>
-
-    <div class="form-group mb-3">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required>
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
     </div>
 
     <div class="form-group mb-3">
@@ -27,6 +22,16 @@
                 <option value="<?= $k['id_kota'] ?>"><?= $k['nama_kota'] ?></option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Simpan</button>

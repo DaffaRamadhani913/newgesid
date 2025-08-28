@@ -87,6 +87,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Username</th>
+                            <th>Email</th>
                             <th>Admin Provinsi</th>
                             <th>Role</th>
                             <th>Aksi</th>
@@ -100,6 +101,7 @@
                                     <td><?= $no++ ?></td>
                                     <td class="text-start"><strong><?= esc($bpw['nama']) ?></strong></td>
                                     <td><?= esc($bpw['username']) ?></td>
+                                    <td><?= esc($bpw['email']) ?></td>
                                     <td><?= esc($bpw['nama_provinsi']) ?></td>
                                     <td>
                                         <span class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpw['role'])) ?></span>
@@ -119,7 +121,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center text-muted fst-italic">
+                                <td colspan="7" class="text-center text-muted fst-italic">
                                     <i class="bi bi-info-circle me-2"></i> Belum ada admin BPW
                                 </td>
                             </tr>

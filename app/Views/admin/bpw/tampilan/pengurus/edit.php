@@ -10,8 +10,8 @@
     </div>
 
     <div class="form-group mb-3">
-        <label>Username</label>
-        <input type="text" name="username" value="<?= esc($bpd['username']) ?>" class="form-control" required>
+        <label>Email</label>
+        <input type="email" name="email" value="<?= esc($bpd['email']) ?>" class="form-control" required>
     </div>
 
     <div class="form-group mb-3">
@@ -19,12 +19,16 @@
         <select name="id_kota" class="form-control" required>
             <option value="">-- Pilih Kota/Kabupaten --</option>
             <?php foreach ($kota as $k): ?>
-                <option value="<?= $k['id_kota'] ?>" 
-                    <?= $bpd['id_kota'] == $k['id_kota'] ? 'selected' : '' ?>>
+                <option value="<?= $k['id_kota'] ?>" <?= $bpd['id_kota'] == $k['id_kota'] ? 'selected' : '' ?>>
                     <?= esc($k['nama_kota']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Username</label>
+        <input type="text" name="username" value="<?= esc($bpd['username']) ?>" class="form-control" required>
     </div>
 
     <div class="form-group mb-3">

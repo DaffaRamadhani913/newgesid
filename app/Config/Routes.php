@@ -11,7 +11,7 @@ $routes->setAutoRoute(false);
 // ROUTES UNTUK HALAMAN UTAMA (PUBLIC)
 // ==========================
 $routes->get('/', 'Home::index');
-
+$routes->get('emailtest/send', 'EmailTest::send');
 // Tentang GESID
 $routes->get('about', 'Home::about');
 $routes->get('latar-belakang', 'Home::latarBelakang');
@@ -193,10 +193,14 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-template/(:num)', 'Bpn::editTemplate/$1');
     $routes->post('update-template/(:num)', 'Bpn::updateTemplate/$1');
     $routes->post('delete-template/(:num)', 'Bpn::deleteTemplate/$1');
+
+
     // $routes->get('aduan', 'Bpn::listAduan');
     // $routes->get('admin/adminbpn', 'Bpn::listAduan');
 
 });
+$routes->get('admin/bpn/broadcast', 'BroadcastController::index');
+$routes->post('admin/bpn/broadcast/send', 'BroadcastController::send');
 
 $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
     $routes->get('adminbpw', 'BpwController::index');
@@ -365,9 +369,6 @@ $routes->group('admin/events', function ($routes) {
     $routes->get('show/(:num)', 'EventController::show/$1');         // Tampilkan detail event
 
     $routes->get('event', 'EventController::index');
-
-
-
 
 
 

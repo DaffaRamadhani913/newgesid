@@ -8,6 +8,6 @@ class BpdModel extends Model
 {
     protected $table = 'tb_bpd';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama','username', 'password', 'role', 'id_kota'];
+    protected $allowedFields = ['nama','email','username', 'password', 'role', 'id_kota'];
     protected $useTimestamps = false;
 }

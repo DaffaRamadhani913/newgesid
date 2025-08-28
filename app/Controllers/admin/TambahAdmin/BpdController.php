@@ -40,6 +40,7 @@ class BpdController extends BaseController
         $data = [
             'nama'      => $this->request->getPost('nama'),
             'username'  => $this->request->getPost('username'),
+            'email'     => $this->request->getPost('email'), // ✅ added
             'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'role'      => 'BPD',
             'id_kota'   => $this->request->getPost('id_kota')
@@ -69,6 +70,7 @@ class BpdController extends BaseController
         $data = [
             'nama'     => $this->request->getPost('nama'),
             'username' => $this->request->getPost('username'),
+            'email'    => $this->request->getPost('email'), // ✅ added
             'role'     => $bpd['role'] ?? 'BPD',
             'id_kota'  => $this->request->getPost('id_kota')
         ];

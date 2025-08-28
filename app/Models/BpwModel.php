@@ -8,6 +8,6 @@ class BpwModel extends Model
 {
     protected $table = 'tb_bpw';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama','username', 'password', 'role', 'id_provinsi'];
+    protected $allowedFields = ['nama','email','username', 'password', 'role', 'id_provinsi'];
     protected $useTimestamps = false;
 }

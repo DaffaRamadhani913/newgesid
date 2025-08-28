@@ -86,6 +86,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Username</th>
+                        <th>Email</th> <!-- ✅ Kolom Email ditambahkan -->
                         <th>Kecamatan</th>
                         <th>Desa/Kelurahan</th>
                         <th>Role</th>
@@ -100,6 +101,7 @@
                                 <td><?= $no++ ?></td>
                                 <td class="text-start"><strong><?= esc($bpdes['nama']) ?></strong></td>
                                 <td><?= esc($bpdes['username']) ?></td>
+                                <td><?= esc($bpdes['email']) ?></td> <!-- ✅ Email tampil -->
                                 <td><?= esc($bpdes['nama_kecamatan']) ?></td>
                                 <td><?= esc($bpdes['nama_desa']) ?></td>
                                 <td>
@@ -119,7 +121,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7" class="text-center text-muted fst-italic">
+                            <td colspan="8" class="text-center text-muted fst-italic">
                                 <i class="bi bi-info-circle me-2"></i> Belum ada admin BPDes
                             </td>
                         </tr>

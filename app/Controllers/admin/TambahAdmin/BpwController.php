@@ -38,10 +38,11 @@ class BpwController extends BaseController
     public function store()
     {
         $data = [
-            'nama'        => $this->request->getPost('nama'),
-            'username'    => $this->request->getPost('username'),
-            'password'    => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role'        => 'BPW',
+            'nama' => $this->request->getPost('nama'),
+            'username' => $this->request->getPost('username'),
+            'email' => $this->request->getPost('email'), // ✅ added
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role' => 'BPW',
             'id_provinsi' => $this->request->getPost('id_provinsi')
         ];
 
@@ -67,9 +68,10 @@ class BpwController extends BaseController
         $bpw = $this->bpwModel->find($id);
 
         $data = [
-            'nama'        => $this->request->getPost('nama'),
-            'username'    => $this->request->getPost('username'),
-            'role'        => $bpw['role'] ?? 'BPW',
+            'nama' => $this->request->getPost('nama'),
+            'username' => $this->request->getPost('username'),
+            'email' => $this->request->getPost('email'), // ✅ added
+            'role' => $bpw['role'] ?? 'BPW',
             'id_provinsi' => $this->request->getPost('id_provinsi')
         ];
 

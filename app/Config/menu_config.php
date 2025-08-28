@@ -7,6 +7,7 @@ return [
     ['url' => 'admin/bpn/template', 'icon' => 'mdi:account-check-outline', 'label' => 'Template'],
     ['url' => 'admin/bpn/artikel', 'icon' => 'mdi:account-check-outline', 'label' => 'Buat Artikel'],
     ['url' => 'admin/bpn/acara', 'icon' => 'mdi:account-check-outline', 'label' => 'Buat Acara'],
+    ['url' => 'admin/bpn/broadcast', 'icon' => 'mdi:account-tie-outline', 'label' => 'Broadcast Email'],
     ['url' => 'admin//bpn/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPW'],
   ],
   'bpd' => [

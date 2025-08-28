@@ -3,34 +3,14 @@
 
 <style>
     /* Warna emas */
-    .gold-text {
-        color: #FFD700 !important;
-    }
-
-    .gold-border {
-        border: 2px solid #555 !important;
-    }
-
-    .gold-shadow {
-        text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
-    }
+    .gold-text { color: #FFD700 !important; }
+    .gold-border { border: 2px solid #555 !important; }
+    .gold-shadow { text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
 
     /* Tabel */
-    .table thead {
-        background: #2a2a2a;
-        color: #FFD700 !important;
-        border-bottom: 2px solid #555;
-    }
-
-    .table tbody tr {
-        border-bottom: 1px solid #444;
-        transition: all 0.3s ease;
-    }
-
-    .table tbody tr:hover {
-        background-color: rgba(255, 215, 0, 0.08);
-        border-left: 3px solid #FFD700;
-    }
+    .table thead { background: #2a2a2a; color: #FFD700 !important; border-bottom: 2px solid #555; }
+    .table tbody tr { border-bottom: 1px solid #444; transition: all 0.3s ease; }
+    .table tbody tr:hover { background-color: rgba(255, 215, 0, 0.08); border-left: 3px solid #FFD700; }
 
     /* Button */
     .btn-gold {
@@ -39,21 +19,16 @@
         color: #000;
         font-weight: 600;
     }
-
     .btn-gold:hover {
         background: linear-gradient(90deg, #DAA520, #FFD700);
         color: #000;
     }
 
     /* Card */
-    .card.gold-border {
-        border: 1px solid #555;
-    }
+    .card.gold-border { border: 1px solid #555; }
 
     /* Badge role */
-    .badge-role {
-        font-weight: 600;
-    }
+    .badge-role { font-weight: 600; }
 </style>
 
 <div class="container mt-4">
@@ -73,7 +48,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
-
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger alert-dismissible fade show gold-border" role="alert">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i><?= session()->getFlashdata('error') ?>
@@ -89,6 +63,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Username</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th style="width: 180px;">Aksi</th>
                         </tr>
@@ -101,6 +76,7 @@
                                     <td><?= $no++ ?></td>
                                     <td class="text-start"><strong><?= esc($bpn['nama']) ?></strong></td>
                                     <td><?= esc($bpn['username']) ?></td>
+                                    <td><?= esc($bpn['email']) ?></td>
                                     <td>
                                         <span class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpn['role'])) ?></span>
                                     </td>
@@ -121,7 +97,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="5" class="text-center text-muted fst-italic">
+                                <td colspan="6" class="text-center text-muted fst-italic">
                                     <i class="bi bi-info-circle me-2"></i> Belum ada admin BPN
                                 </td>
                             </tr>
