@@ -55,10 +55,10 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold gold-text gold-shadow">
-            <i class="bi bi-folder2-open me-2"></i> Daftar Template
+            <i class="bi bi-folder2-open me-2"></i> Daftar Download
         </h2>
         <a href="<?= base_url('admin/bpn/tambah-template') ?>" class="btn btn-gold">
-            <i class="bi bi-plus-circle"></i> Tambah Template
+            <i class="bi bi-plus-circle"></i> Tambah Download
         </a>
     </div>
 
@@ -116,7 +116,7 @@
                 <?php else: ?>
                     <tr>
                         <td colspan="5" class="text-center text-muted fst-italic">
-                            <i class="bi bi-info-circle me-2"></i> Belum ada template
+                            <i class="bi bi-info-circle me-2"></i> Belum ada file
                         </td>
                     </tr>
                 <?php endif; ?>

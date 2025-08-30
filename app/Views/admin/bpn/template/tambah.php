@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Tambah Template</h1>
+    <h1 class="h3 mb-4 text-gray-800">Tambah Download</h1>
 
     <form action="<?= base_url('admin/bpn/simpan-template') ?>" method="post" enctype="multipart/form-data">
         <div class="mb-3">

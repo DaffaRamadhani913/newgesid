@@ -41,7 +41,7 @@
 
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold gold-text gold-shadow"><i class="bi bi-file-earmark-text me-2"></i> Template Administrasi
+        <h2 class="fw-bold gold-text gold-shadow"><i class="bi bi-file-earmark-text me-2"></i> Download Administrasi
         </h2>
     </div>
 
@@ -52,7 +52,7 @@
                     <th>No</th>
                     <th>Judul</th>
                     <th>Deskripsi</th>
-                    <th>File Template</th>
+                    <th>File Download</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +77,7 @@
                 <?php else: ?>
                     <tr>
                         <td colspan="4" class="text-center text-muted fst-italic">
-                            <i class="bi bi-info-circle me-2"></i> Belum ada template tersedia
+                            <i class="bi bi-info-circle me-2"></i> Belum ada download tersedia
                         </td>
                     </tr>
                 <?php endif; ?>

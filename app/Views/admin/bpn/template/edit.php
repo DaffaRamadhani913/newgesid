@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Edit Template</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Download</h1>
 
     <form action="<?= base_url('admin/bpn/update-template/'.$template['id']) ?>" method="post" enctype="multipart/form-data">
         <div class="mb-3">
@@ -14,7 +14,7 @@
             <textarea name="deskripsi" class="form-control" rows="4"><?= esc($template['deskripsi']) ?></textarea>
         </div>
         <div class="mb-3">
-            <label for="file_template" class="form-label">File Template</label><br>
+            <label for="file_template" class="form-label">File Download</label><br>
             <?php if($template['file_template']): ?>
                 <a href="<?= base_url('uploads/template/'.$template['file_template']) ?>" target="_blank">
                     Lihat file saat ini
