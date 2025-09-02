@@ -60,10 +60,22 @@ class Bpd extends BaseController
     public function listAduan()
     {
         $aduanModel = new AduanModel();
-        $data['aduan'] = $aduanModel->orderBy('created_at', 'DESC')->findAll();
+
+        // Ambil id_kota BPD dari session
+        $idKotaBpd = session()->get('id_kota');
+
+        $data['aduan'] = $aduanModel
+            ->select('tb_aduan.*, tb_members.nama, tb_members.id_kota')
+            ->join('tb_members', 'tb_members.id = tb_aduan.user_id')
+            ->where('tb_members.id_kota', $idKotaBpd)
+            ->orderBy('tb_aduan.created_at', 'DESC')
+            ->findAll();
 
         return view('admin/bpd/aduan/list_aduan', $data);
     }
+
+
+
 
     public function kirimRespons($id_aduan)
     {
@@ -82,20 +94,26 @@ class Bpd extends BaseController
             'id_aduan' => $id_aduan,
             'judul' => $this->request->getPost('judul'),
             'isi' => $this->request->getPost('isi'),
-            'lampiran' => $lampiranName
+            'lampiran' => $lampiranName,
+            'created_by' => session()->get('id'),   // simpan ID user admin BPD
+            'role' => session()->get('role')  // simpan role (BPD)
         ]);
 
-        $aduanModel->update($id_aduan, ['status' => 'Selesai']);
+        // Update status aduan sesuai role
+        $aduanModel->update($id_aduan, [
+            'status' => 'Diproses BPD'
+        ]);
 
-        return redirect()->back()->with('success', 'Aduan telah direspons');
+        return redirect()->back()->with('success', 'Aduan telah direspons oleh BPD');
     }
+
 
     // ================== ARTIKEL ==================
     public function indexArtikel()
     {
         $data['title'] = 'Kelola Artikel';
 
-        // ✅ Use the same resolvePublisherLabel() logic for filtering
+        // âœ… Use the same resolvePublisherLabel() logic for filtering
         $publisherLabel = $this->resolvePublisherLabel();
 
         $data['artikels'] = $this->artikelModel
@@ -155,7 +173,7 @@ class Bpd extends BaseController
         $artikel = $this->artikelModel->find($id);
 
         if ($artikel) {
-            // ✅ Use absolute path (FCPATH) for safety
+            // âœ… Use absolute path (FCPATH) for safety
             if (!empty($artikel['gambar']) && file_exists(FCPATH . $artikel['gambar'])) {
                 unlink(FCPATH . $artikel['gambar']);
             }
@@ -285,7 +303,7 @@ class Bpd extends BaseController
             'deskripsi' => $this->request->getPost('deskripsi'),
             'gambar' => $filename,
             'created_by' => session()->get('user_id'),
-            'created_label' => $this->resolvePublisherLabel(), // ✅ Add this line
+            'created_label' => $this->resolvePublisherLabel(), // âœ… Add this line
             'status' => 'pending'
         ]);
 
@@ -350,7 +368,7 @@ class Bpd extends BaseController
         return redirect()->to('/admin/bpd/acara')->with('success', 'Acara berhasil dihapus.');
     }
 
-     public function template()
+    public function template()
     {
         $data = [
             'title' => 'Download Template',
@@ -359,7 +377,7 @@ class Bpd extends BaseController
         return view('admin/bpd/template/index', $data);
     }
 
-    // 📌 2. Download file template
+    // ðŸ“Œ 2. Download file template
     public function downloadTemplate($id)
     {
         $template = $this->templateModel->find($id);

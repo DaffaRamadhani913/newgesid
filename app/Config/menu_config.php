@@ -17,7 +17,7 @@ return [
     ['url' => 'admin/bpd/aduan', 'icon' => 'mdi:alert-outline', 'label' => 'Aduan'],
     ['url' => 'admin/bpd/artikel', 'icon' => 'mdi:account-check-outline', 'label' => 'Buat Artikel'],
     ['url' => 'admin/bpd/acara', 'icon' => 'mdi:account-check-outline', 'label' => 'Buat Acara'],
-    ['url' => 'admin//bpd/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPDes'],
+    ['url' => 'admin/bpd/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPDes'],
   ],
 
   'bpdes' => [

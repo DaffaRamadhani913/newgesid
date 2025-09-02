@@ -37,7 +37,7 @@
 
   <div class="d-flex admin-layout">
     <!-- Sidebar -->
-    <?= $this->include('admin/' . session()->get('role') . '/navbar_' . session()->get('role')) ?>
+    <?= $this->include('admin/' . session()->get(key: 'role') . '/navbar_' . session()->get('role')) ?>
 
     <!-- Main Content -->
     <div class="gesid-content d-flex flex-column min-vh-100">

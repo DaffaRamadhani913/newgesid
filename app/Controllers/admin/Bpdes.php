@@ -62,8 +62,22 @@ class Bpdes extends BaseController
 
     public function listAduan()
     {
+        $idDesa = session()->get('id_desa');
+
+        if (!$idDesa) {
+            return redirect()->to('/login')->with('error', 'Desa tidak ditemukan di session');
+        }
+
         $aduanModel = new AduanModel();
-        $aduan = $aduanModel->orderBy('created_at', 'DESC')->findAll();
+
+        // Join ke tb_members untuk cek id_desa
+        $aduan = $aduanModel
+            ->select('tb_aduan.*, tb_members.nama, tb_members.id_desa')
+            ->join('tb_members', 'tb_members.id = tb_aduan.user_id')
+            ->where('tb_members.id_desa', $idDesa)
+            ->orderBy('tb_aduan.created_at', 'DESC')
+            ->findAll();
+
         return view('admin/bpdes/aduan/list_aduan', compact('aduan'));
     }
 
@@ -72,6 +86,24 @@ class Bpdes extends BaseController
         $responsModel = new ResponsModel();
         $aduanModel = new AduanModel();
 
+        $idDesa = session()->get('id_desa');
+
+        if (!$idDesa) {
+            return redirect()->to('/login')->with('error', 'Desa tidak ditemukan di session');
+        }
+
+        // Cek apakah aduan memang milik desa ini
+        $aduan = $aduanModel
+            ->select('tb_aduan.*, tb_members.id_desa')
+            ->join('tb_members', 'tb_members.id = tb_aduan.user_id')
+            ->where('tb_aduan.id', $id_aduan)
+            ->first();
+
+        if (!$aduan || $aduan['id_desa'] != $idDesa) {
+            return redirect()->back()->with('error', 'Anda tidak berhak merespons aduan ini');
+        }
+
+        // Handle lampiran
         $lampiranFile = $this->request->getFile('lampiran');
         $lampiranName = null;
         if ($lampiranFile && $lampiranFile->isValid() && !$lampiranFile->hasMoved()) {
@@ -79,6 +111,7 @@ class Bpdes extends BaseController
             $lampiranFile->move(FCPATH . 'uploads/lampiran', $lampiranName);
         }
 
+        // Simpan respons
         $responsModel->save([
             'id_aduan' => $id_aduan,
             'judul' => $this->request->getPost('judul'),
@@ -86,9 +119,12 @@ class Bpdes extends BaseController
             'lampiran' => $lampiranName
         ]);
 
+        // Update status aduan
         $aduanModel->update($id_aduan, ['status' => 'Selesai']);
+
         return redirect()->back()->with('success', 'Aduan telah direspons');
     }
+
 
     // ================== ARTIKEL ==================
     public function indexArtikel()
@@ -222,20 +258,20 @@ class Bpdes extends BaseController
         }
     }
 
-public function indexAcara()
-{
-    // Get publisher label (desa name for BPDes)
-    $publisherLabel = $this->resolvePublisherLabel();
+    public function indexAcara()
+    {
+        // Get publisher label (desa name for BPDes)
+        $publisherLabel = $this->resolvePublisherLabel();
 
-    // Fetch acara for this desa only
-    $acaras = $this->acaraModel
-        ->where('created_label', $publisherLabel)
-        ->orderBy('created_at', 'DESC')
-        ->findAll();
+        // Fetch acara for this desa only
+        $acaras = $this->acaraModel
+            ->where('created_label', $publisherLabel)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
 
-    // Return BPDes-specific view
-    return view('admin/bpdes/acara/index', ['acaras' => $acaras]);
-}
+        // Return BPDes-specific view
+        return view('admin/bpdes/acara/index', ['acaras' => $acaras]);
+    }
 
 
 
@@ -326,7 +362,7 @@ public function indexAcara()
         return redirect()->to('/admin/bpdes/acara')->with('success', 'Acara berhasil dihapus.');
     }
 
-     public function template()
+    public function template()
     {
         $data = [
             'title' => 'Download Template',
