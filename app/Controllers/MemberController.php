@@ -127,6 +127,13 @@ class MemberController extends BaseController
             return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
+        // Ambil data member untuk mengetahui wilayahnya
+        $member = $this->memberModel->where('user_id', $userId)->first();
+
+        if (!$member) {
+            return redirect()->back()->with('error', 'Data member tidak ditemukan.');
+        }
+
         $rules = [
             'judul' => 'required|min_length[3]',
             'isi' => 'required|min_length[10]',
@@ -151,6 +158,10 @@ class MemberController extends BaseController
             'isi' => $this->request->getPost('isi'),
             'lampiran' => $lampiranName,
             'status' => 'Menunggu',
+            'id_provinsi' => $member['id_provinsi'],
+            'id_kota' => $member['id_kota'],
+            'id_kecamatan' => $member['id_kecamatan'],
+            'id_desa' => $member['id_desa'],
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -159,23 +170,24 @@ class MemberController extends BaseController
         return redirect()->to('/member/aduan')->with('success', 'Aduan berhasil dikirim.');
     }
 
+
     public function respons()
-{
-    $session = session();
-    $userId = $session->get('user_id');
+    {
+        $session = session();
+        $userId = $session->get('user_id');
 
-    $aduanModel = new \App\Models\AduanModel();
+        $aduanModel = new AduanModel();
 
-    // Get member's aduan with left join respons (so we can show respons if exists)
-    $aduan = $aduanModel
-        ->select('tb_aduan.*, tb_respons.judul as resp_judul, tb_respons.isi as resp_isi, tb_respons.lampiran as resp_lampiran')
-        ->join('tb_respons', 'tb_respons.id_aduan = tb_aduan.id_aduan', 'left')
-        ->where('tb_aduan.user_id', $userId)
-        ->orderBy('tb_aduan.created_at', 'DESC')
-        ->findAll();
+        // Get member's aduan with left join respons (so we can show respons if exists)
+        $aduan = $aduanModel
+            ->select('tb_aduan.*, tb_respons.judul as resp_judul, tb_respons.isi as resp_isi, tb_respons.lampiran as resp_lampiran')
+            ->join('tb_respons', 'tb_respons.id_aduan = tb_aduan.id_aduan', 'left')
+            ->where('tb_aduan.user_id', $userId)
+            ->orderBy('tb_aduan.created_at', 'DESC')
+            ->findAll();
 
-    return view('member/respons', ['aduan' => $aduan]);
-}
+        return view('member/respons', ['aduan' => $aduan]);
+    }
 
 
 
