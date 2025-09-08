@@ -106,12 +106,20 @@ class Auth extends BaseController
         }
 
         // 9️⃣ Set session base data
-        session()->set([
+        $sessionData = [
             'user_id' => $account['id'],
             'username' => $account['username'],
             'role' => $role,
             'isLoggedIn' => true
-        ]);
+        ];
+
+        // ✅ If BPN, also set sub_role
+        if ($role === 'bpn') {
+            $sessionData['sub_role'] = $account['sub_role'];
+        }
+
+        session()->set($sessionData);
+
 
         // 🔟 Redirect based on role & add extra info
         switch ($role) {

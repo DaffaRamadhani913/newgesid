@@ -8,7 +8,23 @@ $role = $session->get('role');
 
 // Ambil menu dari config
 $menuConfig = include(APPPATH . 'Config/menu_config.php');
-$menuItems = $menuConfig[$role] ?? [];
+$subRole = $session->get('sub_role') ?? null;
+
+$menuItems = [];
+
+if ($role === 'bpn') {
+  // Start with default BPN menu
+  $menuItems = $menuConfig['bpn']['default'] ?? [];
+
+  // Add sub-role specific menus
+  if ($subRole && isset($menuConfig['bpn'][$subRole])) {
+    $menuItems = array_merge($menuItems, $menuConfig['bpn'][$subRole]);
+  }
+} else {
+  // Other roles
+  $menuItems = $menuConfig[$role] ?? [];
+}
+
 ?>
 
 <style>

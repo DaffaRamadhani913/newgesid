@@ -1,7 +1,28 @@
 <?php
 $role = session()->get('role');
+$subRole = session()->get('sub_role') ?? null;
+
 $menuConfig = include(APPPATH . 'Config/menu_config.php');
-$menuItems = $menuConfig[$role] ?? [];
+$menuItems = [];
+
+if ($role === 'bpn') {
+  // Default menu for BPN
+  $menuItems = $menuConfig['bpn']['default'] ?? [];
+
+  // Merge sub-role menu if exists
+  if ($subRole && isset($menuConfig['bpn'][$subRole])) {
+    $menuItems = array_merge($menuItems, $menuConfig['bpn'][$subRole]);
+  }
+} else {
+  $menuItems = $menuConfig[$role] ?? [];
+}
+
+// 🏷️ Pretty name for BPN sub roles
+$subRoleLabels = [
+  'okk' => 'OKK BPN',
+  'humas' => 'HUMAS BPN',
+  'sekretariat' => 'SEKRETARIAT BPN'
+];
 ?>
 
 <!-- Sidebar -->
@@ -16,6 +37,8 @@ $menuItems = $menuConfig[$role] ?? [];
         <?= esc(session()->get('nama_kota') ?? 'BPD') ?>
       <?php elseif ($role === 'bpdes'): ?>
         <?= esc(session()->get('nama_desa') ?? 'BPDes') ?>
+      <?php elseif ($role === 'bpn' && $subRole): ?>
+        <?= esc($subRoleLabels[$subRole] ?? 'BPN') ?>
       <?php else: ?>
         <?= strtoupper($role) ?>
       <?php endif; ?>

@@ -212,6 +212,15 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin\TambahAdmin']
 
 });
 
+$routes->group('admin/bpn', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->get('verifikasi-artikel', 'VerifikasiArtikel::index');
+    $routes->get('verifikasi-artikel/approve/(:num)', 'VerifikasiArtikel::approve/$1');
+    $routes->get('verifikasi-artikel/reject/(:num)', 'VerifikasiArtikel::reject/$1');
+    $routes->get('verifikasi-acara', 'VerifikasiAcara::index');
+    $routes->get('verifikasi-acara/approve/(:num)', 'VerifikasiAcara::approve/$1');
+    $routes->get('verifikasi-acara/reject/(:num)', 'VerifikasiAcara::reject/$1');
+});
+
 // ==========================
 // BPD ADMIN AREA
 // ==========================

@@ -3,14 +3,34 @@
 
 <style>
     /* Warna emas */
-    .gold-text { color: #FFD700 !important; }
-    .gold-border { border: 2px solid #555 !important; }
-    .gold-shadow { text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
+    .gold-text {
+        color: #FFD700 !important;
+    }
+
+    .gold-border {
+        border: 2px solid #555 !important;
+    }
+
+    .gold-shadow {
+        text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+    }
 
     /* Tabel */
-    .table thead { background: #2a2a2a; color: #FFD700 !important; border-bottom: 2px solid #555; }
-    .table tbody tr { border-bottom: 1px solid #444; transition: all 0.3s ease; }
-    .table tbody tr:hover { background-color: rgba(255, 215, 0, 0.08); border-left: 3px solid #FFD700; }
+    .table thead {
+        background: #2a2a2a;
+        color: #FFD700 !important;
+        border-bottom: 2px solid #555;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #444;
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(255, 215, 0, 0.08);
+        border-left: 3px solid #FFD700;
+    }
 
     /* Button */
     .btn-gold {
@@ -19,16 +39,21 @@
         color: #000;
         font-weight: 600;
     }
+
     .btn-gold:hover {
         background: linear-gradient(90deg, #DAA520, #FFD700);
         color: #000;
     }
 
     /* Card */
-    .card.gold-border { border: 1px solid #555; }
+    .card.gold-border {
+        border: 1px solid #555;
+    }
 
     /* Badge role */
-    .badge-role { font-weight: 600; }
+    .badge-role {
+        font-weight: 600;
+    }
 </style>
 
 <div class="container mt-4">
@@ -65,6 +90,7 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Sub Role</th> <!-- New column -->
                             <th style="width: 180px;">Aksi</th>
                         </tr>
                     </thead>
@@ -78,7 +104,23 @@
                                     <td><?= esc($bpn['username']) ?></td>
                                     <td><?= esc($bpn['email']) ?></td>
                                     <td>
-                                        <span class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpn['role'])) ?></span>
+                                        <span
+                                            class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpn['role'])) ?></span>
+                                    </td>
+                                    <td>
+                                        <?php if (!empty($bpn['sub_role'])): ?>
+                                            <?php if ($bpn['sub_role'] === 'okk'): ?>
+                                                <span class="badge bg-primary">OKK BPN</span>
+                                            <?php elseif ($bpn['sub_role'] === 'humas'): ?>
+                                                <span class="badge bg-success">Humas BPN</span>
+                                            <?php elseif ($bpn['sub_role'] === 'sekretariat'): ?>
+                                                <span class="badge bg-warning text-dark">Sekretariat BPN</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary">-</span>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <span class="badge bg-secondary">-</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
@@ -97,7 +139,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center text-muted fst-italic">
+                                <td colspan="7" class="text-center text-muted fst-italic">
                                     <i class="bi bi-info-circle me-2"></i> Belum ada admin BPN
                                 </td>
                             </tr>

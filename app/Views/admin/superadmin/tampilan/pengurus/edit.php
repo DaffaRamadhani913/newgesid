@@ -26,6 +26,17 @@
         <input type="password" name="password" id="password" class="form-control">
     </div>
 
+    <!-- Sub Role Select -->
+    <div class="form-group mb-3">
+        <label for="sub_role">Sub Role</label>
+        <select name="sub_role" id="sub_role" class="form-control" required>
+            <option value="" disabled>-- Pilih Sub Role --</option>
+            <option value="okk" <?= old('sub_role', $bpn['sub_role']) === 'okk' ? 'selected' : '' ?>>Admin OKK BPN</option>
+            <option value="humas" <?= old('sub_role', $bpn['sub_role']) === 'humas' ? 'selected' : '' ?>>Admin Humas BPN</option>
+            <option value="sekretariat" <?= old('sub_role', $bpn['sub_role']) === 'sekretariat' ? 'selected' : '' ?>>Admin Sekretariat BPN</option>
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
 

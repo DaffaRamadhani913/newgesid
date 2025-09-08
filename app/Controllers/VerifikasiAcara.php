@@ -17,22 +17,23 @@ class VerifikasiAcara extends BaseController
     public function index()
     {
         $data['acaras'] = $this->acaraModel->getAllAcaraForVerification();
-        $data['title'] = 'Verifikasi Acara - Superadmin';
+        $data['title'] = 'Verifikasi Acara';
         return view('admin/superadmin/acara/verifikasi', $data);
     }
-
-
-
 
     public function approve($id)
     {
         $this->acaraModel->update($id, ['status' => 'approved']);
-        return redirect()->to('/admin/superadmin/verifikasi-acara')->with('success', 'Acara telah disetujui.');
+
+        // Redirect back to whatever URL the user came from
+        return redirect()->back()->with('success', 'Acara telah disetujui.');
     }
 
     public function reject($id)
     {
         $this->acaraModel->update($id, ['status' => 'rejected']);
-        return redirect()->to('/admin/superadmin/verifikasi-acara')->with('error', 'Acara telah ditolak.');
+
+        // Redirect back to whatever URL the user came from
+        return redirect()->back()->with('error', 'Acara telah ditolak.');
     }
 }

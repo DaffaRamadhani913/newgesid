@@ -25,18 +25,26 @@ class BpnController extends BaseController
     // Form to create BPN Admin
     public function create()
     {
-        return view('admin/superadmin/tampilan/pengurus/create');
+        // sub role options
+        $data['sub_roles'] = [
+            'okk'         => 'Admin OKK BPN',
+            'humas'       => 'Admin Humas BPN',
+            'sekretariat' => 'Admin Sekretariat BPN',
+        ];
+
+        return view('admin/superadmin/tampilan/pengurus/create', $data);
     }
 
     // Store new BPN Admin
     public function store()
     {
         $data = [
-            'nama'     => $this->request->getPost('nama'),
-            'username' => $this->request->getPost('username'),
-            'email'    => $this->request->getPost('email'), // added
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role'     => 'BPN'
+            'nama'      => $this->request->getPost('nama'),
+            'username'  => $this->request->getPost('username'),
+            'email'     => $this->request->getPost('email'),
+            'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role'      => 'BPN',
+            'sub_role'  => $this->request->getPost('sub_role') // new
         ];
 
         $this->bpnModel->insert($data);
@@ -53,6 +61,13 @@ class BpnController extends BaseController
             $data['bpn']['role'] = 'BPN';
         }
 
+        // sub role options
+        $data['sub_roles'] = [
+            'okk'         => 'Admin OKK BPN',
+            'humas'       => 'Admin Humas BPN',
+            'sekretariat' => 'Admin Sekretariat BPN',
+        ];
+
         return view('admin/superadmin/tampilan/pengurus/edit', $data);
     }
 
@@ -64,8 +79,9 @@ class BpnController extends BaseController
         $data = [
             'nama'     => $this->request->getPost('nama'),
             'username' => $this->request->getPost('username'),
-            'email'    => $this->request->getPost('email'), // added
-            'role'     => $bpn['role'] ?? 'BPN'
+            'email'    => $this->request->getPost('email'),
+            'role'     => $bpn['role'] ?? 'BPN',
+            'sub_role' => $this->request->getPost('sub_role') // new
         ];
 
         $password = $this->request->getPost('password');

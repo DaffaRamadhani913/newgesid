@@ -8,6 +8,6 @@ class BpnModel extends Model
 {
     protected $table = 'tb_bpn';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'email', 'username', 'password', 'role'];
+    protected $allowedFields = ['nama', 'email', 'username', 'password', 'role', 'sub_role'];
     protected $useTimestamps = false;
 }
