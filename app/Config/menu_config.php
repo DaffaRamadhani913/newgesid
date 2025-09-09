@@ -4,15 +4,14 @@ return [
     // ✅ Base menu for all BPN admins
     'default' => [
       ['url' => 'admin/bpn', 'icon' => 'mdi:view-dashboard-outline', 'label' => 'Dashboard'],
-      ['url' => 'admin/bpn/data-member', 'icon' => 'mdi:account-multiple-outline', 'label' => 'Data Member'],
       ['url' => 'admin/bpn/artikel', 'icon' => 'mdi:file-document-edit-outline', 'label' => 'Buat Artikel'],
       ['url' => 'admin/bpn/acara', 'icon' => 'mdi:calendar-edit', 'label' => 'Buat Acara'],
     ],
 
     // ✅ Extra menu for OKK BPN
     'okk' => [
+      ['url' => 'admin/bpn/data-member', 'icon' => 'mdi:account-multiple-outline', 'label' => 'Data Member'],
       ['url' => 'admin/bpn/verifikasi-member', 'icon' => 'mdi:account-check-outline', 'label' => 'Verifikasi Member'],
-      ['url' => 'admin/bpn/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPW'], // 🔥 restored
     ],
 
     // ✅ Extra menu for Humas BPN
@@ -68,6 +67,9 @@ return [
     ['url' => 'admin/superadmin/verifikasi-artikel', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Artikel'],
     ['url' => 'admin/superadmin/verifikasi-acara', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Acara'],
     ['url' => 'admin/superadmin/adminbpn', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPN'],
+    ['url' => 'admin/superadmin/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPW'], // 🔥 restored
+    ['url' => 'admin/superadmin/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPD'],
+    ['url' => 'admin/superadmin/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPDes'],
   ],
 
   'member' => [

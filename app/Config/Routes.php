@@ -167,6 +167,39 @@ $routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\Tambah
     $routes->post('adminbpn/update/(:num)', 'BpnController::update/$1');
     $routes->get('adminbpn/delete/(:num)', 'BpnController::delete/$1');
 });
+
+$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
+    $routes->get('adminbpd', 'BpdController::index');
+    $routes->get('adminbpd/create', 'BpdController::create');
+    $routes->post('adminbpd/store', 'BpdController::store');
+    $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
+    $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
+    $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
+
+});
+
+$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
+    $routes->get('adminbpdes', 'BpdesController::index');
+    $routes->get('adminbpdes/create', 'BpdesController::create');
+    $routes->post('adminbpdes/store', 'BpdesController::store');
+    $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
+    $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
+    $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
+
+    $routes->get('adminbpdes/desa-by-kecamatan/(:num)', 'BpdesController::desaByKecamatan/$1');
+
+});
+
+$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
+    $routes->get('adminbpw', 'BpwController::index');
+    $routes->get('adminbpw/create', 'BpwController::create');
+    $routes->post('adminbpw/store', 'BpwController::store');
+    $routes->get('adminbpw/edit/(:num)', 'BpwController::edit/$1');
+    $routes->post('adminbpw/update/(:num)', 'BpwController::update/$1');
+    $routes->get('adminbpw/delete/(:num)', 'BpwController::delete/$1');
+
+});
+
 // ==========================
 // BPN ADMIN AREA
 // ==========================
