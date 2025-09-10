@@ -70,11 +70,18 @@
     <div class="card shadow-sm border-0 gold-border">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-3 text-dark">Daftar Pendaftaran Member</h5>
+            <form method="get" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="q" value="<?= esc($search ?? '') ?>" class="form-control"
+                        placeholder="Cari nama, email, telepon, alamat...">
+                    <button type="submit" class="btn btn-gold">Cari</button>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-hover align-middle text-center gold-border rounded-3">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>No</th>
                             <th>Nama</th>
                             <th class="text-truncate-50">Alamat</th>
                             <th>Telepon</th>
@@ -91,9 +98,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no = 1; ?>
                         <?php foreach ($members as $member): ?>
                             <tr>
-                                <td><?= esc($member['id']) ?></td>
+                                <td><?= $no++ ?></td>
                                 <td class="text-start"><?= esc($member['nama']) ?></td>
                                 <td class="text-start text-truncate-50"><?= esc($member['alamat']) ?></td>
                                 <td><?= esc($member['telepon']) ?></td>
@@ -103,19 +111,17 @@
                                 <td><?= esc($member['nama_kota']) ?></td>
                                 <td><?= esc($member['nama_kecamatan']) ?></td>
                                 <td><?= esc($member['nama_desa']) ?></td>
-                                <td class="text-center">
-                                    <?php if (!empty($member['foto_ktp'])): ?>
-                                        <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="KTP" class="img-thumbnail rounded gold-border" width="50">
-                                    <?php else: ?>
-                                        <span class="text-muted fst-italic">Tidak ada</span>
-                                    <?php endif; ?>
+                                <td>
+                                    <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" class="zoomable">
+                                        <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP"
+                                            width="80" class="img-thumbnail">
+                                    </a>
                                 </td>
-                                <td class="text-center">
-                                    <?php if (!empty($member['foto_wajah'])): ?>
-                                        <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Wajah" class="img-thumbnail rounded gold-border" width="50">
-                                    <?php else: ?>
-                                        <span class="text-muted fst-italic">Tidak ada</span>
-                                    <?php endif; ?>
+                                <td>
+                                    <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="zoomable">
+                                        <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>"
+                                            alt="Foto Wajah" width="80" class="img-thumbnail">
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <?php if ($member['status'] === 'Aktif'): ?>
@@ -126,10 +132,12 @@
                                 </td>
                                 <td class="text-center">
                                     <?php if ($member['status'] !== 'Aktif'): ?>
-                                        <a href="<?= base_url('member/activate/' . $member['id']) ?>" class="btn btn-sm btn-gold mb-1">Aktifkan</a>
+                                        <a href="<?= base_url('member/activate/' . $member['id']) ?>"
+                                            class="btn btn-sm btn-gold mb-1">Aktifkan</a>
                                     <?php endif; ?>
                                     <?php if ($member['status'] !== 'Nonaktif'): ?>
-                                        <a href="<?= base_url('member/deactivate/' . $member['id']) ?>" class="btn btn-sm btn-danger mb-1">Nonaktifkan</a>
+                                        <a href="<?= base_url('member/deactivate/' . $member['id']) ?>"
+                                            class="btn btn-sm btn-danger mb-1">Nonaktifkan</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

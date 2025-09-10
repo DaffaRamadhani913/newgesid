@@ -12,7 +12,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Raleway:wght@400;700&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Raleway:wght@400;700&family=Nunito+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
@@ -29,7 +31,11 @@
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/7.2.96/css/materialdesignicons.min.css">
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
-      .note-editable{background-color: white};
+    .note-editable {
+      background-color: white
+    }
+
+    ;
   </style>
 </head>
 
@@ -63,13 +69,20 @@
   <script src="<?= base_url('assets/admin/js/sidebarmenu.js') ?>"></script>
   <script src="<?= base_url('assets/admin/js/app.min.js') ?>"></script>
   <script src="<?= base_url('assets/admin/js/dashboard.js') ?>"></script>
+  <script>
+    // Inisialisasi Glightbox
+    const lightbox = GLightbox({
+      selector: '.zoomable' // class untuk gambar yang bisa di-zoom
+    });
+  </script>
+
 
   <!-- Summernote -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 
   <script>
-    $(function() {
+    $(function () {
       $('#konten').summernote({
         placeholder: 'Tulis artikel di sini...',
         tabsize: 2,

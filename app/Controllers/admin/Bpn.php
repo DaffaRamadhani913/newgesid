@@ -44,16 +44,34 @@ class Bpn extends BaseController
 
     public function verifikasiMember()
     {
-        $members = $this->memberModel
+        $search = $this->request->getGet('q'); // ambil input search
+
+        $builder = $this->memberModel
             ->select('tb_members.*, prov.nama_provinsi, kota.nama_kota, kec.nama_kecamatan, desa.nama_desa')
             ->join('tb_provinsi prov', 'prov.id_provinsi = tb_members.id_provinsi', 'left')
             ->join('tb_kota_kabupaten kota', 'kota.id_kota = tb_members.id_kota', 'left')
             ->join('tb_kecamatan kec', 'kec.id_kecamatan = tb_members.id_kecamatan', 'left')
             ->join('tb_desa_kelurahan desa', 'desa.id_desa = tb_members.id_desa', 'left')
-            ->findAll();
+            ->orderBy('tb_members.id', 'DESC'); // urutkan terbaru dulu
 
-        return view('admin/bpn/verifikasi_member', ['members' => $members]);
+        // kalau ada pencarian
+        if (!empty($search)) {
+            $builder->groupStart()
+                ->like('tb_members.nama', $search)
+                ->orLike('tb_members.alamat', $search)
+                ->orLike('tb_members.email', $search)
+                ->orLike('tb_members.telepon', $search)
+                ->groupEnd();
+        }
+
+        $members = $builder->findAll();
+
+        return view('admin/bpn/verifikasi_member', [
+            'members' => $members,
+            'search' => $search
+        ]);
     }
+
 
     public function listAduan()
     {
