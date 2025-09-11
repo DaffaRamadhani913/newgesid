@@ -226,14 +226,20 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-template/(:num)', 'Bpn::editTemplate/$1');
     $routes->post('update-template/(:num)', 'Bpn::updateTemplate/$1');
     $routes->post('delete-template/(:num)', 'Bpn::deleteTemplate/$1');
-
-
     // $routes->get('aduan', 'Bpn::listAduan');
     // $routes->get('admin/adminbpn', 'Bpn::listAduan');
 
 });
+// Broadcast Email
 $routes->get('admin/bpn/broadcast', 'BroadcastController::index');
+$routes->get('admin/bpn/broadcast/form', 'BroadcastController::form'); // show form
 $routes->post('admin/bpn/broadcast/send', 'BroadcastController::send');
+
+$routes->get('admin/bpn/view-artikel', 'VerifikasiArtikel::viewArtikel');
+$routes->get('admin/bpn/view-acara', 'VerifikasiAcara::viewAcara');
+$routes->get('admin/bpn/view-broadcast', 'BroadcastController::viewBroadcast');
+
+
 
 $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
     $routes->get('adminbpw', 'BpwController::index');

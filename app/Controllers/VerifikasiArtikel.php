@@ -56,4 +56,10 @@ class VerifikasiArtikel extends BaseController
 
         return redirect()->back()->with('success', 'Artikel berhasil ditolak.');
     }
+
+    public function viewArtikel()
+    {
+        $data['artikel'] = $this->artikelModel->findAll(); // show all articles
+        return view('admin/superadmin/artikel/view-artikel', $data);
+    }
 }

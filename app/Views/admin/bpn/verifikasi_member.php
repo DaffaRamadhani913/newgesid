@@ -112,13 +112,15 @@
                                 <td><?= esc($member['nama_kecamatan']) ?></td>
                                 <td><?= esc($member['nama_desa']) ?></td>
                                 <td>
-                                    <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" class="zoomable">
-                                        <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP"
-                                            width="80" class="img-thumbnail">
+                                    <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>"
+                                        class="zoomable">
+                                        <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>"
+                                            alt="Foto KTP" width="80" class="img-thumbnail">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="zoomable">
+                                    <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>"
+                                        class="zoomable">
                                         <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>"
                                             alt="Foto Wajah" width="80" class="img-thumbnail">
                                     </a>
@@ -126,6 +128,8 @@
                                 <td class="text-center">
                                     <?php if ($member['status'] === 'Aktif'): ?>
                                         <span class="badge bg-success badge-status">Aktif</span>
+                                    <?php elseif ($member['status'] === 'Pending'): ?>
+                                        <span class="badge bg-warning text-dark badge-status">Pending</span>
                                     <?php else: ?>
                                         <span class="badge bg-secondary badge-status">Nonaktif</span>
                                     <?php endif; ?>

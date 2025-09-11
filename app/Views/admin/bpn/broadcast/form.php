@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Broadcast Email</h1>
 
-    <?php if(session()->getFlashdata('message')): ?>
+    <?php if (session()->getFlashdata('message')): ?>
         <div class="alert alert-info">
             <?= session()->getFlashdata('message') ?>
         </div>
@@ -19,8 +19,8 @@
         </div>
 
         <div class="form-group">
-            <label for="message">Message</label>
-            <textarea name="message" id="message" rows="6" class="form-control" required></textarea>
+            <label for="konten">Message</label>
+            <textarea id="konten" name="message"></textarea>
         </div>
 
         <p class="text-white mt-3">
@@ -30,5 +30,14 @@
         <button type="submit" class="btn btn-primary">Kirim Broadcast</button>
     </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#konten').summernote({
+            height: 250,
+            placeholder: 'Tulis isi broadcast email di sini...'
+        });
+    });
+</script>
 
 <?= $this->endSection() ?>

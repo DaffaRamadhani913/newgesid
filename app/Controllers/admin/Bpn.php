@@ -8,6 +8,16 @@ use App\Models\AduanModel;
 use App\Models\ArtikelModel;
 use App\Models\AcaraModel;
 use App\Models\TemplateModel;
+
+// ✅ Tambahkan model admin lain
+use App\Models\BpnModel;
+use App\Models\BpwModel;
+use App\Models\BpdModel;
+use App\Models\BpdesModel;
+
+// ✅ Tambahkan model email
+use App\Models\EmailModel;
+
 class Bpn extends BaseController
 {
     protected $memberModel;
@@ -15,6 +25,14 @@ class Bpn extends BaseController
     protected $acaraModel;
     protected $templateModel;
 
+    // ✅ Tambahkan properti model admin
+    protected $bpnModel;
+    protected $bpwModel;
+    protected $bpdModel;
+    protected $bpdesModel;
+
+    // ✅ Tambahkan properti model email
+    protected $emailModel;
 
     public function __construct()
     {
@@ -22,12 +40,82 @@ class Bpn extends BaseController
         $this->artikelModel = new ArtikelModel();
         $this->acaraModel = new AcaraModel();
         $this->templateModel = new TemplateModel();
+
+        // ✅ Inisialisasi model admin
+        $this->bpnModel = new BpnModel();
+        $this->bpwModel = new BpwModel();
+        $this->bpdModel = new BpdModel();
+        $this->bpdesModel = new BpdesModel();
+
+        // ✅ Inisialisasi model email
+        $this->emailModel = new EmailModel();
     }
 
     public function index()
     {
-        return view('admin/bpn/dashboard_view');
+        $subRole = session()->get('sub_role'); // ambil subrole dari session
+
+        $stats = [];
+
+        // ================== OKK BPN ==================
+        if ($subRole === 'okk') {
+            $stats['jumlahMember'] = $this->memberModel
+                ->where('status', 'Aktif')
+                ->countAllResults();
+
+            $stats['jumlahAdmin'] = $this->bpnModel->countAllResults()
+                + $this->bpwModel->countAllResults()
+                + $this->bpdModel->countAllResults()
+                + $this->bpdesModel->countAllResults();
+        }
+
+        // ================== HUMAS BPN ==================
+        elseif ($subRole === 'humas') {
+            $stats['jumlahArtikel'] = $this->artikelModel
+                ->where('status', 'approved')
+                ->countAllResults();
+
+            $stats['jumlahAcara'] = $this->acaraModel
+                ->where('status', 'approved')
+                ->countAllResults();
+
+            // ✅ Tambahkan jumlah broadcast email
+            $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
+        }
+
+        // ================== SEKRETARIAT BPN ==================
+        elseif ($subRole === 'sekretariat') {
+            $stats['jumlahMember'] = $this->memberModel
+                ->where('status', 'Aktif')
+                ->countAllResults();
+
+            $stats['jumlahAdmin'] = $this->bpnModel->countAllResults()
+                + $this->bpwModel->countAllResults()
+                + $this->bpdModel->countAllResults()
+                + $this->bpdesModel->countAllResults();
+
+            $stats['jumlahArtikel'] = $this->artikelModel
+                ->where('status', 'approved')
+                ->countAllResults();
+
+            $stats['jumlahAcara'] = $this->acaraModel
+                ->where('status', 'approved')
+                ->countAllResults();
+                
+            $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
+        }
+
+        // Default (jaga-jaga kalau subrole kosong)
+        else {
+            $stats['jumlahMember'] = $this->memberModel
+                ->where('status', 'Aktif')
+                ->countAllResults();
+        }
+
+        return view('admin/bpn/dashboard_view', $stats);
     }
+
+
 
     public function dataMember()
     {

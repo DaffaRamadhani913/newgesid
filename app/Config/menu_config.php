@@ -25,6 +25,10 @@ return [
     'sekretariat' => [
       ['url' => 'admin/bpn/data-member', 'icon' => 'mdi:account-multiple-outline', 'label' => 'Data Member'],
       ['url' => 'admin/bpn/template', 'icon' => 'mdi:download-box', 'label' => 'Upload / Download File'],
+      ['url' => 'admin/bpn/view-artikel', 'icon' => 'mdi:check-decagram', 'label' => 'Artikel'],
+      ['url' => 'admin/bpn/view-acara', 'icon' => 'mdi:check-decagram', 'label' => 'Acara'],
+      ['url' => 'admin/bpn/view-broadcast', 'icon' => 'mdi:email-send-outline', 'label' => 'Broadcast Email'], // 🔥 restored
+
     ],
   ],
 

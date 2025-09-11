@@ -36,4 +36,11 @@ class VerifikasiAcara extends BaseController
         // Redirect back to whatever URL the user came from
         return redirect()->back()->with('error', 'Acara telah ditolak.');
     }
+
+    public function viewAcara()
+    {
+        $data['acaras'] = $this->acaraModel->getAllAcaraForVerification();
+        $data['title'] = 'Verifikasi Acara';
+        return view('admin/superadmin/acara/view-acara', $data);
+    }
 }

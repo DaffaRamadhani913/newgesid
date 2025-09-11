@@ -98,7 +98,6 @@
                             <th>Status</th>
                             <th>Dibuat</th>
                             <th>Diperbarui</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,18 +139,6 @@
                                     </td>
                                     <td><?= esc($acara['created_at']) ?></td>
                                     <td><?= esc($acara['updated_at']) ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="<?= base_url('admin/superadmin/verifikasi-acara/approve/' . $acara['id']) ?>"
-                                                class="btn btn-success btn-sm">
-                                                <i class="bi bi-check-lg"></i> Terima
-                                            </a>
-                                            <a href="<?= base_url('admin/superadmin/verifikasi-acara/reject/' . $acara['id']) ?>"
-                                                class="btn btn-danger btn-sm">
-                                                <i class="bi bi-x-lg"></i> Tolak
-                                            </a>
-                                        </div>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -169,16 +156,14 @@
 </div>
 
 <!-- Modal Deskripsi -->
-<div class="modal fade" id="deskripsiModal<?= $acara['id'] ?>" tabindex="-1"
-    aria-labelledby="deskripsiModalLabel<?= $acara['id'] ?>" aria-hidden="true">
+<div class="modal fade" id="deskripsiModal<?= $acara['id'] ?>" tabindex="-1" aria-labelledby="deskripsiModalLabel<?= $acara['id'] ?>" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title gold-text gold-shadow" id="deskripsiModalLabel<?= $acara['id'] ?>">
                     <i class="bi bi-card-text me-2"></i> Deskripsi Acara
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
                 <?= $acara['deskripsi'] ?>

@@ -84,7 +84,7 @@
                 <table class="table table-hover align-middle text-center gold-border rounded-3">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Judul</th>
                             <th>Konten</th>
                             <th>Gambar</th>
@@ -102,14 +102,17 @@
                                     <td><strong><?= $no++ ?></strong></td>
                                     <td><?= esc($a['judul']) ?></td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-outline-warning"
-                                            data-bs-toggle="modal" data-bs-target="#kontenModal<?= $a['id'] ?>">
+                                        <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                                            data-bs-target="#kontenModal<?= $a['id'] ?>">
                                             <i class="bi bi-eye"></i> Lihat
                                         </button>
                                     </td>
                                     <td>
                                         <?php if (!empty($a['gambar'])): ?>
-                                            <img src="<?= base_url($a['gambar']) ?>" alt="Gambar Artikel" class="img-thumbnail rounded gold-border" width="80">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#gambarModal<?= $a['id'] ?>">
+                                                <img src="<?= base_url($a['gambar']) ?>" alt="Gambar Artikel"
+                                                    class="img-thumbnail rounded gold-border" width="80" style="cursor: zoom-in;">
+                                            </a>
                                         <?php else: ?>
                                             <span class="text-muted fst-italic">Tidak ada</span>
                                         <?php endif; ?>
@@ -133,10 +136,12 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="<?= base_url('admin/superadmin/verifikasi-artikel/approve/' . $a['id']) ?>" class="btn btn-gold btn-sm">
+                                            <a href="<?= base_url('admin/superadmin/verifikasi-artikel/approve/' . $a['id']) ?>"
+                                                class="btn btn-gold btn-sm">
                                                 <i class="bi bi-check-lg"></i> Terima
                                             </a>
-                                            <a href="<?= base_url('admin/superadmin/verifikasi-artikel/reject/' . $a['id']) ?>" class="btn btn-danger btn-sm">
+                                            <a href="<?= base_url('admin/superadmin/verifikasi-artikel/reject/' . $a['id']) ?>"
+                                                class="btn btn-danger btn-sm">
                                                 <i class="bi bi-x-lg"></i> Tolak
                                             </a>
                                         </div>
@@ -144,20 +149,24 @@
                                 </tr>
 
                                 <!-- Modal Konten -->
-                                <div class="modal fade" id="kontenModal<?= $a['id'] ?>" tabindex="-1" aria-labelledby="kontenModalLabel<?= $a['id'] ?>" aria-hidden="true">
+                                <div class="modal fade" id="kontenModal<?= $a['id'] ?>" tabindex="-1"
+                                    aria-labelledby="kontenModalLabel<?= $a['id'] ?>" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header bg-dark text-white">
-                                                <h5 class="modal-title gold-text gold-shadow" id="kontenModalLabel<?= $a['id'] ?>">
+                                                <h5 class="modal-title gold-text gold-shadow"
+                                                    id="kontenModalLabel<?= $a['id'] ?>">
                                                     <i class="bi bi-file-earmark-text me-2"></i> Konten Artikel
                                                 </h5>
-                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <?= $a['konten'] ?>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
                                     </div>
@@ -178,5 +187,27 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Gambar -->
+<div class="modal fade" id="gambarModal<?= $a['id'] ?>" tabindex="-1" aria-labelledby="gambarModalLabel<?= $a['id'] ?>"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header border-0">
+                <h5 class="modal-title gold-text gold-shadow" id="gambarModalLabel<?= $a['id'] ?>">
+                    <i class="bi bi-image me-2"></i> Gambar Artikel
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="<?= base_url($a['gambar']) ?>" alt="Gambar Artikel"
+                    class="img-fluid rounded gold-border shadow-lg">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <?= $this->endSection() ?>

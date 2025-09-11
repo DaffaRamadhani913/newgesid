@@ -95,6 +95,59 @@ if ($role === 'bpn') {
       <?php endif; ?>
     <?php endforeach; ?>
   </div>
+  <!-- Statistik Section -->
+  <div class="row mt-5">
+    <?php if (isset($jumlahMember)): ?>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+          <i class="mdi mdi-account-group gold-icon"></i>
+          <h6 class="gold-title">Jumlah Member</h6>
+          <p class="text-white fs-4 fw-bold"><?= esc($jumlahMember) ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($jumlahAdmin)): ?>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+          <i class="mdi mdi-shield-account gold-icon"></i>
+          <h6 class="gold-title">Jumlah Admin</h6>
+          <p class="text-white fs-4 fw-bold"><?= esc($jumlahAdmin) ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($jumlahArtikel)): ?>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+          <i class="mdi mdi-file-document gold-icon"></i>
+          <h6 class="gold-title">Jumlah Artikel</h6>
+          <p class="text-white fs-4 fw-bold"><?= esc($jumlahArtikel) ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($jumlahAcara)): ?>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+          <i class="mdi mdi-calendar gold-icon"></i>
+          <h6 class="gold-title">Jumlah Acara</h6>
+          <p class="text-white fs-4 fw-bold"><?= esc($jumlahAcara) ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($jumlahBroadcast)): ?>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+          <i class="mdi mdi-email-send gold-icon"></i>
+          <h6 class="gold-title">Jumlah Broadcast Email</h6>
+          <p class="text-white fs-4 fw-bold"><?= esc($jumlahBroadcast) ?></p>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>
+
 
 </div>
 
