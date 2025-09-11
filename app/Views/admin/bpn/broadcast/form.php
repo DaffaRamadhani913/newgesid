@@ -28,6 +28,7 @@
         </p>
 
         <button type="submit" class="btn btn-primary">Kirim Broadcast</button>
+        <a href="<?= base_url('admin/bpn/broadcast') ?>" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 

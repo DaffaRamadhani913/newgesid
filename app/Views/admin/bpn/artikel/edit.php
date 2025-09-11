@@ -44,7 +44,7 @@
                     <br>
                 <?php endif; ?>
                 <input type="file" name="gambar" class="form-control" accept="image/*">
-                <small class="text-muted">
+                <small class="form-label">
                     *Ukuran maksimal gambar: 100 KB<br>
                     **Rasio yang direkomendasikan: 800x700 pixels
                 </small>
@@ -52,6 +52,7 @@
 
 
             <button type="submit" class="btn btn-primary">Update</button>
+            <a href="<?= base_url('admin/bpn/artikel') ?>" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 </section>

@@ -39,7 +39,7 @@
                 <input class="form-control" type="file" id="gambar" name="gambar" accept="image/*">
 
                 <!-- Info text -->
-                <small class="form-text text-muted">
+                <small class="form-label">
                     *Ukuran maksimal gambar: <b>100 KB</b><br>
                     **Rasio yang direkomendasikan: <b>800x700 pixels</b>
                 </small>
@@ -53,6 +53,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="<?= base_url('admin/bpn/artikel') ?>" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 </section>

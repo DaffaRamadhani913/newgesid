@@ -101,7 +101,7 @@ class Bpn extends BaseController
             $stats['jumlahAcara'] = $this->acaraModel
                 ->where('status', 'approved')
                 ->countAllResults();
-                
+
             $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
         }
 
@@ -234,7 +234,7 @@ class Bpn extends BaseController
     public function editArtikel($id)
     {
         $artikel = $this->artikelModel->find($id);
-        if (!$artikel || $artikel['created_by'] != session()->get('user_id')) {
+        if (!$artikel) {
             return redirect()->to('/admin/bpn/artikel')->with('error', 'Artikel tidak ditemukan.');
         }
         return view('admin/bpn/artikel/edit', ['artikel' => $artikel]);
@@ -243,7 +243,7 @@ class Bpn extends BaseController
     public function updateArtikel($id)
     {
         $artikel = $this->artikelModel->find($id);
-        if (!$artikel || $artikel['created_by'] != session()->get('user_id')) {
+        if (!$artikel) {
             return redirect()->to('/admin/bpn/artikel')->with('error', 'Artikel tidak ditemukan.');
         }
 
@@ -283,7 +283,7 @@ class Bpn extends BaseController
     public function deleteArtikel($id)
     {
         $artikel = $this->artikelModel->find($id);
-        if (!$artikel || $artikel['created_by'] != session()->get('user_id')) {
+        if (!$artikel) {
             return redirect()->to('/admin/bpn/artikel')->with('error', 'Artikel tidak ditemukan.');
         }
 
@@ -294,6 +294,7 @@ class Bpn extends BaseController
         $this->artikelModel->delete($id);
         return redirect()->to('/admin/bpn/artikel')->with('success', 'Artikel berhasil dihapus!');
     }
+
 
     // ================== ACARA ==================
     public function indexAcara()
@@ -335,12 +336,13 @@ class Bpn extends BaseController
     public function editAcara($id)
     {
         $acara = $this->acaraModel->find($id);
-        if (!$acara || $acara['created_by'] != session()->get('user_id')) {
+        if (!$acara) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Acara tidak ditemukan');
         }
 
         return view('admin/bpn/acara/edit', ['acara' => $acara]);
     }
+
 
     public function updateAcara($id)
     {
@@ -373,7 +375,7 @@ class Bpn extends BaseController
     public function deleteAcara($id)
     {
         $acara = $this->acaraModel->find($id);
-        if (!$acara || $acara['created_by'] != session()->get('user_id')) {
+        if (!$acara) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Acara tidak ditemukan');
         }
 
@@ -384,6 +386,7 @@ class Bpn extends BaseController
         $this->acaraModel->delete($id);
         return redirect()->to('/admin/bpn/acara')->with('success', 'Acara berhasil dihapus.');
     }
+
 
     private function resolvePublisherLabel(): string
     {
