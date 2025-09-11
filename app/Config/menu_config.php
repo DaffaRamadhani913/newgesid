@@ -4,8 +4,6 @@ return [
     // ✅ Base menu for all BPN admins
     'default' => [
       ['url' => 'admin/bpn', 'icon' => 'mdi:view-dashboard-outline', 'label' => 'Dashboard'],
-      ['url' => 'admin/bpn/artikel', 'icon' => 'mdi:file-document-edit-outline', 'label' => 'Buat Artikel'],
-      ['url' => 'admin/bpn/acara', 'icon' => 'mdi:calendar-edit', 'label' => 'Buat Acara'],
     ],
 
     // ✅ Extra menu for OKK BPN
@@ -16,6 +14,8 @@ return [
 
     // ✅ Extra menu for Humas BPN
     'humas' => [
+      ['url' => 'admin/bpn/artikel', 'icon' => 'mdi:file-document-edit-outline', 'label' => 'Buat Artikel'],
+      ['url' => 'admin/bpn/acara', 'icon' => 'mdi:calendar-edit', 'label' => 'Buat Acara'],
       ['url' => 'admin/bpn/verifikasi-artikel', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Artikel'],
       ['url' => 'admin/bpn/verifikasi-acara', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Acara'],
       ['url' => 'admin/bpn/broadcast', 'icon' => 'mdi:email-send-outline', 'label' => 'Broadcast Email'], // 🔥 restored
@@ -23,6 +23,7 @@ return [
 
     // ✅ Extra menu for Sekretariat BPN
     'sekretariat' => [
+      ['url' => 'admin/bpn/data-member', 'icon' => 'mdi:account-multiple-outline', 'label' => 'Data Member'],
       ['url' => 'admin/bpn/template', 'icon' => 'mdi:download-box', 'label' => 'Upload / Download File'],
     ],
   ],

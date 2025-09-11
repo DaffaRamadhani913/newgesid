@@ -1,15 +1,17 @@
-<?= $this->extend('Views/admin/layout/base_admin_template') ?>
+<?= $this->extend('admin/layout/base_admin_template') ?>
 <?= $this->section('content') ?>
 
 <style>
-  /* Warna dan tema emas */
   .gold-text {
     color: #FFD700 !important;
-    text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
   }
 
   .gold-border {
     border: 2px solid #555 !important;
+  }
+
+  .gold-shadow {
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
   }
 
   .table thead {
@@ -28,76 +30,145 @@
     border-left: 3px solid #FFD700;
   }
 
-  .badge-gold {
-    background: linear-gradient(90deg, #FFD700, #DAA520);
-    color: #000;
-    font-weight: 600;
-  }
-
-  /* Badge email abu-abu */
-  .badge-email {
-    background-color: #6c757d;
-    /* abu-abu */
-    color: #fff;
-    font-weight: 600;
-  }
-
-  .card.gold-border {
+  .member-container {
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
     border: 1px solid #555;
   }
 
-  .alert-warning.gold-border {
-    border: 1px solid #555;
-    background-color: rgba(255, 215, 0, 0.1);
-    color: #FFD700;
+  .table-responsive {
+    margin-top: 20px;
+  }
+
+  .text-truncate-50 {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Modal zoom */
+  .modal-img {
+    max-width: 90%;
+    max-height: 80vh;
+    display: block;
+    margin: auto;
+    border-radius: 10px;
   }
 </style>
 
-<div class="container my-5">
-  <!-- Judul -->
-  <div class="text-center mb-5">
-    <h2 class="fw-bold gold-text mb-2">📋 Data Member GESID</h2>
-    <p class="text-white-50">Berikut adalah daftar member yang telah terdaftar dalam sistem GESID.</p>
+<div class="member-container">
+  <div class="mb-4 text-center">
+    <h2 class="gold-text fw-bold gold-shadow">Data Member GESID</h2>
+    <p class="text-muted" style="color: #fff !important;">
+      Berikut adalah daftar member yang telah terdaftar dalam sistem GESID.
+    </p>
   </div>
 
-  <?php if (!empty($members) && is_array($members)) : ?>
-    <div class="card shadow-lg rounded-3 border-0 gold-border">
-      <div class="card-body p-4">
-        <div class="table-responsive">
-          <table class="table align-middle table-hover text-white mb-0 gold-border rounded-3">
-            <thead class="text-center">
-              <tr>
-                <th style="width:60px;">No</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Email</th>
-                <th>Telepon</th>
-                <th>Pekerjaan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no = 1;
-              foreach ($members as $member): ?>
-                <tr>
-                  <td class="text-center fw-semibold"><?= $no++ ?></td>
-                  <td><?= esc($member['nama']) ?></td>
-                  <td><?= esc($member['alamat']) ?></td>
-                  <td><span class="badge badge-email"><?= esc($member['email']) ?></span></td>
-                  <td><?= esc($member['telepon']) ?></td>
-                  <td><?= esc($member['pekerjaan']) ?></td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <!-- Search Bar -->
+  <div class="mb-3">
+    <input type="text" id="searchInput" class="form-control gold-border" placeholder="Cari member...">
+  </div>
+
+  <?php if (!empty($members) && is_array($members)): ?>
+    <div class="table-responsive">
+      <table id="memberTable" class="table table-hover align-middle text-center gold-border rounded-3">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th class="text-truncate-50">Alamat</th>
+            <th>Email</th>
+            <th>Telepon</th>
+            <th>Pekerjaan</th>
+            <th>Provinsi</th>
+            <th>Kota</th>
+            <th>Kecamatan</th>
+            <th>Desa</th>
+            <th>Foto KTP</th>
+            <th>Foto Wajah</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $no = 1;
+          // Urutkan dari terbaru -> terlama (asumsinya pakai id desc)
+          usort($members, function ($a, $b) {
+            return $b['id'] <=> $a['id'];
+          });
+
+          foreach ($members as $member): ?>
+            <tr>
+              <td><?= $no++ ?></td>
+              <td class="text-start"><?= esc($member['nama']) ?></td>
+              <td class="text-start text-truncate-50"><?= esc($member['alamat']) ?></td>
+              <td><?= esc($member['email']) ?></td>
+              <td><?= esc($member['telepon']) ?></td>
+              <td><?= esc($member['pekerjaan']) ?></td>
+              <td><?= esc($member['nama_provinsi']) ?></td>
+              <td><?= esc($member['nama_kota']) ?></td>
+              <td><?= esc($member['nama_kecamatan']) ?></td>
+              <td><?= esc($member['nama_desa']) ?></td>
+              <td>
+                <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" class="zoomable">
+                  <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP"
+                    width="80" class="img-thumbnail">
+                </a>
+              </td>
+              <td>
+                <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="zoomable">
+                  <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah"
+                    width="80" class="img-thumbnail">
+                </a>
+              </td>
+              <td>
+                <?php if ($member['status'] === 'Aktif'): ?>
+                  <span class="badge bg-success">Aktif</span>
+                <?php else: ?>
+                  <span class="badge bg-secondary">Nonaktif</span>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
-  <?php else : ?>
-    <div class="alert alert-warning text-center shadow-sm rounded-3 py-4 gold-border">
-      <i class="bi bi-exclamation-circle-fill me-2"></i>
-      Belum ada data member yang terdaftar.
+  <?php else: ?>
+    <div class="alert alert-warning text-center gold-border">
+      <i class="bi bi-info-circle me-2"></i>Belum ada data member yang terdaftar.
     </div>
   <?php endif; ?>
 </div>
+
+<!-- Modal untuk zoom gambar -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-body text-center">
+        <img id="modalImage" src="" alt="Preview" class="modal-img">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Search filter
+  document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#memberTable tbody tr");
+    rows.forEach(row => {
+      let text = row.textContent.toLowerCase();
+      row.style.display = text.includes(filter) ? "" : "none";
+    });
+  });
+
+  // Zoom image modal
+  function showImage(img) {
+    document.getElementById("modalImage").src = img.src;
+    new bootstrap.Modal(document.getElementById('imageModal')).show();
+  }
+</script>
 
 <?= $this->endSection() ?>

@@ -18,6 +18,33 @@
     background: #2a2a2a;
     color: #FFD700 !important;
     border-bottom: 2px solid #555;
+    cursor: pointer;
+  }
+
+  .table thead th {
+    position: relative;
+    padding-right: 25px; /* space for arrows */
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  /* Sort icons stacked vertically */
+  .sort-icons {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7em;
+    line-height: 0.9em;
+    color: #777;
+  }
+
+  .sort-icons .active {
+    color: #FFD700; /* gold highlight when active */
+    font-weight: bold;
   }
 
   .table tbody tr {
@@ -76,25 +103,24 @@
       <table id="memberTable" class="table table-hover align-middle text-center gold-border rounded-3">
         <thead>
           <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th class="text-truncate-50">Alamat</th>
-            <th>Email</th>
-            <th>Telepon</th>
-            <th>Pekerjaan</th>
-            <th>Provinsi</th>
-            <th>Kota</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
+            <th>No <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Nama <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th class="text-truncate-50">Alamat <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Email <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Telepon <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Pekerjaan <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Provinsi <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Kota <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Kecamatan <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Desa <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
             <th>Foto KTP</th>
             <th>Foto Wajah</th>
-            <th>Status</th>
+            <th>Status <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
           </tr>
         </thead>
         <tbody>
           <?php
           $no = 1;
-          // Urutkan dari terbaru -> terlama (asumsinya pakai id desc)
           usort($members, function ($a, $b) {
             return $b['id'] <=> $a['id'];
           });
@@ -165,10 +191,46 @@
   });
 
   // Zoom image modal
-  function showImage(img) {
-    document.getElementById("modalImage").src = img.src;
-    new bootstrap.Modal(document.getElementById('imageModal')).show();
-  }
+  document.querySelectorAll(".zoomable img").forEach(img => {
+    img.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("modalImage").src = this.src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+  });
+
+  // Sort table by column
+  document.querySelectorAll("#memberTable thead th").forEach((th, index) => {
+    th.addEventListener("click", () => {
+      if (!th.querySelector(".sort-icons")) return; // skip if no arrows (like Foto)
+      let table = th.closest("table");
+      let tbody = table.querySelector("tbody");
+      let rows = Array.from(tbody.querySelectorAll("tr"));
+      let upArrow = th.querySelector(".up");
+      let downArrow = th.querySelector(".down");
+      let isAscending = upArrow.classList.contains("active");
+
+      // Reset all arrows
+      table.querySelectorAll(".sort-icons .up, .sort-icons .down").forEach(el => el.classList.remove("active"));
+
+      rows.sort((a, b) => {
+        let aText = a.cells[index].innerText.trim().toLowerCase();
+        let bText = b.cells[index].innerText.trim().toLowerCase();
+
+        if (!isNaN(aText) && !isNaN(bText)) {
+          return isAscending ? bText - aText : aText - bText;
+        }
+        return isAscending ? bText.localeCompare(aText) : aText.localeCompare(bText);
+      });
+
+      rows.forEach(row => tbody.appendChild(row));
+      if (isAscending) {
+        downArrow.classList.add("active");
+      } else {
+        upArrow.classList.add("active");
+      }
+    });
+  });
 </script>
 
 <?= $this->endSection() ?>

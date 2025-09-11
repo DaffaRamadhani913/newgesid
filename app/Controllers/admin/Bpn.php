@@ -37,6 +37,7 @@ class Bpn extends BaseController
             ->join('tb_kota_kabupaten kota', 'kota.id_kota = tb_members.id_kota', 'left')
             ->join('tb_kecamatan kec', 'kec.id_kecamatan = tb_members.id_kecamatan', 'left')
             ->join('tb_desa_kelurahan desa', 'desa.id_desa = tb_members.id_desa', 'left')
+            ->where('tb_members.status', 'Aktif') // ✅ hanya ambil member aktif
             ->findAll();
 
         return view('admin/bpn/members/list_view', ['members' => $members]);
