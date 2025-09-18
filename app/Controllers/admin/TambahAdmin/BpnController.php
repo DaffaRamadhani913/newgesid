@@ -30,6 +30,8 @@ class BpnController extends BaseController
             'okk'         => 'Admin OKK BPN',
             'humas'       => 'Admin Humas BPN',
             'sekretariat' => 'Admin Sekretariat BPN',
+            'presiden'    => 'Presiden BPN',
+            'sekjen'      => 'Sekretaris Jendral BPN',
         ];
 
         return view('admin/superadmin/tampilan/pengurus/create', $data);
@@ -66,6 +68,8 @@ class BpnController extends BaseController
             'okk'         => 'Admin OKK BPN',
             'humas'       => 'Admin Humas BPN',
             'sekretariat' => 'Admin Sekretariat BPN',
+            'presiden'    => 'Presiden BPN',
+            'sekjen'      => 'Sekretaris Jendral BPN',
         ];
 
         return view('admin/superadmin/tampilan/pengurus/edit', $data);

@@ -24,12 +24,12 @@
         <select name="id_kecamatan" id="kecamatan" class="form-control" required>
             <option value="">-- Pilih Kecamatan --</option>
             <?php foreach ($kecamatan as $k): ?>
-                <option value="<?= $k['id_kecamatan'] ?>" 
-                    <?= $bpdes['id_kecamatan'] == $k['id_kecamatan'] ? 'selected' : '' ?>>
+                <option value="<?= $k['id_kecamatan'] ?>" <?= $selectedKecamatan == $k['id_kecamatan'] ? 'selected' : '' ?>>
                     <?= esc($k['nama_kecamatan']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
+
     </div>
 
     <div class="form-group">
@@ -37,8 +37,7 @@
         <select name="id_desa" id="desa" class="form-control" required>
             <option value="">-- Pilih Desa --</option>
             <?php foreach ($desa as $d): ?>
-                <option value="<?= $d['id_desa'] ?>" 
-                    <?= $bpdes['id_desa'] == $d['id_desa'] ? 'selected' : '' ?>>
+                <option value="<?= $d['id_desa'] ?>" <?= $bpdes['id_desa'] == $d['id_desa'] ? 'selected' : '' ?>>
                     <?= esc($d['nama_desa']) ?>
                 </option>
             <?php endforeach; ?>
@@ -54,7 +53,7 @@
 </form>
 
 <script>
-    document.getElementById('kecamatan').addEventListener('change', function() {
+    document.getElementById('kecamatan').addEventListener('change', function () {
         let kecamatanId = this.value;
         let desaSelect = document.getElementById('desa');
         desaSelect.innerHTML = '<option value="">-- Pilih Desa --</option>';
@@ -63,7 +62,7 @@
             fetch("<?= base_url('admin/bpd/adminbpdes/desa-by-kecamatan/') ?>" + kecamatanId)
                 .then(response => response.json())
                 .then(data => {
-                    data.forEach(function(desa) {
+                    data.forEach(function (desa) {
                         let selected = desa.id_desa == <?= $bpdes['id_desa'] ?> ? 'selected' : '';
                         desaSelect.innerHTML += `<option value="${desa.id_desa}" ${selected}>${desa.nama_desa}</option>`;
                     });

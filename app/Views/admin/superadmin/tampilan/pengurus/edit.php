@@ -34,6 +34,8 @@
             <option value="okk" <?= old('sub_role', $bpn['sub_role']) === 'okk' ? 'selected' : '' ?>>Admin OKK BPN</option>
             <option value="humas" <?= old('sub_role', $bpn['sub_role']) === 'humas' ? 'selected' : '' ?>>Admin Humas BPN</option>
             <option value="sekretariat" <?= old('sub_role', $bpn['sub_role']) === 'sekretariat' ? 'selected' : '' ?>>Admin Sekretariat BPN</option>
+            <option value="presiden" <?= old('sub_role', $bpn['sub_role']) === 'presiden' ? 'selected' : '' ?>>Presiden BPN</option>
+            <option value="sekjen" <?= old('sub_role', $bpn['sub_role']) === 'sekjen' ? 'selected' : '' ?>>SekJen BPN</option>
         </select>
     </div>
 

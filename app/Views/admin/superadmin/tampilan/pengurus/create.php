@@ -33,8 +33,9 @@
             <option value="" disabled selected>-- Pilih Sub Role --</option>
             <option value="okk" <?= old('sub_role') === 'okk' ? 'selected' : '' ?>>Admin OKK BPN</option>
             <option value="humas" <?= old('sub_role') === 'humas' ? 'selected' : '' ?>>Admin Humas BPN</option>
-            <option value="sekretariat" <?= old('sub_role') === 'sekretariat' ? 'selected' : '' ?>>Admin Sekretariat BPN
-            </option>
+            <option value="sekretariat" <?= old('sub_role') === 'sekretariat' ? 'selected' : '' ?>>Admin Sekretariat BPN</option>
+            <option value="presiden" <?= old('sub_role') === 'presiden' ? 'selected' : '' ?>>Presiden BPN</option>
+            <option value="sekjen" <?= old('sub_role') === 'sekjen' ? 'selected' : '' ?>>Sekretaris Jendral BPN</option>
         </select>
     </div>
 

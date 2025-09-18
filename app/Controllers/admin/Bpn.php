@@ -57,8 +57,30 @@ class Bpn extends BaseController
 
         $stats = [];
 
+        // ================== PRESIDEN & SEKJEN BPN ==================
+        if ($subRole === 'presiden' || $subRole === 'sekjen') {
+            $stats['jumlahMember'] = $this->memberModel
+                ->where('status', 'Aktif')
+                ->countAllResults();
+
+            $stats['jumlahAdmin'] = $this->bpnModel->countAllResults()
+                + $this->bpwModel->countAllResults()
+                + $this->bpdModel->countAllResults()
+                + $this->bpdesModel->countAllResults();
+
+            $stats['jumlahArtikel'] = $this->artikelModel
+                ->where('status', 'approved')
+                ->countAllResults();
+
+            $stats['jumlahAcara'] = $this->acaraModel
+                ->where('status', 'approved')
+                ->countAllResults();
+
+            $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
+        }
+
         // ================== OKK BPN ==================
-        if ($subRole === 'okk') {
+        elseif ($subRole === 'okk') {
             $stats['jumlahMember'] = $this->memberModel
                 ->where('status', 'Aktif')
                 ->countAllResults();
@@ -114,8 +136,6 @@ class Bpn extends BaseController
 
         return view('admin/bpn/dashboard_view', $stats);
     }
-
-
 
     public function dataMember()
     {

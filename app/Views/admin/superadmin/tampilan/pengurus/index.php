@@ -115,6 +115,10 @@
                                                 <span class="badge bg-success">Humas BPN</span>
                                             <?php elseif ($bpn['sub_role'] === 'sekretariat'): ?>
                                                 <span class="badge bg-warning text-dark">Sekretariat BPN</span>
+                                            <?php elseif ($bpn['sub_role'] === 'presiden'): ?>
+                                                <span class="badge bg-danger">Presiden BPN</span>
+                                            <?php elseif ($bpn['sub_role'] === 'sekjen'): ?>
+                                                <span class="badge bg-dark">Sekretaris Jendral BPN</span>
                                             <?php else: ?>
                                                 <span class="badge bg-secondary">-</span>
                                             <?php endif; ?>
@@ -122,6 +126,7 @@
                                             <span class="badge bg-secondary">-</span>
                                         <?php endif; ?>
                                     </td>
+
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
                                             <a href="<?= base_url('admin/superadmin/adminbpn/edit/' . $bpn['id']) ?>"
