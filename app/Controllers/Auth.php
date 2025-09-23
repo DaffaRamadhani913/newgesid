@@ -168,7 +168,7 @@ class Auth extends BaseController
 
 
             case 'member':
-                return redirect()->to('/memberadmin');
+                return redirect()->to('/member/dashboard');
 
             default:
                 return redirect()->to('/admin/dashboard');

@@ -62,7 +62,7 @@ $routes->group('member', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->get('aduan', 'MemberController::aduanForm');
     $routes->post('aduan', 'MemberController::kirimAduan');
 
-    $routes->get('profil', 'MemberController::profile');
+    $routes->get('profile', 'MemberController::profile');
     $routes->post('profil/update', 'MemberController::updateProfile');
 
     $routes->get('respons', 'MemberController::respons');
@@ -365,7 +365,7 @@ $routes->get('bpnadmin/verifikasi', 'Admin\Bpn::verifikasiMember');
 $routes->get('/logout', 'Auth::logout');
 $routes->get('member/activate/(:num)', 'MemberController::activate/$1');
 $routes->get('member/deactivate/(:num)', 'MemberController::deactivate/$1');
-$routes->get('memberadmin', 'MemberController::dashboard');
+$routes->get('member/dashboard', 'MemberController::dashboard');
 
 
 $routes->group('admin', function ($routes) {
