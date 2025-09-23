@@ -80,6 +80,8 @@ return [
   'member' => [
     ['url' => 'member/dashboard', 'icon' => 'mdi:view-dashboard-outline', 'label' => 'Dashboard'],
     ['url' => 'member/aduan', 'icon' => 'mdi:alert-outline', 'label' => 'Aduan'],
+    ['url' => 'member/respons', 'icon' => 'mdi:alert-outline', 'label' => 'Respons'],
     ['url' => 'member/profile', 'icon' => 'mdi:account-circle-outline', 'label' => 'Profil Saya'],
+    ['url' => 'member/voucher', 'icon' => 'mdi:account-circle-outline', 'label' => 'Voucher Gratis'],
   ],
 ];
