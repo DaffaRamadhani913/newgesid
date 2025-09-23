@@ -26,23 +26,25 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Kolom Slider -->
                 <div class="col-lg-5" data-aos="zoom-out">
                     <div class="hero-slider swiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="<?= base_url('assets/img/abstract/abstract-1.png?v='.time()) ?>" alt="Slide 1" class="img-fluid">
+                                <img src="<?= base_url('assets/img/abstract/abstract-1.png?v=' . time()) ?>" alt="Slide 1"
+                                    class="img-fluid">
                             </div>
                             <div class="swiper-slide">
-                                <img src="<?= base_url('assets/img/abstract/abstract-2.png?v='.time()) ?>" alt="Slide 2" class="img-fluid">
+                                <img src="<?= base_url('assets/img/abstract/abstract-2.png?v=' . time()) ?>" alt="Slide 2"
+                                    class="img-fluid">
+                            </div>
+                            <!-- Pagination -->
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <!-- Pagination -->
-                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- /Hero Section -->
 
@@ -142,17 +144,17 @@
                     <div class="col-lg-8 mb-4" data-aos="zoom-in" data-aos-delay="100">
                         <div class="card border-0 shadow-lg h-100">
                             <img src="<?= base_url($mainArticle['gambar'] ?? 'assets/img/artikel/default.jpg') ?>"
-                                class="card-img-top" alt="<?= $mainArticle['judul'] ?>">
+                                class="card-img-top" alt="<?= esc($mainArticle['judul']) ?>">
                             <div class="card-body">
                                 <div class="d-flex align-items-center text-muted mb-2">
                                     <i class="bi bi-calendar-event me-2"></i>
                                     <?= date('d F Y', strtotime($mainArticle['tanggal_publikasi'] ?? $mainArticle['tanggal'] ?? date('Y-m-d'))) ?>
                                     <span class="mx-2">•</span>
-                                    <span><?= $mainArticle['kategori'] ?? 'Umum' ?></span>
+                                    <span><?= esc($mainArticle['kategori'] ?? 'Umum') ?></span>
                                 </div>
-                                <h5 class="card-title fw-bold"><?= $mainArticle['judul'] ?></h5>
+                                <h5 class="card-title fw-bold"><?= esc($mainArticle['judul']) ?></h5>
                                 <p class="card-text"><?= substr(strip_tags($mainArticle['konten']), 0, 150) ?>...</p>
-                                <a href="<?= base_url('artikel/detail/' . $mainArticle['id'] ?? 1) ?>"
+                                <a href="<?= base_url('artikel/' . $mainArticle['slug']) ?>"
                                     class="btn text-white fw-bold rounded-pill px-4" style="background-color: #ffc107;">
                                     Baca Selengkapnya..
                                 </a>
@@ -165,7 +167,7 @@
                         <h5 class="fw-bold mb-3">Artikel Lainnya</h5>
                         <div class="list-group list-group-flush mb-3">
                             <?php foreach ($latestArticles as $index => $article): ?>
-                                <a href="<?= base_url('artikel/detail/' . $article['id']) ?>"
+                                <a href="<?= base_url('artikel/' . $article['slug']) ?>"
                                     class="list-group-item list-group-item-action d-flex align-items-center" data-aos="fade-up"
                                     data-aos-delay="<?= 200 + ($index * 100) ?>">
                                     <img src="<?= base_url($article['gambar'] ?? 'assets/img/artikel/default.jpg') ?>"
@@ -173,7 +175,7 @@
                                     <div>
                                         <small class="text-muted d-block mb-1"><i class="bi bi-calendar-event me-1"></i>
                                             <?= date('d F Y', strtotime($article['tanggal_publikasi'] ?? $article['tanggal'] ?? date('Y-m-d'))) ?></small>
-                                        <span class="fw-semibold"><?= $article['judul'] ?></span>
+                                        <span class="fw-semibold"><?= esc($article['judul']) ?></span>
                                     </div>
                                 </a>
                             <?php endforeach; ?>
@@ -188,6 +190,7 @@
                 <?php else: ?>
                     <p class="text-center">Belum ada artikel tersedia.</p>
                 <?php endif; ?>
+
             </div>
         </div>
     </section>

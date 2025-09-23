@@ -3,9 +3,12 @@
 
 <section class="py-5">
     <div class="container">
+        <!-- Judul -->
         <h1 class="fw-bold text-white" data-aos="fade-up">
             <?= esc($artikel['judul']) ?>
         </h1>
+
+        <!-- Tanggal + Kategori -->
         <p class="mb-2 text-light" data-aos="fade-up" data-aos-delay="100">
             <i class="bi bi-calendar-event"></i>
             <?= date('d F Y', strtotime($artikel['tanggal_publikasi'])) ?>
@@ -18,21 +21,28 @@
             Ditulis oleh: <?= esc($artikel['created_label'] ?? '-') ?>
         </p>
 
-
+        <!-- Gambar Artikel -->
         <?php if (!empty($artikel['gambar'])): ?>
-            <img src="<?= base_url($artikel['gambar']) ?>" alt="<?= esc($artikel['judul']) ?>"
-                class="img-fluid shadow rounded me-3 mb-3" style="max-width: 350px; float: left;" data-aos="zoom-in"
-                data-aos-delay="200">
+            <img src="<?= base_url($artikel['gambar']) ?>" 
+                 alt="<?= esc($artikel['judul']) ?>"
+                 class="img-fluid shadow rounded me-3 mb-3"
+                 style="max-width: 350px; float: left;"
+                 data-aos="zoom-in"
+                 data-aos-delay="200">
         <?php endif; ?>
 
+        <!-- Konten -->
         <div style="font-size: 1.1rem; line-height: 1.6; text-align: justify;" data-aos="fade-up" data-aos-delay="300">
             <?= $artikel['konten'] ?>
         </div>
 
         <div style="clear: both;"></div>
 
-        <a href="<?= base_url('artikel') ?>" class="btn btn-outline-secondary mt-4" data-aos="fade-up"
-            data-aos-delay="700">
+        <!-- Tombol kembali -->
+        <a href="<?= base_url('artikel') ?>" 
+           class="btn btn-outline-secondary mt-4"
+           data-aos="fade-up"
+           data-aos-delay="700">
             ← Kembali ke Semua Artikel
         </a>
     </div>

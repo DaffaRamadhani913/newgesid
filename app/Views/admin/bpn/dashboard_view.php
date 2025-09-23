@@ -99,13 +99,50 @@ if ($role === 'bpn') {
   <div class="row mt-5">
     <?php if (isset($jumlahMember)): ?>
       <div class="col-md-3 col-sm-6 mb-4">
-        <div class="card gold-card h-100 d-flex align-items-center justify-content-center text-center p-4">
+        <div class="card gold-card h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
           <i class="mdi mdi-account-group gold-icon"></i>
           <h6 class="gold-title">Jumlah Member</h6>
           <p class="text-white fs-4 fw-bold"><?= esc($jumlahMember) ?></p>
+
+          <?php if (in_array($subRole, ['presiden', 'sekjen']) && isset($memberProvLabels) && isset($memberProvData)): ?>
+            <div style="width:100%; max-width:200px; margin:auto;">
+              <canvas id="membersByProvinceChart"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+              const ctx = document.getElementById('membersByProvinceChart').getContext('2d');
+              new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: <?= $memberProvLabels ?>,
+                  datasets: [{
+                    label: 'Jumlah Member per Provinsi',
+                    data: <?= $memberProvData ?>,
+                    backgroundColor: [
+                      '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                      '#9966FF', '#FF9F40', '#8DD17E', '#D62728',
+                      '#2CA02C', '#1F77B4', '#9467BD', '#E377C2'
+                    ]
+                  }]
+                },
+                options: {
+                  plugins: {
+                    legend: {
+                      position: 'bottom',
+                      labels: {
+                        color: '#fff',
+                        font: { size: 10 }
+                      }
+                    }
+                  }
+                }
+              });
+            </script>
+          <?php endif; ?>
         </div>
       </div>
     <?php endif; ?>
+
 
     <?php if (isset($jumlahAdmin)): ?>
       <div class="col-md-3 col-sm-6 mb-4">

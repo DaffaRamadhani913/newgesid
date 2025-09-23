@@ -73,7 +73,7 @@ $routes->group('member', ['namespace' => 'App\Controllers'], function ($routes) 
 // ==========================
 $routes->get('/artikel', 'Artikel::index');
 $routes->get('/artikel-kategori/(:num)', 'Artikel::kategori/$1');
-$routes->get('/artikel/detail/(:num)', 'Artikel::detail/$1');
+$routes->get('/artikel/(:segment)', 'Artikel::detail/$1');
 
 
 // ==========================

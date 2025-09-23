@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\HTTP\Exceptions\HTTPException;
 
 class ArtikelModel extends Model
 {
@@ -11,15 +12,15 @@ class ArtikelModel extends Model
 
     protected $allowedFields = [
         'judul',
+        'slug',              // ✅ added
         'konten',
         'kategori',
         'gambar',
         'tanggal_publikasi',
         'status',
         'created_by',
-        'created_label',   // ⬅️ add this
+        'created_label',
     ];
-
 
     // Auto-manage created_at and updated_at
     protected $useTimestamps = true;
@@ -28,6 +29,25 @@ class ArtikelModel extends Model
 
     // Default return type
     protected $returnType = 'array';
+
+    /**
+     * Automatically create/update slug when saving artikel
+     */
+    protected function beforeInsert(array $data)
+    {
+        if (isset($data['data']['judul'])) {
+            $data['data']['slug'] = url_title($data['data']['judul'], '-', true);
+        }
+        return $data;
+    }
+
+    protected function beforeUpdate(array $data)
+    {
+        if (isset($data['data']['judul'])) {
+            $data['data']['slug'] = url_title($data['data']['judul'], '-', true);
+        }
+        return $data;
+    }
 
     /**
      * Get only approved articles for public page
@@ -58,5 +78,13 @@ class ArtikelModel extends Model
             ->where('kategori', $kategori)
             ->orderBy('tanggal_publikasi', 'DESC')
             ->findAll();
+    }
+
+    /**
+     * Find artikel by slug
+     */
+    public function getBySlug(string $slug)
+    {
+        return $this->where('slug', $slug)->first();
     }
 }

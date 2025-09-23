@@ -165,6 +165,7 @@ class Bpdes extends BaseController
 
         $this->artikelModel->insert([
             'judul' => $this->request->getPost('judul'),
+            'slug' => $this->generateSlug($this->request->getPost('judul')), // ✅ new
             'konten' => $this->request->getPost('konten'),
             'gambar' => $gambarPath,
             'tanggal_publikasi' => date('Y-m-d H:i:s'),
@@ -215,6 +216,7 @@ class Bpdes extends BaseController
 
         $this->artikelModel->update($id, [
             'judul' => $this->request->getPost('judul'),
+            'slug' => $this->generateSlug($this->request->getPost('judul')), // ✅ new
             'kategori' => $this->request->getPost('kategori'),
             'konten' => $this->request->getPost('konten'),
             'gambar' => $gambarPath
@@ -387,5 +389,19 @@ class Bpdes extends BaseController
         }
 
         return $this->response->download($filePath, null);
+    }
+    private function generateSlug($title)
+    {
+        // Ubah ke lowercase, ganti spasi & simbol jadi "-"
+        $slug = url_title($title, '-', true);
+
+        // Pastikan slug unik di tabel
+        $originalSlug = $slug;
+        $counter = 1;
+        while ($this->artikelModel->where('slug', $slug)->first()) {
+            $slug = $originalSlug . '-' . $counter++;
+        }
+
+        return $slug;
     }
 }

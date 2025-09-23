@@ -17,7 +17,7 @@ class Artikel extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Artikel - GESID',
+            'title'   => 'Artikel - GESID',
             'artikel' => $this->artikelModel->getApprovedArticles()
         ];
 
@@ -39,19 +39,19 @@ class Artikel extends BaseController
         }
 
         $data = [
-            'title' => "Kategori: $kategori",
-            'kategori_id' => $id,
+            'title'         => "Kategori: $kategori",
+            'kategori_id'   => $id,
             'kategori_nama' => $kategori,
-            'artikel' => $this->artikelModel->getByCategory($kategori)
+            'artikel'       => $this->artikelModel->getByCategory($kategori)
         ];
 
         return view('pages/artikel-kategori', $data);
     }
 
-    // Detail of a single article
-    public function detail($id)
+    // Detail of a single article by slug
+    public function detail($slug)
     {
-        $artikel = $this->artikelModel->find($id);
+        $artikel = $this->artikelModel->getBySlug($slug);
 
         if (!$artikel || $artikel['status'] !== 'approved') {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Artikel tidak ditemukan");

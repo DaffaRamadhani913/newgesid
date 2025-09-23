@@ -77,6 +77,25 @@ class Bpn extends BaseController
                 ->countAllResults();
 
             $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
+
+            // 📊 Statistik Member per Provinsi
+            $db = \Config\Database::connect();
+            $builder = $db->table('tb_members m');
+            $builder->select('prov.nama_provinsi as provinsi, COUNT(m.id) as total');
+            $builder->join('tb_provinsi prov', 'prov.id_provinsi = m.id_provinsi', 'left');
+            $builder->where('m.status', 'Aktif');
+            $builder->groupBy('prov.nama_provinsi');
+            $query = $builder->get()->getResultArray();
+
+            $labels = [];
+            $data = [];
+            foreach ($query as $row) {
+                $labels[] = $row['provinsi'] ?? 'Tidak diketahui';
+                $data[] = (int) $row['total'];
+            }
+
+            $stats['memberProvLabels'] = json_encode($labels);
+            $stats['memberProvData'] = json_encode($data);
         }
 
         // ================== OKK BPN ==================
@@ -101,7 +120,6 @@ class Bpn extends BaseController
                 ->where('status', 'approved')
                 ->countAllResults();
 
-            // ✅ Tambahkan jumlah broadcast email
             $stats['jumlahBroadcast'] = $this->emailModel->countAllResults();
         }
 
@@ -136,6 +154,7 @@ class Bpn extends BaseController
 
         return view('admin/bpn/dashboard_view', $stats);
     }
+
 
     public function dataMember()
     {
@@ -239,6 +258,7 @@ class Bpn extends BaseController
 
         $this->artikelModel->insert([
             'judul' => $this->request->getPost('judul'),
+            'slug' => $this->generateSlug($this->request->getPost('judul')), // ✅ new
             'konten' => $this->request->getPost('konten'),
             'gambar' => $gambarPath,
             'tanggal_publikasi' => date('Y-m-d H:i:s'),
@@ -247,6 +267,7 @@ class Bpn extends BaseController
             'created_by' => session()->get('user_id'),
             'created_label' => $this->resolvePublisherLabel(),
         ]);
+
 
         return redirect()->to('/admin/bpn/artikel')->with('success', 'Artikel berhasil diupload!');
     }
@@ -292,10 +313,12 @@ class Bpn extends BaseController
 
         $this->artikelModel->update($id, [
             'judul' => $this->request->getPost('judul'),
+            'slug' => $this->generateSlug($this->request->getPost('judul')), // ✅ new
             'kategori' => $this->request->getPost('kategori'),
             'konten' => $this->request->getPost('konten'),
             'gambar' => $gambarPath
         ]);
+
 
         return redirect()->to('/admin/bpn/artikel')->with('success', 'Artikel berhasil diperbarui!');
     }
@@ -503,6 +526,21 @@ class Bpn extends BaseController
         $this->templateModel->delete($id);
 
         return redirect()->to('/admin/bpn/template')->with('success', 'Template berhasil dihapus.');
+    }
+
+    private function generateSlug($title)
+    {
+        // Ubah ke lowercase, ganti spasi & simbol jadi "-"
+        $slug = url_title($title, '-', true);
+
+        // Pastikan slug unik di tabel
+        $originalSlug = $slug;
+        $counter = 1;
+        while ($this->artikelModel->where('slug', $slug)->first()) {
+            $slug = $originalSlug . '-' . $counter++;
+        }
+
+        return $slug;
     }
 
 }
