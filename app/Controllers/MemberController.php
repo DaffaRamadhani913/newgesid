@@ -84,13 +84,11 @@ class MemberController extends BaseController
         $db = \Config\Database::connect();
         $builder = $db->table('tb_members m');
         $builder->select('m.*, 
-            prov.nama_provinsi AS nama_provinsi, 
-            kota.nama_kota AS nama_kota, 
-            kec.nama_kecamatan AS nama_kecamatan, 
-            desa.nama_desa AS nama_desa');
+        prov.nama_provinsi AS nama_provinsi, 
+        kota.nama_kota AS nama_kota, 
+        desa.nama_desa AS nama_desa');
         $builder->join('tb_provinsi prov', 'prov.id_provinsi = m.id_provinsi', 'left');
         $builder->join('tb_kota_kabupaten kota', 'kota.id_kota = m.id_kota', 'left');
-        $builder->join('tb_kecamatan kec', 'kec.id_kecamatan = m.id_kecamatan', 'left');
         $builder->join('tb_desa_kelurahan desa', 'desa.id_desa = m.id_desa', 'left');
         $builder->where('m.user_id', $userId);
 
@@ -103,6 +101,8 @@ class MemberController extends BaseController
 
         return view('member/dashboard_view', ['member' => $member]);
     }
+
+
 
     // ============
     // FORM ADUAN
@@ -243,6 +243,13 @@ class MemberController extends BaseController
         $this->memberModel->update($member['id'], $data);
 
         return redirect()->to('/member/profil')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function downloadCard()
+    {
+        // For placeholder, just force download the front card image
+        $filePath = FCPATH . 'assets/img/member_card/member_card_front.png';
+        return $this->response->download($filePath, null);
     }
 
 }

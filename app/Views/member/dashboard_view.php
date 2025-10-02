@@ -1,9 +1,7 @@
 <?= $this->extend('member/layout/base_template') ?>
-
 <?= $this->section('content') ?>
 
 <style>
-    /* Tema emas profesional */
     .gold-text {
         color: #bfa835 !important;
         font-weight: 600;
@@ -26,20 +24,6 @@
         box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
     }
 
-    .list-group-item-gold {
-        border-bottom: 1px solid #d4af37;
-        background-color: #fdfaf0;
-        transition: background-color 0.2s;
-    }
-
-    .list-group-item-gold:last-child {
-        border-bottom: none;
-    }
-
-    .list-group-item-gold:hover {
-        background-color: #fff8e1;
-    }
-
     .badge-gold {
         background: linear-gradient(90deg, #FFD700, #DAA520);
         color: #000;
@@ -56,30 +40,98 @@
         border-radius: 12px;
     }
 
-    .card-title i {
-        color: #bfa835;
+    /* Kartu Member */
+    .member-card {
+        position: relative;
+        width: 480px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .member-data {
+        position: absolute;
+        top: 120px;
+        /* sesuaikan posisi vertikal */
+        left: 40px;
+        /* sesuaikan posisi horizontal */
+        color: white;
+        font-size: 14px;
+        line-height: 1.6;
+        font-weight: 500;
+    }
+
+    .member-photo {
+        position: absolute;
+        top: 110px;
+        right: 40px;
+        width: 110px;
+        height: 130px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #fff;
+    }
+
+    .member-back {
+        width: 480px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
     }
 </style>
 
 <div class="container mt-4">
     <h2 class="mb-4 gold-text gold-shadow"><i class="bi bi-speedometer2 me-2"></i>Dashboard Member</h2>
 
+    <!-- Profil Member -->
     <div class="card card-gold mb-4 p-4">
         <div class="card-body">
-            <h5 class="card-title gold-text"><i class="bi bi-person-circle me-2"></i>Selamat datang, <?= esc($member['nama']) ?>!</h5>
+            <h5 class="card-title gold-text"><i class="bi bi-person-circle me-2"></i>Selamat datang,
+                <?= esc($member['nama']) ?>!
+            </h5>
             <p class="card-text mt-2">
                 Status akun Anda:
                 <span class="badge <?= $member['status'] == 'Aktif' ? 'badge-gold' : 'badge-inactive' ?>">
                     <?= esc($member['status']) ?>
                 </span>
             </p>
+            <div class="card-body text-center">
+                <h5 class="card-title gold-text mb-4"><i class="bi bi-credit-card-2-front me-2"></i>Kartu Anggota GESID
+                </h5>
 
-            <ul class="list-group list-group-flush mt-4">
-                <li class="list-group-item list-group-item-gold"><strong>Provinsi:</strong> <?= esc($member['nama_provinsi']) ?></li>
-                <li class="list-group-item list-group-item-gold"><strong>Kota/Kabupaten:</strong> <?= esc($member['nama_kota']) ?></li>
-                <li class="list-group-item list-group-item-gold"><strong>Kecamatan:</strong> <?= esc($member['nama_kecamatan']) ?></li>
-                <li class="list-group-item list-group-item-gold"><strong>Desa/Kelurahan:</strong> <?= esc($member['nama_desa']) ?></li>
-            </ul>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <!-- Front Card -->
+                    <div class="member-card"
+                        style="background-image: url('<?= base_url('assets/img/member_card/member_card_front.png') ?>');">
+                        <div class="member-data text-start" style="margin-top: 10px;">
+                            <div>ID&nbsp;&nbsp;&nbsp;&nbsp;: <?= esc($member['member_id']) ?></div>
+                            <div>Nama : <?= esc($member['nama']) ?></div>
+                            <div>Provinsi : <?= esc($member['nama_provinsi']) ?></div>
+                            <div>Kota/Kab : <?= esc($member['nama_kota']) ?></div>
+                            <div>Desa : <?= esc($member['nama_desa']) ?></div>
+                        </div>
+                        <?php if (!empty($member['foto_wajah'])): ?>
+                            <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="member-photo"
+                                alt="Foto Wajah">
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Back Card -->
+                    <div class="member-back"
+                        style="background-image: url('<?= base_url('assets/img/member_card/member_card_back.png') ?>');">
+                    </div>
+                </div>
+
+                <!-- Download Button -->
+                <div class="mt-4">
+                    <a href="<?= site_url('member/downloadCard') ?>" class="btn btn-warning fw-bold">
+                        <i class="bi bi-download me-2"></i>Unduh Kartu Member
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

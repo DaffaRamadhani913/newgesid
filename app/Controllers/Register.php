@@ -10,12 +10,20 @@ class Register extends BaseController
 {
     public function index()
     {
+        $db = \Config\Database::connect();
+        $counter = $db->query("SELECT total FROM member_counter WHERE id = 1")->getRow();
+
+        // Jika sudah 1000 member, tutup pendaftaran
+        if ($counter && $counter->total >= 1000) {
+            return view('pages/pendaftaran-ditutup'); // buat view sederhana untuk pesan
+        }
+
         $provinsiModel = new ProvinsiModel();
         $data['provinsi'] = $provinsiModel->findAll();
 
-        // Ganti 'formulir' sesuai nama file view di /app/Views/
         return view('pages/formulir-pendaftaran', $data);
     }
+
 
     public function saveFinalRegistration()
     {
@@ -54,7 +62,6 @@ class Register extends BaseController
         $ktpFile->move('assets/images/verifikasi/ktp', $ktpName);
         $wajahFile->move('assets/images/verifikasi/wajah', $wajahName);
 
-
         $session = session();
         $session->set('formulir_data', [
             'nama' => $this->request->getPost('nama'),
@@ -80,7 +87,6 @@ class Register extends BaseController
             return redirect()->to('formulir-pendaftaran')->with('error', 'Silakan isi formulir terlebih dahulu.');
         }
 
-        // Pastikan file /app/Views/akunmember.php ada
         return view('pages/akunmember');
     }
 
@@ -101,20 +107,27 @@ class Register extends BaseController
             return redirect()->back()->with('error', 'Password tidak cocok');
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $db = \Config\Database::connect();
+        $db->transStart();
 
+        // 🔒 1. Lock row in member_counter
+        $counter = $db->query("SELECT total FROM member_counter WHERE id = 1 FOR UPDATE")->getRow();
+
+        if ($counter->total >= 1000) {
+            $db->transRollback();
+            return redirect()->back()->with('error', 'Pendaftaran sudah ditutup. Kuota 1000 member telah terpenuhi.');
+        }
+
+        // 🔑 2. Insert user
         $userModel = new UserModel();
-
-        // 1. Insert ke tb_users DULU
         $userModel->insert([
             'username' => $username,
-            'password' => $hashedPassword,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
             'role' => 'member'
         ]);
+        $userId = $userModel->getInsertID();
 
-        $userId = $userModel->getInsertID(); // ✅ ambil ID user baru
-
-        // 2. Baru insert ke tb_members, dengan user_id
+        // 👤 3. Insert member
         $memberModel = new MemberModel();
         $memberModel->insert([
             'user_id' => $userId,
@@ -132,15 +145,18 @@ class Register extends BaseController
             'status' => 'Pending'
         ]);
 
+        // 🔢 4. Update counter
+        $db->query("UPDATE member_counter SET total = total + 1 WHERE id = 1");
+
+        $db->transComplete();
+
         $session->remove('formulir_data');
 
         return redirect()->to('/formulir/selesai');
     }
 
-
     public function selesai()
     {
-        // Pastikan file /app/Views/selesai.php ada
         return view('pages/selesai');
     }
 }
