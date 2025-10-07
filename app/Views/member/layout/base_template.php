@@ -65,6 +65,65 @@
   <script>
     AOS.init();
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.querySelector('.gesid-sidebar');
+      if (!sidebar) return; // nothing to control here
+
+      // find or create overlay
+      let overlay = document.querySelector('.gesid-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'gesid-overlay';
+        document.body.appendChild(overlay);
+      }
+
+      // support either class or id for the button
+      const hamburger = document.querySelector('.gesid-hamburger') || document.getElementById('toggleSidebar');
+
+      // helper functions
+      const openSidebar = () => {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+      };
+      const closeSidebar = () => {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      };
+      const toggleSidebar = () => {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      };
+
+      // wire button (if exists)
+      if (hamburger) {
+        hamburger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleSidebar();
+        });
+      }
+
+      // clicking overlay closes sidebar
+      overlay.addEventListener('click', closeSidebar);
+
+      // close when clicking a sidebar nav link (mobile only)
+      document.querySelectorAll('.gesid-sidebar .nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.matchMedia('(max-width: 991.98px)').matches) closeSidebar();
+        });
+      });
+
+      // ensure sidebar is closed when switching to desktop view
+      window.addEventListener('resize', () => {
+        if (!window.matchMedia('(max-width: 991.98px)').matches) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+
+  <div class="gesid-overlay"></div>
 </body>
 
 </html>

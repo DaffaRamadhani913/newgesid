@@ -67,6 +67,8 @@ $routes->group('member', ['namespace' => 'App\Controllers'], function ($routes) 
 
     $routes->get('respons', 'MemberController::respons');
 
+    $routes->get('downloadCard', 'MemberController::downloadCard');
+
 });
 // ==========================
 // ARTIKEL

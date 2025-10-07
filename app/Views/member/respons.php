@@ -87,6 +87,11 @@
     }
 </style>
 
+<!-- 🔹 Hamburger Button (use same class the CSS expects) -->
+<button class="gesid-hamburger btn btn-outline-warning d-lg-none" id="toggleSidebar" aria-label="Toggle sidebar">
+  <i class="bi bi-list fs-4"></i>
+</button>
+
 <div class="container mt-4">
     <h2 class="mb-4 gold-text"><i class="bi bi-chat-left-text me-2"></i>Daftar Aduan dan Respons</h2>
 

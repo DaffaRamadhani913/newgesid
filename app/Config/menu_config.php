@@ -39,7 +39,7 @@ return [
     ['url' => 'admin/bpd/aduan', 'icon' => 'mdi:alert-outline', 'label' => 'Aduan'],
     ['url' => 'admin/bpd/artikel', 'icon' => 'mdi:file-document-edit-outline', 'label' => 'Buat Artikel'],
     ['url' => 'admin/bpd/acara', 'icon' => 'mdi:calendar-edit', 'label' => 'Buat Acara'],
-    ['url' => 'admin/bpd/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPDes'],
+    ['url' => 'admin/bpd/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPDes'],
   ],
 
   'bpdes' => [
@@ -57,7 +57,7 @@ return [
     ['url' => 'admin/bpw/template', 'icon' => 'mdi:download-box', 'label' => 'Download'],
     ['url' => 'admin/bpw/artikel', 'icon' => 'mdi:file-document-edit-outline', 'label' => 'Buat Artikel'],
     ['url' => 'admin/bpw/acara', 'icon' => 'mdi:calendar-edit', 'label' => 'Buat Acara'],
-    ['url' => 'admin/bpw/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPD'],
+    ['url' => 'admin/bpw/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPD'],
   ],
 
   'superadmin' => [
@@ -71,10 +71,10 @@ return [
     ['url' => 'admin/events', 'icon' => 'mdi:calendar-star', 'label' => 'Event'],
     ['url' => 'admin/superadmin/verifikasi-artikel', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Artikel'],
     ['url' => 'admin/superadmin/verifikasi-acara', 'icon' => 'mdi:check-decagram', 'label' => 'Verifikasi Acara'],
-    ['url' => 'admin/superadmin/adminbpn', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPN'],
-    ['url' => 'admin/superadmin/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPW'], // 🔥 restored
-    ['url' => 'admin/superadmin/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPD'],
-    ['url' => 'admin/superadmin/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'Admin BPDes'],
+    ['url' => 'admin/superadmin/adminbpn', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPN'],
+    ['url' => 'admin/superadmin/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPW'], // 🔥 restored
+    ['url' => 'admin/superadmin/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPD'],
+    ['url' => 'admin/superadmin/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPDes'],
   ],
 
   'member' => [

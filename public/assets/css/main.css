@@ -12,29 +12,41 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Nunito Sans",  sans-serif;
-  --nav-font: "Raleway",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Nunito Sans", sans-serif;
+  --nav-font: "Raleway", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
-  --background-color: #031119; /* Background color for the entire website, including individual sections */
-  --default-color: rgba(255, 255, 255, 0.8); /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #e0e9f2; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #e3a127; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #1b262c; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+:root {
+  --background-color: #031119;
+  /* Background color for the entire website, including individual sections */
+  --default-color: rgba(255, 255, 255, 0.8);
+  /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #e0e9f2;
+  /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #e3a127;
+  /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #1b262c;
+  /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff;
+  /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: rgba(255, 255, 255, 0.8);  /* The default color of the main navmenu links */
-  --nav-hover-color: #e3a127; /* Applied to main navmenu links when they are hovered over or active */
-  --nav-mobile-background-color: #29343a; /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: #29343a; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: rgba(255, 255, 255, 0.8); /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #e3a127; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-color: rgba(255, 255, 255, 0.8);
+  /* The default color of the main navmenu links */
+  --nav-hover-color: #e3a127;
+  /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: #29343a;
+  /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #29343a;
+  /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: rgba(255, 255, 255, 0.8);
+  /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #e3a127;
+  /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -806,16 +818,18 @@ section,
 }
 
 .hero .hero-slider img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .hero-slider .swiper-slide img {
-    transition: transform 3s ease;
+  transition: transform 3s ease;
 }
+
 .hero-slider .swiper-slide-active img {
-    transform: scale(1.1); /* Zoom in */
+  transform: scale(1.1);
+  /* Zoom in */
 }
 
 
@@ -1243,92 +1257,101 @@ section,
 # Article Section
 --------------------------------------------------------------*/
 .articles .card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transform: none; /* default terlihat */
-    opacity: 1;      /* default terlihat */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transform: none;
+  /* default terlihat */
+  opacity: 1;
+  /* default terlihat */
 }
 
 .articles .card:hover {
-    transform: translateY(-5px) scale(1.02);
-    transition: transform 0.3s ease;
+  transform: translateY(-5px) scale(1.02);
+  transition: transform 0.3s ease;
 }
 
 .articles .card-img-top {
-    height: 400px;
-    object-fit: cover;
+  height: 400px;
+  object-fit: cover;
 }
 
 .articles .card-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .articles .btn-info {
-    background-color: #0dcaf0;
-    border: none;
-    transition: background-color 0.3s ease;
+  background-color: #0dcaf0;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
 .articles .btn-info:hover {
-    background-color: #0bb8db;
+  background-color: #0bb8db;
 }
 
 .articles .list-group-item {
-    border: none;
-    padding: 12px;
-    border-bottom: 1px solid #f0f0f0;
-    opacity: 1;
-    margin-bottom: 10px; /* jarak antar item */
-    border-radius: 8px; /* biar thumbnail agak soft */
-    background-color: #fff; /* biar jarak keliatan */
+  border: none;
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  opacity: 1;
+  margin-bottom: 10px;
+  /* jarak antar item */
+  border-radius: 8px;
+  /* biar thumbnail agak soft */
+  background-color: #fff;
+  /* biar jarak keliatan */
 }
 
 .articles .list-group-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .articles .list-group-item img {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 .articles h5 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 8px;
-    margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 992px) {
-    .articles .card-img-top {
-        height: 300px;
-    }
-    .articles .list-group-item img {
-        width: 50px;
-        height: 50px;
-    }
+  .articles .card-img-top {
+    height: 300px;
+  }
+
+  .articles .list-group-item img {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width: 768px) {
-    .articles .card-img-top {
-        height: 250px;
-    }
-    .articles .list-group {
-        margin-top: 20px;
-    }
+  .articles .card-img-top {
+    height: 250px;
+  }
+
+  .articles .list-group {
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 576px) {
-    .articles .card-img-top {
-        height: 200px;
-    }
-    .articles .list-group-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .articles .list-group-item img {
-        margin-bottom: 8px;
-    }
+  .articles .card-img-top {
+    height: 200px;
+  }
+
+  .articles .list-group-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .articles .list-group-item img {
+    margin-bottom: 8px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -3882,98 +3905,215 @@ section,
 }
 
 /* ===== GESID Admin Layout ===== */
-:root{
+:root {
   --gesid-sidebar-width: 250px;
 }
 
 /* Font default agar "kelihatan" */
-.gesid-admin-body, .gesid-admin-body * {
+.gesid-admin-body,
+.gesid-admin-body * {
   font-family: "Nunito Sans", "Roboto", "Raleway", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 }
 
-/* Sidebar */
-.gesid-sidebar{
+/* ===============================
+   SIDEBAR (GESID Member Dashboard)
+================================== */
+:root {
+  --gesid-sidebar-width: 250px;
+}
+
+/* Sidebar container */
+.gesid-sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: var(--gesid-sidebar-width);
   height: 100vh;
+  background-color: #111;
+  transition: transform 0.3s ease;
+  z-index: 1000;
   overflow-y: auto;
-  z-index: 1040;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset;
 }
 
-.gesid-sidebar .brand-link{
-  gap: .5rem;
-}
-
-.gesid-sidebar .sidebar-divider{
-  opacity: .15;
-  border-color: rgba(255,255,255,0.15);
-}
-
-/* Nav link styling */
-.gesid-sidebar .nav-link{
-  padding: .5rem .75rem;
-  border-radius: .75rem;
+/* Sidebar header / brand */
+.gesid-sidebar .brand-link {
   display: flex;
   align-items: center;
-  transition: background-color .15s ease, color .15s ease;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+/* Divider inside sidebar */
+.gesid-sidebar .sidebar-divider {
+  opacity: 0.15;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Navigation links */
+.gesid-sidebar .nav-link {
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #e9ecef;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .gesid-sidebar .nav-link:hover,
-.gesid-sidebar .nav-link:focus {
-  background: rgba(255,255,255,.08);
+.gesid-sidebar .nav-link:focus,
+.gesid-sidebar .nav-link.active {
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   text-decoration: none;
 }
 
-.gesid-sidebar .nav .nav .nav-link{ /* submenu */
-  border-radius: .5rem;
-  padding: .4rem .75rem;
+/* Submenu style */
+.gesid-sidebar .nav .nav .nav-link {
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem 0.4rem 2rem;
+  font-size: 0.9rem;
 }
 
-/* Konten utama: digeser sesuai lebar sidebar supaya tidak ketutupan */
-.gesid-content{
+/* ===============================
+   MAIN CONTENT AREA
+================================== */
+.gesid-content {
   margin-left: var(--gesid-sidebar-width);
   width: calc(100% - var(--gesid-sidebar-width));
   min-height: 100vh;
-  background: #0b151b; /* sama seperti screenshot, tetap dark */
+  background: #0b151b;
   color: #e9ecef;
+  transition: margin-left 0.3s ease;
 }
 
-.gesid-main{
+.gesid-main {
   padding: 1.5rem;
 }
 
-/* Footer ikut offset sidebar */
-.gesid-footer{
-  margin-left: 0;
-}
-
-/* Komponen umum yang lebih rapi */
-.gesid-main .card, .gesid-main .alert, .gesid-main .table{
+/* Cards, alerts, tables rounded */
+.gesid-main .card,
+.gesid-main .alert,
+.gesid-main .table {
   border-radius: 1rem;
 }
 
-/* Headings tampak jelas */
-.gesid-main h1, .gesid-main h2, .gesid-main h3{
-  font-family: "Raleway","Nunito Sans",sans-serif;
+/* Headings look nice */
+.gesid-main h1,
+.gesid-main h2,
+.gesid-main h3 {
+  font-family: "Raleway", "Nunito Sans", sans-serif;
   font-weight: 700;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
 
-/* Responsive: pada layar kecil, biarkan konten full width */
-@media (max-width: 991.98px){
-  .gesid-content{
+/* Footer adjustment */
+.gesid-footer {
+  margin-left: 0;
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+================================== */
+@media (max-width: 991.98px) {
+
+  /* Sidebar hidden by default */
+  .gesid-sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1050;
+  }
+
+  /* Sidebar visible when active */
+  .gesid-sidebar.active {
+    transform: translateX(0);
+  }
+
+  /* Content takes full width */
+  .gesid-content {
     margin-left: 0;
     width: 100%;
   }
-  .gesid-sidebar{
-    position: sticky; /* tetap di atas saat mobile biar sederhana */
-    height: auto;
+}
+
+/* ===============================
+   HAMBURGER BUTTON
+================================== */
+.gesid-hamburger {
+  position: relative;
+  /* remove the fixed positioning */
+  background: #0b151b;
+  color: #fff;
+  border: 1px solid #bfa835;
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gesid-hamburger:hover {
+  background: #1c1c1c;
+  transform: translateY(-2px);
+}
+
+/* Overlay when sidebar is open */
+.gesid-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1049;
+  /* just below sidebar */
+}
+
+/* Show overlay when sidebar active */
+.gesid-overlay.active {
+  display: block;
+}
+
+/* Hide hamburger on desktop */
+@media (min-width: 992px) {
+  .gesid-hamburger {
+    display: none;
   }
 }
+
+/* mobile: hide sidebar off-canvas and show when .active */
+@media (max-width: 991.98px) {
+  .gesid-sidebar {
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+  }
+
+  .gesid-sidebar.active {
+    transform: translateX(0);
+  }
+}
+
+/* overlay */
+.gesid-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1049;
+}
+
+.gesid-overlay.active {
+  display: block;
+}
+
+
+
 
 /*--------------------------------------------------------------
 # Starter Section Section

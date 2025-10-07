@@ -149,7 +149,7 @@
                 <!-- Kontak -->
                 <div class="col-lg-3 col-md-12 footer-contact">
                     <h4>Kontak Kami</h4>
-                    <p class="mb-2"><strong>Email:</strong> info@gesidindonesia.org</p>
+                    <p class="mb-2"><strong>Email:</strong> emasinndonesiagenerasi@gmail.com</p>
                     <p class="mb-2"><strong>Alamat:</strong> Jl. Contoh No. 123, Jakarta, Indonesia</p>
                     <p class="mb-0"><strong>Phone:</strong> +62 812 3456 7890</p>
                 </div>
