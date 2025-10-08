@@ -24,27 +24,19 @@
                     <ul class="list-unstyled fs-5">
                         <li class="d-flex mb-3">
                             <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Akses Eksklusif ke Event dan Kegiatan Desa:</strong> Informasi dan kesempatan pertama untuk mengikuti acara, festival, pelatihan, dan seminar.</span>
+                            <span><strong>Webinar Eksklusif Gratis:</strong> Dapatkan akses gratis ke berbagai webinar inspiratif yang menghadirkan pembicara ahli di bidang pengembangan desa, teknologi, dan kewirausahaan sosial.</span>
                         </li>
                         <li class="d-flex mb-3">
                             <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Program Pelatihan & Workshop Berkualitas:</strong> Berbagai pelatihan dan workshop untuk meningkatkan kemampuan dan pengetahuan Anda.</span>
+                            <span><strong>Dapat Bergabung di Grup WhatsApp Komunitas:</strong> Bangun relasi dan berbagi pengalaman dengan sesama member GESID dari berbagai daerah di Indonesia. Diskusi aktif, berbagi peluang, dan saling mendukung menjadi bagian dari perjalanan Anda.</span>
                         </li>
                         <li class="d-flex mb-3">
                             <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Jaringan Luas & Kesempatan Kolaborasi:</strong> Membuka peluang kerja sama dengan berbagai pihak di komunitas.</span>
+                            <span><strong>Voucher Diskon & Promo Menarik:</strong> Nikmati berbagai potongan harga untuk kegiatan, produk, atau program yang diselenggarakan GESID maupun mitra-mitra kami.</span>
                         </li>
                         <li class="d-flex mb-3">
                             <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Akses Materi Edukasi & Informasi Khusus:</strong> Update rutin materi dan informasi penting khusus member.</span>
-                        </li>
-                        <li class="d-flex mb-3">
-                            <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Diskon Khusus & Penawaran Menarik:</strong> Potongan harga & promo dari kegiatan dan mitra kami.</span>
-                        </li>
-                        <li class="d-flex mb-3">
-                            <span class="me-3 text-warning"><i class="fas fa-check-circle fa-lg"></i></span>
-                            <span><strong>Pengakuan & Sertifikat Resmi:</strong> Sertifikat resmi atas partisipasi dalam program kami.</span>
+                            <span><strong>Partisipasi dalam Kegiatan GESID:</strong> Ikuti langsung kegiatan, pelatihan, dan proyek nyata yang diselenggarakan oleh GESID. Jadilah bagian dari aksi nyata membangun desa yang lebih maju.</span>
                         </li>
                     </ul>
 

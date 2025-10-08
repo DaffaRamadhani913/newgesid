@@ -5,6 +5,9 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\MemberModel;
 use App\Models\ProvinsiModel;
+use App\Models\KotaModel;
+use App\Models\KecamatanModel;
+use App\Models\DesaModel;
 use App\Models\ArtikelModel;
 use App\Models\AcaraModel;
 use App\Models\TemplateModel;
@@ -16,6 +19,10 @@ class Bpw extends BaseController
     protected $artikelModel;
     protected $acaraModel;
     protected $templateModel;
+    protected $kotaModel;
+    protected $kecamatanModel;
+    protected $desaModel;
+
     public function __construct()
     {
         $this->memberModel = new MemberModel();
@@ -23,7 +30,11 @@ class Bpw extends BaseController
         $this->artikelModel = new ArtikelModel();
         $this->acaraModel = new AcaraModel();
         $this->templateModel = new TemplateModel();
+        $this->kotaModel = new KotaModel();
+        $this->kecamatanModel = new KecamatanModel();
+        $this->desaModel = new DesaModel();
     }
+
 
     public function index()
     {
@@ -31,26 +42,36 @@ class Bpw extends BaseController
     }
 
     public function dataMember()
-    {
-        $idProvinsi = session()->get('id_provinsi');
+{
+    $idProvinsi = session()->get('id_provinsi');
 
-        if (!$idProvinsi) {
-            return redirect()->to('/login')->with('error', 'Provinsi tidak ditemukan di session');
-        }
-
-        $provinsi = $this->provinsiModel->find($idProvinsi);
-
-        $members = $this->memberModel
-            ->select('tb_members.*, tb_provinsi.nama_provinsi AS nama_provinsi')
-            ->join('tb_provinsi', 'tb_provinsi.id_provinsi = tb_members.id_provinsi', 'left')
-            ->where('tb_members.id_provinsi', $idProvinsi)
-            ->findAll();
-
-        return view('admin/bpw/members/list_view', [
-            'members' => $members,
-            'provinsi' => $provinsi,
-        ]);
+    if (!$idProvinsi) {
+        return redirect()->to('/login')->with('error', 'Provinsi tidak ditemukan di session');
     }
+
+    $provinsi = $this->provinsiModel->find($idProvinsi);
+
+    $members = $this->memberModel
+        ->select('
+            tb_members.*, 
+            tb_provinsi.nama_provinsi, 
+            tb_kota_kabupaten.nama_kota, 
+            tb_kecamatan.nama_kecamatan, 
+            tb_desa_kelurahan.nama_desa
+        ')
+        ->join('tb_provinsi', 'tb_provinsi.id_provinsi = tb_members.id_provinsi', 'left')
+        ->join('tb_kota_kabupaten', 'tb_kota_kabupaten.id_kota = tb_members.id_kota', 'left')
+        ->join('tb_kecamatan', 'tb_kecamatan.id_kecamatan = tb_members.id_kecamatan', 'left')
+        ->join('tb_desa_kelurahan', 'tb_desa_kelurahan.id_desa = tb_members.id_desa', 'left')
+        ->where('tb_members.id_provinsi', $idProvinsi)
+        ->findAll();
+
+    return view('admin/bpw/members/list_view', [
+        'members' => $members,
+        'provinsi' => $provinsi,
+    ]);
+}
+
 
     // ================== ARTIKEL ==================
     public function indexArtikel()

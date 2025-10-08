@@ -86,7 +86,7 @@
                     <li class="dropdown <?= in_array($uri->getSegment(1), ['halaman-member', 'cara-daftar', 'formulir-pendaftaran']) ? 'active' : '' ?>">
                         <a href="#"><span>Member</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="<?= base_url('halaman-member') ?>" class="<?= ($uri->getSegment(1) == 'halaman-member' ? 'active' : '') ?>">Halaman Member</a></li>
+                            <li><a href="<?= base_url('halaman-member') ?>" class="<?= ($uri->getSegment(1) == 'halaman-member' ? 'active' : '') ?>">Keuntungan Menjadi Member</a></li>
                             <li><a href="<?= base_url('cara-daftar') ?>" class="<?= ($uri->getSegment(1) == 'cara-daftar' ? 'active' : '') ?>">Cara Daftar</a></li>
                             <li><a href="<?= base_url('formulir-pendaftaran') ?>" class="<?= ($uri->getSegment(1) == 'formulir-pendaftaran' ? 'active' : '') ?>">Formulir Pendaftaran</a></li>
                         </ul>

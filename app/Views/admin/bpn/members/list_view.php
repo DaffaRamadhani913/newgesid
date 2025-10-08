@@ -2,17 +2,9 @@
 <?= $this->section('content') ?>
 
 <style>
-  .gold-text {
-    color: #FFD700 !important;
-  }
-
-  .gold-border {
-    border: 2px solid #555 !important;
-  }
-
-  .gold-shadow {
-    text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
-  }
+  .gold-text { color: #FFD700 !important; }
+  .gold-border { border: 2px solid #555 !important; }
+  .gold-shadow { text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
 
   .table thead {
     background: #2a2a2a;
@@ -23,12 +15,11 @@
 
   .table thead th {
     position: relative;
-    padding-right: 25px; /* space for arrows */
+    padding-right: 25px;
     user-select: none;
     vertical-align: middle;
   }
 
-  /* Sort icons stacked vertically */
   .sort-icons {
     position: absolute;
     right: 6px;
@@ -43,7 +34,7 @@
   }
 
   .sort-icons .active {
-    color: #FFD700; /* gold highlight when active */
+    color: #FFD700;
     font-weight: bold;
   }
 
@@ -64,18 +55,9 @@
     border: 1px solid #555;
   }
 
-  .table-responsive {
-    margin-top: 20px;
-  }
+  .table-responsive { margin-top: 20px; }
+  .text-truncate-50 { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  .text-truncate-50 {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  /* Modal zoom */
   .modal-img {
     max-width: 90%;
     max-height: 80vh;
@@ -93,9 +75,44 @@
     </p>
   </div>
 
-  <!-- Search Bar -->
-  <div class="mb-3">
-    <input type="text" id="searchInput" class="form-control gold-border" placeholder="Cari member...">
+  <!-- 🔍 Search & Filter Bar -->
+  <div class="row g-2 mb-3">
+    <div class="col-md-3">
+      <input type="text" id="searchInput" class="form-control gold-border" placeholder="Cari member...">
+    </div>
+    <div class="col-md-3">
+      <select id="filterProvinsi" class="form-select gold-border">
+        <option value="">-- Filter Provinsi --</option>
+        <?php 
+          $provinsiList = array_unique(array_column($members, 'nama_provinsi'));
+          sort($provinsiList);
+          foreach ($provinsiList as $prov): ?>
+            <option value="<?= esc($prov) ?>"><?= esc($prov) ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select id="filterKota" class="form-select gold-border">
+        <option value="">-- Filter Kota --</option>
+        <?php 
+          $kotaList = array_unique(array_column($members, 'nama_kota'));
+          sort($kotaList);
+          foreach ($kotaList as $kota): ?>
+            <option value="<?= esc($kota) ?>"><?= esc($kota) ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select id="filterDesa" class="form-select gold-border">
+        <option value="">-- Filter Desa --</option>
+        <?php 
+          $desaList = array_unique(array_column($members, 'nama_desa'));
+          sort($desaList);
+          foreach ($desaList as $desa): ?>
+            <option value="<?= esc($desa) ?>"><?= esc($desa) ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
   </div>
 
   <?php if (!empty($members) && is_array($members)): ?>
@@ -121,10 +138,7 @@
         <tbody>
           <?php
           $no = 1;
-          usort($members, function ($a, $b) {
-            return $b['id'] <=> $a['id'];
-          });
-
+          usort($members, fn($a, $b) => $b['id'] <=> $a['id']);
           foreach ($members as $member): ?>
             <tr>
               <td><?= $no++ ?></td>
@@ -139,14 +153,12 @@
               <td><?= esc($member['nama_desa']) ?></td>
               <td>
                 <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" class="zoomable">
-                  <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP"
-                    width="80" class="img-thumbnail">
+                  <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP" width="80" class="img-thumbnail">
                 </a>
               </td>
               <td>
                 <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="zoomable">
-                  <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah"
-                    width="80" class="img-thumbnail">
+                  <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah" width="80" class="img-thumbnail">
                 </a>
               </td>
               <td>
@@ -180,17 +192,38 @@
 </div>
 
 <script>
-  // Search filter
-  document.getElementById("searchInput").addEventListener("keyup", function () {
-    let filter = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#memberTable tbody tr");
-    rows.forEach(row => {
-      let text = row.textContent.toLowerCase();
-      row.style.display = text.includes(filter) ? "" : "none";
-    });
-  });
+  // 🔎 Combined search & filter
+  const searchInput = document.getElementById("searchInput");
+  const filterProvinsi = document.getElementById("filterProvinsi");
+  const filterKota = document.getElementById("filterKota");
+  const filterDesa = document.getElementById("filterDesa");
 
-  // Zoom image modal
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+    const provVal = filterProvinsi.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const desaVal = filterDesa.value.toLowerCase();
+
+    const rows = document.querySelectorAll("#memberTable tbody tr");
+
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const prov = row.cells[6].textContent.toLowerCase();
+      const kota = row.cells[7].textContent.toLowerCase();
+      const desa = row.cells[9].textContent.toLowerCase();
+
+      const matches = text.includes(searchVal)
+        && (!provVal || prov === provVal)
+        && (!kotaVal || kota === kotaVal)
+        && (!desaVal || desa === desaVal);
+
+      row.style.display = matches ? "" : "none";
+    });
+  }
+
+  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => el.addEventListener("input", filterTable));
+
+  // 🖼️ Zoom image modal
   document.querySelectorAll(".zoomable img").forEach(img => {
     img.addEventListener("click", function (e) {
       e.preventDefault();
@@ -199,36 +232,31 @@
     });
   });
 
-  // Sort table by column
+  // 🔽 Sort table
   document.querySelectorAll("#memberTable thead th").forEach((th, index) => {
     th.addEventListener("click", () => {
-      if (!th.querySelector(".sort-icons")) return; // skip if no arrows (like Foto)
+      if (!th.querySelector(".sort-icons")) return;
       let table = th.closest("table");
       let tbody = table.querySelector("tbody");
       let rows = Array.from(tbody.querySelectorAll("tr"));
-      let upArrow = th.querySelector(".up");
-      let downArrow = th.querySelector(".down");
-      let isAscending = upArrow.classList.contains("active");
+      let up = th.querySelector(".up");
+      let down = th.querySelector(".down");
+      let isAsc = up.classList.contains("active");
 
-      // Reset all arrows
       table.querySelectorAll(".sort-icons .up, .sort-icons .down").forEach(el => el.classList.remove("active"));
 
       rows.sort((a, b) => {
         let aText = a.cells[index].innerText.trim().toLowerCase();
         let bText = b.cells[index].innerText.trim().toLowerCase();
-
         if (!isNaN(aText) && !isNaN(bText)) {
-          return isAscending ? bText - aText : aText - bText;
+          return isAsc ? bText - aText : aText - bText;
         }
-        return isAscending ? bText.localeCompare(aText) : aText.localeCompare(bText);
+        return isAsc ? bText.localeCompare(aText) : aText.localeCompare(bText);
       });
 
-      rows.forEach(row => tbody.appendChild(row));
-      if (isAscending) {
-        downArrow.classList.add("active");
-      } else {
-        upArrow.classList.add("active");
-      }
+      rows.forEach(r => tbody.appendChild(r));
+      if (isAsc) down.classList.add("active");
+      else up.classList.add("active");
     });
   });
 </script>
