@@ -67,10 +67,44 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
     </h2>
     <p class="text-muted" style="color: #fff !important;">Berikut adalah daftar member yang terdaftar di wilayah desa Anda.</p>
   </div>
+  <!-- 🔍 Search & Filter Bar -->
+  <!-- 🔍 Search, Filter, & Tampilkan Data -->
+  <div class="card shadow-sm border-0 bg-dark text-light rounded-4 p-3 mb-4">
+    <div class="row g-3 align-items-end">
+
+      <!-- Tampilkan Jumlah Data -->
+      <div class="col-md-2 col-6">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Tampilkan</label>
+        <select id="showEntries" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
+          <option value="all">Semua</option>
+          <option value="10">10 Data</option>
+          <option value="25">25 Data</option>
+          <option value="50">50 Data</option>
+          <option value="100">100 Data</option>
+        </select>
+      </div>
+
+      <!-- Input Pencarian -->
+      <div class="col-md-3 col-12">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Cari</label>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-warning text-dark"><i class="bi bi-search"></i></span>
+          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end" placeholder="Cari member...">
+        </div>
+      </div>
+
+      
+
+      
+
+      
+
+    </div>
+  </div>
 
   <?php if (!empty($members) && is_array($members)) : ?>
     <div class="table-responsive">
-      <table class="table table-hover align-middle gold-border rounded-3 text-center">
+      <table id="memberTable" class="table table-hover align-middle gold-border rounded-3 text-center">
         <thead>
           <tr>
             <th>No</th>
@@ -101,4 +135,115 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
   <?php endif; ?>
 </div>
 
+<script>
+  // 🔎 Combined search & filter
+  const searchInput = document.getElementById("searchInput");
+  const filterProvinsi = document.getElementById("filterProvinsi");
+  const filterKota = document.getElementById("filterKota");
+  const filterDesa = document.getElementById("filterDesa");
+
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+    const provVal = filterProvinsi.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const desaVal = filterDesa.value.toLowerCase();
+
+    const rows = document.querySelectorAll("#memberTable tbody tr");
+
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const prov = row.cells[6].textContent.toLowerCase();
+      const kota = row.cells[7].textContent.toLowerCase();
+      const desa = row.cells[9].textContent.toLowerCase();
+
+      const matches = text.includes(searchVal) &&
+        (!provVal || prov === provVal) &&
+        (!kotaVal || kota === kotaVal) &&
+        (!desaVal || desa === desaVal);
+
+      row.style.display = matches ? "" : "none";
+    });
+  }
+
+  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => el.addEventListener("input", filterTable));
+
+  // 🖼 Zoom image modal
+  document.querySelectorAll(".zoomable img").forEach(img => {
+    img.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.getElementById("modalImage").src = this.src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+  });
+
+  // Zoom image modal
+  document.querySelectorAll(".img-thumbnail").forEach(img => {
+    img.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.getElementById("modalImage").src = this.src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+  });
+</script>
+
+<script>
+  // 🟡 Fitur "Tampilkan N Data"
+  const showEntries = document.getElementById("showEntries");
+  const memberTable = document.getElementById("memberTable");
+  const tableRows = memberTable.querySelectorAll("tbody tr");
+
+  function updateVisibleRows() {
+    const val = showEntries.value;
+    let visibleCount = 0;
+
+    tableRows.forEach((row, index) => {
+      const isVisible = row.style.display !== "none";
+      if (isVisible) {
+        if (val === "all" || visibleCount < parseInt(val)) {
+          row.style.visibility = "visible";
+          row.style.display = "";
+          visibleCount++;
+        } else {
+          row.style.display = "none";
+        }
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+
+  // Integrasi dengan filter
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+    const provVal = filterProvinsi.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const desaVal = filterDesa.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const prov = row.cells[6]?.textContent.toLowerCase() || "";
+      const kota = row.cells[7]?.textContent.toLowerCase() || "";
+      const desa = row.cells[9]?.textContent.toLowerCase() || "";
+
+      const matches =
+        text.includes(searchVal) &&
+        (!provVal || prov === provVal) &&
+        (!kotaVal || kota === kotaVal) &&
+        (!desaVal || desa === desaVal);
+
+      row.style.display = matches ? "" : "none";
+    });
+
+    updateVisibleRows();
+  }
+
+  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
+    el.addEventListener("input", filterTable)
+  );
+
+  showEntries.addEventListener("change", updateVisibleRows);
+
+  // Jalankan pertama kali
+  updateVisibleRows();
+</script>
 <?= $this->endSection() ?>

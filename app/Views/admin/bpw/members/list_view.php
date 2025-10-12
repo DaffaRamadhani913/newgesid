@@ -2,9 +2,17 @@
 <?= $this->section('content') ?>
 
 <style>
-  .gold-text { color: #FFD700 !important; }
-  .gold-border { border: 2px solid #555 !important; }
-  .gold-shadow { text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
+  .gold-text {
+    color: #FFD700 !important;
+  }
+
+  .gold-border {
+    border: 2px solid #555 !important;
+  }
+
+  .gold-shadow {
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.7);
+  }
 
   .table thead {
     background: #2a2a2a;
@@ -31,7 +39,10 @@
     color: #777;
   }
 
-  .sort-icons .active { color: #FFD700; font-weight: bold; }
+  .sort-icons .active {
+    color: #FFD700;
+    font-weight: bold;
+  }
 
   .table tbody tr {
     border-bottom: 1px solid #444;
@@ -50,8 +61,16 @@
     border: 1px solid #555;
   }
 
-  .table-responsive { margin-top: 20px; }
-  .text-truncate-50 { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .table-responsive {
+    margin-top: 20px;
+  }
+
+  .text-truncate-50 {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .modal-img {
     max-width: 90%;
@@ -76,12 +95,64 @@ $namaProv = $provinsi['nama_provinsi'] ?? session()->get('nama_provinsi') ?? '';
     </p>
   </div>
 
-  <!-- 🔍 Search -->
-  <div class="row g-2 mb-3 justify-content-center">
-    <div class="col-md-4">
-      <input type="text" id="searchInput" class="form-control gold-border" placeholder="Cari member...">
+  <!-- 🔍 Search, Filter, & Tampilkan Data -->
+  <div class="card shadow-sm border-0 bg-dark text-light rounded-4 p-3 mb-4">
+    <div class="row g-3 align-items-end justify-content-between">
+
+      <!-- Kolom: Tampilkan Jumlah Data -->
+      <div class="col-lg-2 col-md-3 col-6">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Tampilkan</label>
+        <select id="showEntries" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
+          <option value="all">Semua</option>
+          <option value="10">10 Data</option>
+          <option value="25">25 Data</option>
+          <option value="50">50 Data</option>
+          <option value="100">100 Data</option>
+        </select>
+      </div>
+
+      <!-- Kolom: Input Pencarian -->
+      <div class="col-lg-3 col-md-4 col-12">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Cari Member</label>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-warning text-dark border-warning">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end" placeholder="Ketik nama member...">
+        </div>
+      </div>
+
+      <!-- Kolom: Filter Kota -->
+      <div class="col-lg-3 col-md-4 col-6">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Kota</label>
+        <select id="filterKota" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
+          <option value="">Semua Kota</option>
+          <?php
+          $kotaList = array_unique(array_column($members, 'nama_kota'));
+          sort($kotaList);
+          foreach ($kotaList as $kota): ?>
+            <option value="<?= esc($kota) ?>"><?= esc($kota) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <!-- Kolom: Filter Desa -->
+      <div class="col-lg-3 col-md-4 col-6">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Desa</label>
+        <select id="filterDesa" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
+          <option value="">Semua Desa</option>
+          <?php
+          $desaList = array_unique(array_column($members, 'nama_desa'));
+          sort($desaList);
+          foreach ($desaList as $desa): ?>
+            <option value="<?= esc($desa) ?>"><?= esc($desa) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
     </div>
   </div>
+
 
   <?php if (!empty($members) && is_array($members)): ?>
     <div class="table-responsive">
@@ -202,9 +273,70 @@ $namaProv = $provinsi['nama_provinsi'] ?? session()->get('nama_provinsi') ?? '';
       });
 
       rows.forEach(r => tbody.appendChild(r));
-      if (isAsc) down.classList.add("active"); else up.classList.add("active");
+      if (isAsc) down.classList.add("active");
+      else up.classList.add("active");
     });
   });
+</script>
+<script>
+  // 🟡 Fitur "Tampilkan N Data"
+  const showEntries = document.getElementById("showEntries");
+  const memberTable = document.getElementById("memberTable");
+  const tableRows = memberTable.querySelectorAll("tbody tr");
+
+  function updateVisibleRows() {
+    const val = showEntries.value;
+    let visibleCount = 0;
+
+    tableRows.forEach((row, index) => {
+      const isVisible = row.style.display !== "none";
+      if (isVisible) {
+        if (val === "all" || visibleCount < parseInt(val)) {
+          row.style.visibility = "visible";
+          row.style.display = "";
+          visibleCount++;
+        } else {
+          row.style.display = "none";
+        }
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+
+  // Integrasi dengan filter
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+    const provVal = filterProvinsi.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const desaVal = filterDesa.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const prov = row.cells[6]?.textContent.toLowerCase() || "";
+      const kota = row.cells[7]?.textContent.toLowerCase() || "";
+      const desa = row.cells[9]?.textContent.toLowerCase() || "";
+
+      const matches =
+        text.includes(searchVal) &&
+        (!provVal || prov === provVal) &&
+        (!kotaVal || kota === kotaVal) &&
+        (!desaVal || desa === desaVal);
+
+      row.style.display = matches ? "" : "none";
+    });
+
+    updateVisibleRows();
+  }
+
+  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
+    el.addEventListener("input", filterTable)
+  );
+
+  showEntries.addEventListener("change", updateVisibleRows);
+
+  // Jalankan pertama kali
+  updateVisibleRows();
 </script>
 
 <?= $this->endSection() ?>
