@@ -40,6 +40,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   }
 
+  /* Modal */
   .modal-img {
     max-width: 90%;
     max-height: 80vh;
@@ -47,10 +48,22 @@
     margin: auto;
     border-radius: 10px;
   }
+
+  /* Styling bar filter */
+  .filter-card {
+    background: #1f1f1f;
+    border: 1px solid #444;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .filter-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
 </style>
 
 <?php
-// Prefer the value passed from controller; fall back to session if missing
 $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
 ?>
 
@@ -64,13 +77,12 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
     </p>
   </div>
 
-  <!-- 🔍 Search & Filter Bar -->
-  <!-- 🔍 Search, Filter, & Tampilkan Data -->
+  <!-- 🔍 Filter, Search & Show Entries -->
   <div class="card shadow-sm border-0 bg-dark text-light rounded-4 p-3 mb-4">
-    <div class="row g-3 align-items-end">
+    <div class="row g-3 align-items-end justify-content-center text-center">
 
       <!-- Tampilkan Jumlah Data -->
-      <div class="col-md-2 col-6">
+      <div class="col-lg-2 col-md-3 col-6">
         <label class="fw-semibold small text-uppercase text-warning mb-1">Tampilkan</label>
         <select id="showEntries" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
           <option value="all">Semua</option>
@@ -82,44 +94,19 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
       </div>
 
       <!-- Input Pencarian -->
-      <div class="col-md-3 col-12">
-        <label class="fw-semibold small text-uppercase text-warning mb-1">Cari</label>
+      <div class="col-lg-3 col-md-4 col-12">
+        <label class="fw-semibold small text-uppercase text-warning mb-1">Cari Member</label>
         <div class="input-group input-group-sm">
-          <span class="input-group-text bg-warning text-dark"><i class="bi bi-search"></i></span>
-          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end" placeholder="Cari member...">
+          <span class="input-group-text bg-warning text-dark border-warning">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end"
+            placeholder="Ketik nama member...">
         </div>
       </div>
 
-      <!-- Filter Provinsi -->
-      <div class="col-md-2 col-6">
-        <label class="fw-semibold small text-uppercase text-warning mb-1">Provinsi</label>
-        <select id="filterProvinsi" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
-          <option value="">Semua Provinsi</option>
-          <?php
-          $provinsiList = array_unique(array_column($members, 'nama_provinsi'));
-          sort($provinsiList);
-          foreach ($provinsiList as $prov): ?>
-            <option value="<?= esc($prov) ?>"><?= esc($prov) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <!-- Filter Kota -->
-      <div class="col-md-2 col-6">
-        <label class="fw-semibold small text-uppercase text-warning mb-1">Kota</label>
-        <select id="filterKota" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
-          <option value="">Semua Kota</option>
-          <?php
-          $kotaList = array_unique(array_column($members, 'nama_kota'));
-          sort($kotaList);
-          foreach ($kotaList as $kota): ?>
-            <option value="<?= esc($kota) ?>"><?= esc($kota) ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
       <!-- Filter Desa -->
-      <div class="col-md-3 col-6">
+      <div class="col-lg-3 col-md-4 col-6">
         <label class="fw-semibold small text-uppercase text-warning mb-1">Desa</label>
         <select id="filterDesa" class="form-select form-select-sm border-warning bg-dark text-light rounded-3">
           <option value="">Semua Desa</option>
@@ -134,7 +121,6 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
 
     </div>
   </div>
-
 
   <div class="card gold-border">
     <?php if (!empty($members) && is_array($members)): ?>
@@ -174,12 +160,14 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
                 <td><?= esc($member['nama_desa']) ?></td>
                 <td>
                   <a href="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" target="_blank">
-                    <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP" width="80" class="img-thumbnail">
+                    <img src="<?= base_url('assets/images/verifikasi/ktp/' . $member['foto_ktp']) ?>" alt="Foto KTP"
+                      width="80" class="img-thumbnail">
                   </a>
                 </td>
                 <td>
                   <a href="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" target="_blank">
-                    <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah" width="80" class="img-thumbnail">
+                    <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah"
+                      width="80" class="img-thumbnail">
                   </a>
                 </td>
                 <td>
@@ -202,7 +190,7 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
   </div>
 </div>
 
-<!-- Modal untuk zoom gambar -->
+<!-- Modal Zoom Gambar -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark">
@@ -214,114 +202,55 @@ $namaKota = $kota['nama_kota'] ?? session()->get('nama_kota') ?? '';
 </div>
 
 <script>
-  // 🔎 Combined search & filter
   const searchInput = document.getElementById("searchInput");
-  const filterProvinsi = document.getElementById("filterProvinsi");
-  const filterKota = document.getElementById("filterKota");
   const filterDesa = document.getElementById("filterDesa");
-
-  function filterTable() {
-    const searchVal = searchInput.value.toLowerCase();
-    const provVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
-    const desaVal = filterDesa.value.toLowerCase();
-
-    const rows = document.querySelectorAll("#memberTable tbody tr");
-
-    rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      const prov = row.cells[6].textContent.toLowerCase();
-      const kota = row.cells[7].textContent.toLowerCase();
-      const desa = row.cells[9].textContent.toLowerCase();
-
-      const matches = text.includes(searchVal) &&
-        (!provVal || prov === provVal) &&
-        (!kotaVal || kota === kotaVal) &&
-        (!desaVal || desa === desaVal);
-
-      row.style.display = matches ? "" : "none";
-    });
-  }
-
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => el.addEventListener("input", filterTable));
-
-  // 🖼 Zoom image modal
-  document.querySelectorAll(".zoomable img").forEach(img => {
-    img.addEventListener("click", function(e) {
-      e.preventDefault();
-      document.getElementById("modalImage").src = this.src;
-      new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-  });
-
-  // Zoom image modal
-  document.querySelectorAll(".img-thumbnail").forEach(img => {
-    img.addEventListener("click", function(e) {
-      e.preventDefault();
-      document.getElementById("modalImage").src = this.src;
-      new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-  });
-</script>
-
-<script>
-  // 🟡 Fitur "Tampilkan N Data"
   const showEntries = document.getElementById("showEntries");
-  const memberTable = document.getElementById("memberTable");
-  const tableRows = memberTable.querySelectorAll("tbody tr");
+  const tableRows = document.querySelectorAll("#memberTable tbody tr");
 
-  function updateVisibleRows() {
-    const val = showEntries.value;
-    let visibleCount = 0;
-
-    tableRows.forEach((row, index) => {
-      const isVisible = row.style.display !== "none";
-      if (isVisible) {
-        if (val === "all" || visibleCount < parseInt(val)) {
-          row.style.visibility = "visible";
-          row.style.display = "";
-          visibleCount++;
-        } else {
-          row.style.display = "none";
-        }
-      } else {
-        row.style.display = "none";
-      }
-    });
-  }
-
-  // Integrasi dengan filter
   function filterTable() {
     const searchVal = searchInput.value.toLowerCase();
-    const provVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
     const desaVal = filterDesa.value.toLowerCase();
 
     tableRows.forEach(row => {
       const text = row.textContent.toLowerCase();
-      const prov = row.cells[6]?.textContent.toLowerCase() || "";
-      const kota = row.cells[7]?.textContent.toLowerCase() || "";
       const desa = row.cells[9]?.textContent.toLowerCase() || "";
-
-      const matches =
-        text.includes(searchVal) &&
-        (!provVal || prov === provVal) &&
-        (!kotaVal || kota === kotaVal) &&
-        (!desaVal || desa === desaVal);
-
+      const matches = text.includes(searchVal) && (!desaVal || desa === desaVal);
       row.style.display = matches ? "" : "none";
     });
 
     updateVisibleRows();
   }
 
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
-    el.addEventListener("input", filterTable)
-  );
+  function updateVisibleRows() {
+    const val = showEntries.value;
+    let visibleCount = 0;
 
+    tableRows.forEach(row => {
+      const isVisible = row.style.display !== "none";
+      if (isVisible) {
+        if (val === "all" || visibleCount < parseInt(val)) {
+          row.style.display = "";
+          visibleCount++;
+        } else {
+          row.style.display = "none";
+        }
+      }
+    });
+  }
+
+  [searchInput, filterDesa].forEach(el => el.addEventListener("input", filterTable));
   showEntries.addEventListener("change", updateVisibleRows);
 
-  // Jalankan pertama kali
+  // 🖼 Zoom modal
+  document.querySelectorAll(".img-thumbnail").forEach(img => {
+    img.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("modalImage").src = this.src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+  });
+
   updateVisibleRows();
 </script>
+
 <?= $this->endSection() ?>

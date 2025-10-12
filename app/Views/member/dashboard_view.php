@@ -126,11 +126,11 @@
           <div class="member-card"
             style="background-image: url('<?= base_url('assets/img/member_card/member_card_front.png') ?>');">
             <div class="member-data text-start" style="margin-top: 10px;">
-              <div>ID&nbsp;&nbsp;&nbsp;&nbsp;: <?= esc($member['member_id']) ?></div>
-              <div>Nama : <?= esc($member['nama']) ?></div>
-              <div>Provinsi : <?= esc($member['nama_provinsi']) ?></div>
+              <div>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= esc($member['member_id']) ?></div>
+              <div>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= esc($member['nama']) ?></div>
+              <div>Provinsi&nbsp;&nbsp;&nbsp;: <?= esc($member['nama_provinsi']) ?></div>
               <div>Kota/Kab : <?= esc($member['nama_kota']) ?></div>
-              <div>Desa : <?= esc($member['nama_desa']) ?></div>
+              <div>Desa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?= esc($member['nama_desa']) ?></div>
             </div>
             <?php if (!empty($member['foto_wajah'])): ?>
               <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" class="member-photo"

@@ -127,8 +127,17 @@ class Register extends BaseController
         ]);
         $userId = $userModel->getInsertID();
 
-        // 👤 3. Insert member
+        // 👤 3. Generate and insert member
         $memberModel = new MemberModel();
+
+        // Generate unique Member ID
+        $memberId = $memberModel->generateMemberId([
+            'id_provinsi' => $biodata['id_provinsi'],
+            'id_kota' => $biodata['id_kota'],
+            'id_desa' => $biodata['id_desa'],
+        ]);
+
+        // Insert new member
         $memberModel->insert([
             'user_id' => $userId,
             'nama' => $biodata['nama'],
@@ -142,8 +151,10 @@ class Register extends BaseController
             'id_kota' => $biodata['id_kota'],
             'id_kecamatan' => $biodata['id_kecamatan'],
             'id_desa' => $biodata['id_desa'],
+            'member_id' => $memberId,
             'status' => 'Pending'
         ]);
+
 
         // 🔢 4. Update counter
         $db->query("UPDATE member_counter SET total = total + 1 WHERE id = 1");

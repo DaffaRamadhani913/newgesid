@@ -65,12 +65,13 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
     <h2 class="gold-text gold-shadow fw-bold">
       Data Member GESID - BPDes<?= $namaDesa ? ' (' . esc($namaDesa) . ')' : '' ?>
     </h2>
-    <p class="text-muted" style="color: #fff !important;">Berikut adalah daftar member yang terdaftar di wilayah desa Anda.</p>
+    <p class="text-muted" style="color: #fff !important;">Berikut adalah daftar member yang terdaftar di wilayah desa
+      Anda.</p>
   </div>
   <!-- 🔍 Search & Filter Bar -->
   <!-- 🔍 Search, Filter, & Tampilkan Data -->
   <div class="card shadow-sm border-0 bg-dark text-light rounded-4 p-3 mb-4">
-    <div class="row g-3 align-items-end">
+    <div class="row g-3 align-items-end justify-content-center text-center">
 
       <!-- Tampilkan Jumlah Data -->
       <div class="col-md-2 col-6">
@@ -89,20 +90,21 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
         <label class="fw-semibold small text-uppercase text-warning mb-1">Cari</label>
         <div class="input-group input-group-sm">
           <span class="input-group-text bg-warning text-dark"><i class="bi bi-search"></i></span>
-          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end" placeholder="Cari member...">
+          <input type="text" id="searchInput" class="form-control border-warning bg-dark text-light rounded-end"
+            placeholder="Cari member...">
         </div>
       </div>
 
-      
 
-      
 
-      
+
+
+
 
     </div>
   </div>
 
-  <?php if (!empty($members) && is_array($members)) : ?>
+  <?php if (!empty($members) && is_array($members)): ?>
     <div class="table-responsive">
       <table id="memberTable" class="table table-hover align-middle gold-border rounded-3 text-center">
         <thead>
@@ -128,7 +130,7 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
         </tbody>
       </table>
     </div>
-  <?php else : ?>
+  <?php else: ?>
     <div class="alert alert-warning text-center gold-border">
       Belum ada data member yang terdaftar di desa Anda.
     </div>
@@ -169,7 +171,7 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
 
   // 🖼 Zoom image modal
   document.querySelectorAll(".zoomable img").forEach(img => {
-    img.addEventListener("click", function(e) {
+    img.addEventListener("click", function (e) {
       e.preventDefault();
       document.getElementById("modalImage").src = this.src;
       new bootstrap.Modal(document.getElementById('imageModal')).show();
@@ -178,7 +180,7 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
 
   // Zoom image modal
   document.querySelectorAll(".img-thumbnail").forEach(img => {
-    img.addEventListener("click", function(e) {
+    img.addEventListener("click", function (e) {
       e.preventDefault();
       document.getElementById("modalImage").src = this.src;
       new bootstrap.Modal(document.getElementById('imageModal')).show();
