@@ -49,8 +49,10 @@ class LoginController extends BaseController
                 'user_id'  => $user['id'],
                 'username' => $user['username'],
                 'role'     => $user['role'],
+                'sub_role' => $user['sub_role'] ?? null, // ✅ Tambahkan ini
                 'isLoggedIn' => true
             ]);
+
 
             // Redirect sesuai role
             switch (strtolower($user['role'])) {

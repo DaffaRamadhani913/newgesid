@@ -18,6 +18,11 @@ $routes->get('latar-belakang', 'Home::latarBelakang');
 $routes->get('visi-misi', 'Home::visiMisi');
 $routes->get('pengurus-bpn', 'Home::pengurusBpn');
 
+
+// unautorized
+$routes->get('unauthorized', 'Home::unauthorized');
+
+
 // Artikel
 // $routes->get('artikel', 'Home::artikel');
 // $routes->get('artikel-kategori/(:num)', 'Home::artikelkategori/$1');
@@ -51,25 +56,29 @@ $routes->get('data', 'Home::dataMember'); // member_data.php
 /// ==========================
 // ROUTES UNTUK MEMBER
 // ==========================
-$routes->group('member', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->get('/', 'MemberController::index');
-    $routes->get('dashboard', 'MemberController::dashboard');
-    $routes->get('view/(:num)', 'MemberController::view/$1');
-    $routes->get('activate/(:num)', 'MemberController::activate/$1');
-    $routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
+    $routes->group('member', [
+    'namespace' => 'App\Controllers',
+    'filter' => 'role:member' // ⬅️ Tambahkan ini
+        ], function ($routes) {
+            $routes->get('/', 'MemberController::index');
+            $routes->get('dashboard', 'MemberController::dashboard');
+            $routes->get('view/(:num)', 'MemberController::view/$1');
+            $routes->get('activate/(:num)', 'MemberController::activate/$1');
+            $routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
 
-    // Aduan
-    $routes->get('aduan', 'MemberController::aduanForm');
-    $routes->post('aduan', 'MemberController::kirimAduan');
+            // Aduan
+            $routes->get('aduan', 'MemberController::aduanForm');
+            $routes->post('aduan', 'MemberController::kirimAduan');
 
-    $routes->get('profile', 'MemberController::profile');
-    $routes->post('profil/update', 'MemberController::updateProfile');
+            $routes->get('profile', 'MemberController::profile');
+            $routes->post('profil/update', 'MemberController::updateProfile');
 
-    $routes->get('respons', 'MemberController::respons');
+            $routes->get('respons', 'MemberController::respons');
 
-    $routes->get('downloadCard', 'MemberController::downloadCard');
+            $routes->get('downloadCard', 'MemberController::downloadCard');
+        });
 
-});
+
 // ==========================
 // ARTIKEL
 // ==========================

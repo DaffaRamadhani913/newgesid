@@ -73,34 +73,43 @@ class MemberController extends BaseController
     // ================
 
     public function dashboard()
-    {
-        $session = session();
-        $userId = $session->get('user_id');
+{
+    $session = session();
+    $userId = $session->get('user_id');
+    $role = $session->get('role'); // pastikan saat login role ini diset
 
-        if (!$userId) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+    // 🧩 Cek login
+    if (!$userId) {
+        return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+    }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('tb_members m');
-        $builder->select('m.*, 
+    // 🧩 Cegah akses oleh selain member
+    if ($role !== 'member') {
+        return redirect()->to('/unauthorized')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+    }
+
+    // 🔍 Ambil data member
+    $db = \Config\Database::connect();
+    $builder = $db->table('tb_members m');
+    $builder->select('m.*, 
         prov.nama_provinsi AS nama_provinsi, 
         kota.nama_kota AS nama_kota, 
         desa.nama_desa AS nama_desa');
-        $builder->join('tb_provinsi prov', 'prov.id_provinsi = m.id_provinsi', 'left');
-        $builder->join('tb_kota_kabupaten kota', 'kota.id_kota = m.id_kota', 'left');
-        $builder->join('tb_desa_kelurahan desa', 'desa.id_desa = m.id_desa', 'left');
-        $builder->where('m.user_id', $userId);
+    $builder->join('tb_provinsi prov', 'prov.id_provinsi = m.id_provinsi', 'left');
+    $builder->join('tb_kota_kabupaten kota', 'kota.id_kota = m.id_kota', 'left');
+    $builder->join('tb_desa_kelurahan desa', 'desa.id_desa = m.id_desa', 'left');
+    $builder->where('m.user_id', $userId);
 
-        $query = $builder->get();
-        $member = $query->getRowArray();
+    $query = $builder->get();
+    $member = $query->getRowArray();
 
-        if (!$member) {
-            return redirect()->to('/login')->with('error', 'Data member tidak ditemukan.');
-        }
-
-        return view('member/dashboard_view', ['member' => $member]);
+    if (!$member) {
+        return redirect()->to('/login')->with('error', 'Data member tidak ditemukan.');
     }
+
+    return view('member/dashboard_view', ['member' => $member]);
+}
+
 
 
 

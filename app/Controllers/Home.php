@@ -16,6 +16,14 @@ class Home extends BaseController
         $this->acaraModel = new AcaraModel();
     }
 
+
+    // Unauthorized
+    public function unauthorized()
+    {
+        return view('errors/unauthorized');
+    }
+
+
     public function index()
     {
         // Ambil 4 artikel terbaru
