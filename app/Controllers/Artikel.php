@@ -25,28 +25,61 @@ class Artikel extends BaseController
     }
 
     // List articles by category
-    public function kategori($id)
+    // public function kategori($id)
+    // {
+    //     $kategori_nama = [
+    //         1 => 'Lingkungan & Keberlanjutan',
+    //         2 => 'Pertanian & Ekonomi'
+    //     ];
+
+    //     $kategori = $kategori_nama[$id] ?? null;
+
+    //     if (!$kategori) {
+    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Kategori tidak ditemukan");
+    //     }
+
+    //     $data = [
+    //         'title'         => "Kategori: $kategori",
+    //         'kategori_id'   => $id,
+    //         'kategori_nama' => $kategori,
+    //         'artikel'       => $this->artikelModel->getByCategory($kategori)
+    //     ];
+
+    //     return view('pages/artikel-kategori', $data);
+    // }
+
+    public function kategori($slugKategori)
     {
-        $kategori_nama = [
-            1 => 'Lingkungan & Keberlanjutan',
-            2 => 'Pertanian & Ekonomi'
+        $model = new ArtikelModel();
+
+        // Konversi slug ke nama asli kategori di database
+        $mapping = [
+            'lingkungan-keberlanjutan' => 'Lingkungan & Keberlanjutan',
+            'pertanian-ekonomi' => 'Pertanian & Ekonomi'
         ];
 
-        $kategori = $kategori_nama[$id] ?? null;
+        // Ambil nama kategori dari mapping
+        $kategori = $mapping[$slugKategori] ?? null;
 
         if (!$kategori) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Kategori tidak ditemukan");
         }
 
+        // Ambil artikel dengan kategori tersebut
+        $artikel = $model->where('kategori', $kategori)->findAll();
+
         $data = [
-            'title'         => "Kategori: $kategori",
-            'kategori_id'   => $id,
-            'kategori_nama' => $kategori,
-            'artikel'       => $this->artikelModel->getByCategory($kategori)
+            'title' => 'Artikel Kategori ' . $kategori,
+            'artikel' => $artikel,
+            'kategori' => $kategori
         ];
 
         return view('pages/artikel-kategori', $data);
     }
+
+
+
+
 
     // Detail of a single article by slug
     public function detail($slug)

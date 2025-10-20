@@ -7,10 +7,11 @@
         <div class="row">
             <?php if (!empty($artikel)): ?>
                 <?php foreach ($artikel as $i => $a): ?>
-                    <?php 
-                        $delay = ($i + 1) * 100; 
-                        $konten = strip_tags($a['konten']);
-                        $preview = (strlen($konten) > 120) ? substr($konten, 0, 120) . '...' : $konten;
+                    <?php
+                    $delay = ($i + 1) * 100;
+                    $konten = strip_tags($a['konten']);
+                    $preview = (strlen($konten) > 120) ? substr($konten, 0, 120) . '...' : $konten;
+                    $kategoriUrl = str_replace([' ', '&'], ['-', 'dan'], strtolower($a['kategori'])); // ubah spasi ke "-", hapus simbol
                     ?>
                     <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
                         <div class="card h-100 shadow-sm border" style="background-color: #0d1b24; color: white;">
@@ -23,12 +24,20 @@
                                     <i class="bi bi-calendar-event"></i>
                                     <?= date('d F Y', strtotime($a['tanggal_publikasi'])) ?>
                                 </small>
+
+                                <!-- 🔗 Tambahkan link kategori -->
+                                <small class="d-block mb-2">
+                                    <a href="<?= base_url('artikel-kategori/' . strtolower(str_replace(' ', '-', $a['kategori']))) ?>" class="text-warning text-decoration-none">
+                                        <i class="bi bi-folder"></i> <?= esc($a['kategori']) ?>
+                                    </a>
+                                </small>
+
                                 <h5 class="fw-bold text-white"><?= esc($a['judul']) ?></h5>
                                 <p><?= esc($preview) ?></p>
-                                <!-- ✅ Updated link to use slug -->
+
                                 <a href="<?= base_url('artikel/' . $a['slug']) ?>"
-                                   class="btn btn-success btn-sm rounded-pill mt-2">
-                                   Baca Selengkapnya
+                                    class="btn btn-success btn-sm rounded-pill mt-2">
+                                    Baca Selengkapnya
                                 </a>
                             </div>
                         </div>

@@ -63,8 +63,7 @@ $routes->get('data', 'Home::dataMember'); // member_data.php
             $routes->get('/', 'MemberController::index');
             $routes->get('dashboard', 'MemberController::dashboard');
             $routes->get('view/(:num)', 'MemberController::view/$1');
-            $routes->get('activate/(:num)', 'MemberController::activate/$1');
-            $routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
+            
 
             // Aduan
             $routes->get('aduan', 'MemberController::aduanForm');
@@ -83,7 +82,8 @@ $routes->get('data', 'Home::dataMember'); // member_data.php
 // ARTIKEL
 // ==========================
 $routes->get('/artikel', 'Artikel::index');
-$routes->get('/artikel-kategori/(:num)', 'Artikel::kategori/$1');
+// $routes->get('/artikel-kategori/(:num)', 'Artikel::kategori/$1');
+$routes->get('artikel-kategori/(:segment)', 'Artikel::kategori/$1');
 $routes->get('/artikel/(:segment)', 'Artikel::detail/$1');
 
 
@@ -120,7 +120,9 @@ $routes->get('admin/delete/(:num)', 'Admin::deleteMember/$1');
 $routes->get('bpnadmin/verifikasi', 'Admin::verifikasiMember'); // tampilkan semua member
 $routes->get('bpnadmin/verifikasi/activate/(:num)', 'MemberController::activate/$1');
 $routes->get('bpnadmin/verifikasi/deactivate/(:num)', 'MemberController::deactivate/$1');
-
+// Tambah Verifikasi Member BPN
+$routes->get('activate/(:num)', 'MemberController::activate/$1');
+$routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
 // ==========================
 // PENDAFTARAN MEMBER
 // ==========================
@@ -239,7 +241,8 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function (
     $routes->post('delete-template/(:num)', 'Bpn::deleteTemplate/$1');
     // $routes->get('aduan', 'Bpn::listAduan');
     // $routes->get('admin/adminbpn', 'Bpn::listAduan');
-
+    $routes->post('admin/member/update_status/(:num)/(:any)', 'BpnController::updateStatus/$1/$2'); //baru 17 okt
+    $routes->get('admin/member/detail/(:num)', 'BpnController::getMemberDetail/$1');
 });
 // Broadcast Email
 $routes->get('admin/bpn/broadcast', 'BroadcastController::index');

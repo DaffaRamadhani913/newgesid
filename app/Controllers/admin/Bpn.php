@@ -169,10 +169,54 @@ class Bpn extends BaseController
 
         return view('admin/bpn/members/list_view', ['members' => $members]);
     }
+    public function updateStatus($id = null, $status = null)
+    {
+        $this->request->setGlobal('request', $_POST);
+
+        if (!$id || !$status) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Data tidak lengkap.'
+            ]);
+        }
+
+        if (!in_array($status, ['Aktif', 'Nonaktif'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Status tidak valid.'
+            ]);
+        }
+
+        $this->memberModel->update($id, ['status' => $status]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => "Status member berhasil diubah menjadi {$status}."
+        ]);
+    }
+
+    public function getMemberDetail($id)
+    {
+        $member = $this->memberModel
+            ->select('tb_members.*, prov.nama_provinsi, kota.nama_kota, kec.nama_kecamatan, desa.nama_desa')
+            ->join('tb_provinsi prov', 'prov.id_provinsi = tb_members.id_provinsi', 'left')
+            ->join('tb_kota_kabupaten kota', 'kota.id_kota = tb_members.id_kota', 'left')
+            ->join('tb_kecamatan kec', 'kec.id_kecamatan = tb_members.id_kecamatan', 'left')
+            ->join('tb_desa_kelurahan desa', 'desa.id_desa = tb_members.id_desa', 'left')
+            ->where('tb_members.id', $id)
+            ->first();
+
+        if ($member) {
+            return $this->response->setJSON($member);
+        } else {
+            return $this->response->setJSON(['error' => 'Data member tidak ditemukan.']);
+        }
+    }
+
 
     public function verifikasiMember()
     {
-        $search = $this->request->getGet('q'); // ambil input search
+        $search = $this->request->getGet('q'); // Ambil input pencarian
 
         $builder = $this->memberModel
             ->select('tb_members.*, prov.nama_provinsi, kota.nama_kota, kec.nama_kecamatan, desa.nama_desa')
@@ -180,9 +224,10 @@ class Bpn extends BaseController
             ->join('tb_kota_kabupaten kota', 'kota.id_kota = tb_members.id_kota', 'left')
             ->join('tb_kecamatan kec', 'kec.id_kecamatan = tb_members.id_kecamatan', 'left')
             ->join('tb_desa_kelurahan desa', 'desa.id_desa = tb_members.id_desa', 'left')
+            ->whereIn('tb_members.status', ['Pending', 'Nonaktif']) // ✅ tampilkan dua status sekaligus
             ->orderBy('tb_members.id', 'DESC'); // urutkan terbaru dulu
 
-        // kalau ada pencarian
+        // Jika ada pencarian
         if (!empty($search)) {
             $builder->groupStart()
                 ->like('tb_members.nama', $search)
@@ -192,11 +237,14 @@ class Bpn extends BaseController
                 ->groupEnd();
         }
 
-        $members = $builder->findAll();
+        // Pagination
+        $members = $builder->paginate(10); // tampilkan 10 data per halaman
+        $pager = $this->memberModel->pager;
 
         return view('admin/bpn/verifikasi_member', [
             'members' => $members,
-            'search' => $search
+            'search'  => $search,
+            'pager'   => $pager
         ]);
     }
 

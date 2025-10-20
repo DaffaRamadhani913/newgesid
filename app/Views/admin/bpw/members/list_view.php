@@ -236,59 +236,43 @@ $namaProv = $provinsi['nama_provinsi'] ?? session()->get('nama_provinsi') ?? '';
   </div>
 </div>
 
+
 <script>
-  // 🔍 Search
-  document.getElementById("searchInput").addEventListener("input", function() {
-    const val = this.value.toLowerCase();
-    document.querySelectorAll("#memberTable tbody tr").forEach(row => {
-      row.style.display = row.textContent.toLowerCase().includes(val) ? "" : "none";
-    });
-  });
-
-  // 🖼️ Image Zoom
-  document.querySelectorAll(".zoomable img").forEach(img => {
-    img.addEventListener("click", e => {
-      e.preventDefault();
-      document.getElementById("modalImage").src = img.src;
-      new bootstrap.Modal(document.getElementById("imageModal")).show();
-    });
-  });
-
-  // 🔽 Sortable Columns
-  document.querySelectorAll("#memberTable thead th").forEach((th, i) => {
-    th.addEventListener("click", () => {
-      if (!th.querySelector(".sort-icons")) return;
-      const table = th.closest("table");
-      const tbody = table.querySelector("tbody");
-      const rows = Array.from(tbody.querySelectorAll("tr"));
-      const up = th.querySelector(".up");
-      const down = th.querySelector(".down");
-      const isAsc = up.classList.contains("active");
-      table.querySelectorAll(".sort-icons .up, .sort-icons .down").forEach(el => el.classList.remove("active"));
-
-      rows.sort((a, b) => {
-        const aText = a.cells[i].innerText.trim().toLowerCase();
-        const bText = b.cells[i].innerText.trim().toLowerCase();
-        return isAsc ? bText.localeCompare(aText) : aText.localeCompare(bText);
-      });
-
-      rows.forEach(r => tbody.appendChild(r));
-      if (isAsc) down.classList.add("active");
-      else up.classList.add("active");
-    });
-  });
-</script>
-<script>
-  // 🟡 Fitur "Tampilkan N Data"
+  const searchInput = document.getElementById("searchInput");
   const showEntries = document.getElementById("showEntries");
+  const filterKota = document.getElementById("filterKota");
+  const filterDesa = document.getElementById("filterDesa");
   const memberTable = document.getElementById("memberTable");
   const tableRows = memberTable.querySelectorAll("tbody tr");
 
+  // 🔍 Fungsi filter dan pencarian
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const desaVal = filterDesa.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const kota = row.cells[6]?.textContent.toLowerCase() || "";
+      const desa = row.cells[8]?.textContent.toLowerCase() || "";
+
+      const matches =
+        text.includes(searchVal) &&
+        (!kotaVal || kota === kotaVal) &&
+        (!desaVal || desa === desaVal);
+
+      row.style.display = matches ? "" : "none";
+    });
+
+    updateVisibleRows();
+  }
+
+  // 📊 Fitur "Tampilkan N Data"
   function updateVisibleRows() {
     const val = showEntries.value;
     let visibleCount = 0;
 
-    tableRows.forEach((row, index) => {
+    tableRows.forEach(row => {
       const isVisible = row.style.display !== "none";
       if (isVisible) {
         if (val === "all" || visibleCount < parseInt(val)) {
@@ -304,39 +288,16 @@ $namaProv = $provinsi['nama_provinsi'] ?? session()->get('nama_provinsi') ?? '';
     });
   }
 
-  // Integrasi dengan filter
-  function filterTable() {
-    const searchVal = searchInput.value.toLowerCase();
-    const provVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
-    const desaVal = filterDesa.value.toLowerCase();
-
-    tableRows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      const prov = row.cells[6]?.textContent.toLowerCase() || "";
-      const kota = row.cells[7]?.textContent.toLowerCase() || "";
-      const desa = row.cells[9]?.textContent.toLowerCase() || "";
-
-      const matches =
-        text.includes(searchVal) &&
-        (!provVal || prov === provVal) &&
-        (!kotaVal || kota === kotaVal) &&
-        (!desaVal || desa === desaVal);
-
-      row.style.display = matches ? "" : "none";
-    });
-
-    updateVisibleRows();
-  }
-
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
+  // 🔗 Event Listener
+  [searchInput, filterKota, filterDesa].forEach(el =>
     el.addEventListener("input", filterTable)
   );
 
   showEntries.addEventListener("change", updateVisibleRows);
 
   // Jalankan pertama kali
-  updateVisibleRows();
+  filterTable();
 </script>
+
 
 <?= $this->endSection() ?>
