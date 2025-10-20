@@ -63,8 +63,8 @@ $routes->get('data', 'Home::dataMember'); // member_data.php
             $routes->get('/', 'MemberController::index');
             $routes->get('dashboard', 'MemberController::dashboard');
             $routes->get('view/(:num)', 'MemberController::view/$1');
-            $routes->get('activate/(:num)', 'MemberController::activate/$1');
-            $routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
+            // $routes->get('activate/(:num)', 'MemberController::activate/$1');
+            // $routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
 
             // Aduan
             $routes->get('aduan', 'MemberController::aduanForm');
@@ -120,6 +120,9 @@ $routes->get('admin/delete/(:num)', 'Admin::deleteMember/$1');
 $routes->get('bpnadmin/verifikasi', 'Admin::verifikasiMember'); // tampilkan semua member
 $routes->get('bpnadmin/verifikasi/activate/(:num)', 'MemberController::activate/$1');
 $routes->get('bpnadmin/verifikasi/deactivate/(:num)', 'MemberController::deactivate/$1');
+// tambahan dari verifikasi member 
+$routes->get('activate/(:num)', 'MemberController::activate/$1');
+$routes->get('deactivate/(:num)', 'MemberController::deactivate/$1');
 
 // ==========================
 // PENDAFTARAN MEMBER
