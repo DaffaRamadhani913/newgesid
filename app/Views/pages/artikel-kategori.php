@@ -4,7 +4,7 @@
 <section class="py-5">
     <div class="container">
         <h2 class="fw-bold mb-4" data-aos="fade-up">
-            Kategori: <?= esc($kategori_nama) ?>
+            Kategori: <?= esc($kategori) ?>
         </h2>
         <div class="row">
             <?php if (!empty($artikel)): ?>

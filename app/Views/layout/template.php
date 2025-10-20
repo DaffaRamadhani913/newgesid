@@ -67,16 +67,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url('artikel-kategori/1') ?>"
-                                    class="<?= ($uri->getSegment(1) == 'artikel-kategori' && $uri->getSegment(2) == '1') ? 'active' : '' ?>">
-                                    Lingkungan & Keberlanjutan
-                                </a>
+                                <a href="<?= base_url('artikel-kategori/lingkungan-keberlanjutan') ?>">Lingkungan & Keberlanjutan</a>
                             </li>
                             <li>
-                                <a href="<?= base_url('artikel-kategori/2') ?>"
-                                    class="<?= ($uri->getSegment(1) == 'artikel-kategori' && $uri->getSegment(2) == '2') ? 'active' : '' ?>">
-                                    Pertanian & Ekonomi
-                                </a>
+                                <a href="<?= base_url('artikel-kategori/pertanian-ekonomi') ?>">Pertanian & Ekonomi</a>
                             </li>
                         </ul>
                     </li>
@@ -124,7 +118,7 @@
                         <a href="#"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
-    
+
                 <!-- Menu Tentang GESID -->
                 <div class="col-lg-2 col-6 footer-links">
                     <h4>Tentang GESID</h4>
@@ -135,7 +129,7 @@
                         <li><a href="<?= base_url('pengurus-bpn') ?>">Pengurus BPN</a></li>
                     </ul>
                 </div>
-    
+
                 <!-- Menu Artikel -->
                 <div class="col-lg-2 col-6 footer-links">
                     <h4>Artikel</h4>
@@ -145,7 +139,7 @@
                         <li><a href="<?= base_url('artikel-kategori/2') ?>">Pertanian & Ekonomi</a></li>
                     </ul>
                 </div>
-    
+
                 <!-- Kontak -->
                 <div class="col-lg-3 col-md-12 footer-contact">
                     <h4>Kontak Kami</h4>
@@ -153,13 +147,13 @@
                     <p class="mb-2"><strong>Alamat:</strong> Jl. Contoh No. 123, Jakarta, Indonesia</p>
                     <p class="mb-0"><strong>Phone:</strong> +62 812 3456 7890</p>
                 </div>
-                </div>
             </div>
         </div>
-    
+        </div>
+
         <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> 
-                <strong class="px-1 sitename">Generasi Emas Indonesia</strong> 
+            <p>© <span>Copyright</span>
+                <strong class="px-1 sitename">Generasi Emas Indonesia</strong>
                 <span>All Rights Reserved</span>
             </p>
             <div class="credits">

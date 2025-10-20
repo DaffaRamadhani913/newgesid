@@ -167,6 +167,7 @@
   <?php if (!empty($members) && is_array($members)): ?>
     <div class="table-responsive">
       <table id="memberTable" class="table table-hover align-middle text-center gold-border rounded-3">
+        <!-- Tambahan kolom Edit & Aktif/Nonaktif -->
         <thead>
           <tr>
             <th>No <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
@@ -181,7 +182,9 @@
             <th>Desa <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
             <th>Foto KTP</th>
             <th>Foto Wajah</th>
+            <th>Edit</th> <!-- 🔧 kolom baru -->
             <th>Status <span class="sort-icons"><span class="up">▲</span><span class="down">▼</span></span></th>
+            <th>Aksi</th> <!-- 🔧 kolom baru -->
           </tr>
         </thead>
         <tbody>
@@ -210,6 +213,17 @@
                   <img src="<?= base_url('assets/images/verifikasi/wajah/' . $member['foto_wajah']) ?>" alt="Foto Wajah" width="80" class="img-thumbnail">
                 </a>
               </td>
+
+              <!-- 🔧 Tombol Edit (buka modal detail) -->
+              <td>
+                <button
+                  class="btn btn-sm btn-warning text-dark fw-semibold edit-btn"
+                  data-member='<?= json_encode($member) ?>'>
+                  <i class="bi bi-pencil-square"></i> Edit
+                </button>
+              </td>
+
+              <!-- Status -->
               <td>
                 <?php if ($member['status'] === 'Aktif'): ?>
                   <span class="badge bg-success">Aktif</span>
@@ -217,9 +231,23 @@
                   <span class="badge bg-secondary">Nonaktif</span>
                 <?php endif; ?>
               </td>
+
+              <!-- 🔧 Tombol Aktif/Nonaktifkan -->
+              <td>
+                <?php if ($member['status'] === 'Aktif'): ?>
+                  <button class="btn btn-sm btn-outline-danger toggle-status" data-id="<?= $member['id'] ?>" data-status="Nonaktif">
+                    Nonaktifkan
+                  </button>
+                <?php else: ?>
+                  <button class="btn btn-sm btn-outline-success toggle-status" data-id="<?= $member['id'] ?>" data-status="Aktif">
+                    Aktifkan
+                  </button>
+                <?php endif; ?>
+              </td>
             </tr>
           <?php endforeach; ?>
         </tbody>
+
       </table>
     </div>
   <?php else: ?>
@@ -239,6 +267,26 @@
     </div>
   </div>
 </div>
+<!-- Modal Detail Member -->
+<div class="modal fade" id="memberDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-light border border-warning rounded-4">
+      <div class="modal-header border-warning">
+        <h5 class="modal-title gold-text fw-bold">Detail Data Member</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="memberDetailContent"></div>
+      </div>
+      <div class="modal-footer border-warning">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const base_url = "<?= base_url() ?>";
+</script>
 
 <script>
   // 🔎 Combined search & filter
@@ -369,6 +417,82 @@
   // Jalankan pertama kali
   updateVisibleRows();
 </script>
+<script>
+  // 🔧 Event Tombol Edit (Tampilkan Modal Detail)
+  document.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      const data = JSON.parse(this.dataset.member);
+      const modalBody = document.getElementById("memberDetailContent");
 
+      modalBody.innerHTML = `
+      <div class="row g-3">
+        <div class="col-md-6">
+          <p><strong>Nama:</strong> ${data.nama}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Telepon:</strong> ${data.telepon}</p>
+          <p><strong>Pekerjaan:</strong> ${data.pekerjaan}</p>
+          <p><strong>Alamat:</strong> ${data.alamat}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Provinsi:</strong> ${data.nama_provinsi}</p>
+          <p><strong>Kota:</strong> ${data.nama_kota}</p>
+          <p><strong>Kecamatan:</strong> ${data.nama_kecamatan}</p>
+          <p><strong>Desa:</strong> ${data.nama_desa}</p>
+          <p><strong>Status:</strong> 
+            <span class="badge ${data.status === 'Aktif' ? 'bg-success' : 'bg-secondary'}">${data.status}</span>
+          </p>
+        </div>
+        <div class="text-center mt-3">
+          <img src="${base_url}/assets/images/verifikasi/ktp/${data.foto_ktp}" alt="KTP" width="120" class="img-thumbnail m-2">
+          <img src="${base_url}/assets/images/verifikasi/wajah/${data.foto_wajah}" alt="Wajah" width="120" class="img-thumbnail m-2">
+        </div>
+      </div>
+    `;
+
+      new bootstrap.Modal(document.getElementById("memberDetailModal")).show();
+    });
+  });
+
+  // 🔧 Tombol Aktif / Nonaktifkan Member
+  document.querySelectorAll(".toggle-status").forEach(btn => {
+    btn.addEventListener("click", function() {
+      const id = this.dataset.id;
+      const newStatus = this.dataset.status;
+
+      if (confirm(`Apakah kamu yakin ingin mengubah status member menjadi ${newStatus}?`)) {
+        // Di sini bisa disesuaikan ke route Laravel / CodeIgniter update status
+        // Contoh sederhana (AJAX simulasi):
+        fetch(`<?= base_url('admin/member/update_status') ?>/${id}/${newStatus}`, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+            },
+            body: JSON.stringify({})
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            if (data.success) {
+              // update langsung tanpa reload
+              const badge = document.querySelector(`button[data-id="${id}"]`).closest('tr').querySelector('td:nth-child(14) span');
+              badge.textContent = newStatus;
+              badge.className = newStatus === 'Aktif' ? 'badge bg-success' : 'badge bg-secondary';
+
+              const button = document.querySelector(`button[data-id="${id}"]`);
+              button.textContent = newStatus === 'Aktif' ? 'Nonaktifkan' : 'Aktifkan';
+              button.className = newStatus === 'Aktif' ?
+                'btn btn-sm btn-outline-danger toggle-status' :
+                'btn btn-sm btn-outline-success toggle-status';
+              button.dataset.status = newStatus === 'Aktif' ? 'Nonaktif' : 'Aktif';
+            }
+          })
+          .catch(err => console.error(err));
+
+      }
+    });
+  });
+</script>
 
 <?= $this->endSection() ?>

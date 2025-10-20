@@ -65,14 +65,14 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
     <h2 class="gold-text gold-shadow fw-bold">
       Data Member GESID - BPDes<?= $namaDesa ? ' (' . esc($namaDesa) . ')' : '' ?>
     </h2>
-    <p class="text-muted" style="color: #fff !important;">Berikut adalah daftar member yang terdaftar di wilayah desa
-      Anda.</p>
+    <p class="text-muted" style="color: #fff !important;">
+      Berikut adalah daftar member yang terdaftar di wilayah desa Anda.
+    </p>
   </div>
-  <!-- 🔍 Search & Filter Bar -->
-  <!-- 🔍 Search, Filter, & Tampilkan Data -->
+
+  <!-- 🔍 Search & Show Data -->
   <div class="card shadow-sm border-0 bg-dark text-light rounded-4 p-3 mb-4">
     <div class="row g-3 align-items-end justify-content-center text-center">
-
       <!-- Tampilkan Jumlah Data -->
       <div class="col-md-2 col-6">
         <label class="fw-semibold small text-uppercase text-warning mb-1">Tampilkan</label>
@@ -94,13 +94,6 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
             placeholder="Cari member...">
         </div>
       </div>
-
-
-
-
-
-
-
     </div>
   </div>
 
@@ -137,68 +130,31 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
   <?php endif; ?>
 </div>
 
+<!-- 🧠 SCRIPT PERBAIKAN -->
 <script>
-  // 🔎 Combined search & filter
   const searchInput = document.getElementById("searchInput");
-  const filterProvinsi = document.getElementById("filterProvinsi");
-  const filterKota = document.getElementById("filterKota");
-  const filterDesa = document.getElementById("filterDesa");
-
-  function filterTable() {
-    const searchVal = searchInput.value.toLowerCase();
-    const provVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
-    const desaVal = filterDesa.value.toLowerCase();
-
-    const rows = document.querySelectorAll("#memberTable tbody tr");
-
-    rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      const prov = row.cells[6].textContent.toLowerCase();
-      const kota = row.cells[7].textContent.toLowerCase();
-      const desa = row.cells[9].textContent.toLowerCase();
-
-      const matches = text.includes(searchVal) &&
-        (!provVal || prov === provVal) &&
-        (!kotaVal || kota === kotaVal) &&
-        (!desaVal || desa === desaVal);
-
-      row.style.display = matches ? "" : "none";
-    });
-  }
-
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => el.addEventListener("input", filterTable));
-
-  // 🖼 Zoom image modal
-  document.querySelectorAll(".zoomable img").forEach(img => {
-    img.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.getElementById("modalImage").src = this.src;
-      new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-  });
-
-  // Zoom image modal
-  document.querySelectorAll(".img-thumbnail").forEach(img => {
-    img.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.getElementById("modalImage").src = this.src;
-      new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-  });
-</script>
-
-<script>
-  // 🟡 Fitur "Tampilkan N Data"
   const showEntries = document.getElementById("showEntries");
   const memberTable = document.getElementById("memberTable");
   const tableRows = memberTable.querySelectorAll("tbody tr");
 
+  // 🔍 Fungsi pencarian semua kolom
+  function filterTable() {
+    const searchVal = searchInput.value.toLowerCase();
+
+    tableRows.forEach(row => {
+      const rowText = Array.from(row.cells).map(cell => cell.textContent.toLowerCase()).join(" ");
+      row.style.display = rowText.includes(searchVal) ? "" : "none";
+    });
+
+    updateVisibleRows();
+  }
+
+  // 🟡 Fitur "Tampilkan N Data"
   function updateVisibleRows() {
     const val = showEntries.value;
     let visibleCount = 0;
 
-    tableRows.forEach((row, index) => {
+    tableRows.forEach(row => {
       const isVisible = row.style.display !== "none";
       if (isVisible) {
         if (val === "all" || visibleCount < parseInt(val)) {
@@ -214,38 +170,12 @@ $namaDesa = $desa['nama_desa'] ?? session()->get('nama_desa') ?? '';
     });
   }
 
-  // Integrasi dengan filter
-  function filterTable() {
-    const searchVal = searchInput.value.toLowerCase();
-    const provVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
-    const desaVal = filterDesa.value.toLowerCase();
-
-    tableRows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      const prov = row.cells[6]?.textContent.toLowerCase() || "";
-      const kota = row.cells[7]?.textContent.toLowerCase() || "";
-      const desa = row.cells[9]?.textContent.toLowerCase() || "";
-
-      const matches =
-        text.includes(searchVal) &&
-        (!provVal || prov === provVal) &&
-        (!kotaVal || kota === kotaVal) &&
-        (!desaVal || desa === desaVal);
-
-      row.style.display = matches ? "" : "none";
-    });
-
-    updateVisibleRows();
-  }
-
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
-    el.addEventListener("input", filterTable)
-  );
-
+  // Event listener
+  searchInput.addEventListener("input", filterTable);
   showEntries.addEventListener("change", updateVisibleRows);
 
-  // Jalankan pertama kali
-  updateVisibleRows();
+  // Jalankan saat pertama kali
+  filterTable();
 </script>
+
 <?= $this->endSection() ?>
