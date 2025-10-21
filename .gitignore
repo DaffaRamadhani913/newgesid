@@ -35,5 +35,6 @@ writable/uploads/*
 
 writable/debugbar/*
 !writable/debugbar/index.html
+writable/
 
 php_errors.log
