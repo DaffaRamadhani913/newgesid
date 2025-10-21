@@ -160,69 +160,70 @@ $routes->group('wilayah', function ($routes) {
 // ROUTE KHUSUS SUPERADMIN
 // ==========================
 // $routes->get('superadmin/dashboard', 'Superadmin\Dashboard::index');
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin'], function ($routes) {
-    $routes->get('/', 'superadmin::dashboard'); // akses via /admin/bpn
-    $routes->get('data-member', 'superadmin::dataMember');
+$routes->group('admin/superadmin', [
+    'namespace' => 'App\Controllers\admin',
+    'filter' => 'role:superadmin' // hanya superadmin yang boleh masuk
+], function ($routes) {
+
+    // --- Dashboard & Data Member ---
+    $routes->get('/', 'Superadmin::dashboard');
+    $routes->get('data-member', 'Superadmin::dataMember');
+
+    // --- Verifikasi Artikel & Acara ---
+    $routes->get('verifikasi-artikel', '\App\Controllers\VerifikasiArtikel::index');
+    $routes->get('verifikasi-artikel/approve/(:num)', '\App\Controllers\VerifikasiArtikel::approve/$1');
+    $routes->get('verifikasi-artikel/reject/(:num)', '\App\Controllers\VerifikasiArtikel::reject/$1');
+    $routes->get('verifikasi-acara', '\App\Controllers\VerifikasiAcara::index');
+    $routes->get('verifikasi-acara/approve/(:num)', '\App\Controllers\VerifikasiAcara::approve/$1');
+    $routes->get('verifikasi-acara/reject/(:num)', '\App\Controllers\VerifikasiAcara::reject/$1');
+
+    // --- Tambah Admin BPN ---
+    $routes->group('tambahadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
+        $routes->get('adminbpn', 'BpnController::index');
+        $routes->get('adminbpn/create', 'BpnController::create');
+        $routes->post('adminbpn/store', 'BpnController::store');
+        $routes->get('adminbpn/edit/(:num)', 'BpnController::edit/$1');
+        $routes->post('adminbpn/update/(:num)', 'BpnController::update/$1');
+        $routes->get('adminbpn/delete/(:num)', 'BpnController::delete/$1');
+
+        // --- Admin BPD ---
+        $routes->get('adminbpd', 'BpdController::index');
+        $routes->get('adminbpd/create', 'BpdController::create');
+        $routes->post('adminbpd/store', 'BpdController::store');
+        $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
+        $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
+        $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
+
+        // --- Admin BPDES ---
+        $routes->get('adminbpdes', 'BpdesController::index');
+        $routes->get('adminbpdes/create', 'BpdesController::create');
+        $routes->post('adminbpdes/store', 'BpdesController::store');
+        $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
+        $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
+        $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
+        $routes->get('adminbpdes/desa-by-kecamatan/(:num)', 'BpdesController::desaByKecamatan/$1');
+
+        // --- Admin BPW ---
+        $routes->get('adminbpw', 'BpwController::index');
+        $routes->get('adminbpw/create', 'BpwController::create');
+        $routes->post('adminbpw/store', 'BpwController::store');
+        $routes->get('adminbpw/edit/(:num)', 'BpwController::edit/$1');
+        $routes->post('adminbpw/update/(:num)', 'BpwController::update/$1');
+        $routes->get('adminbpw/delete/(:num)', 'BpwController::delete/$1');
+    });
 });
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->get('verifikasi-artikel', 'VerifikasiArtikel::index');
-    $routes->get('verifikasi-artikel/approve/(:num)', 'VerifikasiArtikel::approve/$1');
-    $routes->get('verifikasi-artikel/reject/(:num)', 'VerifikasiArtikel::reject/$1');
-    $routes->get('verifikasi-acara', 'VerifikasiAcara::index');
-    $routes->get('verifikasi-acara/approve/(:num)', 'VerifikasiAcara::approve/$1');
-    $routes->get('verifikasi-acara/reject/(:num)', 'VerifikasiAcara::reject/$1');
-});
 
-
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-
-    $routes->get('adminbpn', 'BpnController::index');
-    $routes->get('adminbpn/create', 'BpnController::create');
-    $routes->post('adminbpn/store', 'BpnController::store');
-    $routes->get('adminbpn/edit/(:num)', 'BpnController::edit/$1');
-    $routes->post('adminbpn/update/(:num)', 'BpnController::update/$1');
-    $routes->get('adminbpn/delete/(:num)', 'BpnController::delete/$1');
-});
-
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-    $routes->get('adminbpd', 'BpdController::index');
-    $routes->get('adminbpd/create', 'BpdController::create');
-    $routes->post('adminbpd/store', 'BpdController::store');
-    $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
-    $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
-    $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
-
-});
-
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-    $routes->get('adminbpdes', 'BpdesController::index');
-    $routes->get('adminbpdes/create', 'BpdesController::create');
-    $routes->post('adminbpdes/store', 'BpdesController::store');
-    $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
-    $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
-    $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
-
-    $routes->get('adminbpdes/desa-by-kecamatan/(:num)', 'BpdesController::desaByKecamatan/$1');
-
-});
-
-$routes->group('admin/superadmin', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-    $routes->get('adminbpw', 'BpwController::index');
-    $routes->get('adminbpw/create', 'BpwController::create');
-    $routes->post('adminbpw/store', 'BpwController::store');
-    $routes->get('adminbpw/edit/(:num)', 'BpwController::edit/$1');
-    $routes->post('adminbpw/update/(:num)', 'BpwController::update/$1');
-    $routes->get('adminbpw/delete/(:num)', 'BpwController::delete/$1');
-
-});
 
 // ==========================
 // BPN ADMIN AREA
 // ==========================
-$routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function ($routes) {
-    $routes->get('/', 'Bpn::index'); // akses via /admin/bpn
+// Group utama untuk role BPN
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers\admin',
+    'filter' => 'role:bpn' // ⬅️ tambahkan ini
+], function ($routes) {
+    $routes->get('/', 'Bpn::index');
     $routes->get('data-member', 'Bpn::dataMember');
-    // $routes->get('dashboard', 'Bpn::dashboard'); // akses via /admin/bpn/dashboard
     $routes->get('verifikasi-member', 'Bpn::verifikasiMember');
     $routes->get('artikel', 'Bpn::indexArtikel');
     $routes->get('buat-artikel', 'Bpn::buatArtikel');
@@ -242,33 +243,41 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin'], function (
     $routes->get('edit-template/(:num)', 'Bpn::editTemplate/$1');
     $routes->post('update-template/(:num)', 'Bpn::updateTemplate/$1');
     $routes->post('delete-template/(:num)', 'Bpn::deleteTemplate/$1');
-    // $routes->get('aduan', 'Bpn::listAduan');
-    // $routes->get('admin/adminbpn', 'Bpn::listAduan');
-    $routes->post('admin/member/update_status/(:num)/(:any)', 'BpnController::updateStatus/$1/$2'); //baru 17 okt
+    $routes->post('admin/member/update_status/(:num)/(:any)', 'BpnController::updateStatus/$1/$2');
     $routes->get('admin/member/detail/(:num)', 'BpnController::getMemberDetail/$1');
 });
-// Broadcast Email
-$routes->get('admin/bpn/broadcast', 'BroadcastController::index');
-$routes->get('admin/bpn/broadcast/form', 'BroadcastController::form'); // show form
-$routes->post('admin/bpn/broadcast/send', 'BroadcastController::send');
 
-$routes->get('admin/bpn/view-artikel', 'VerifikasiArtikel::viewArtikel');
-$routes->get('admin/bpn/view-acara', 'VerifikasiAcara::viewAcara');
-$routes->get('admin/bpn/view-broadcast', 'BroadcastController::viewBroadcast');
+// Broadcast Email (tambahkan filter juga)
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers',
+    'filter' => 'role:bpn' // ⬅️ filter wajib
+], function ($routes) {
+    $routes->get('broadcast', 'BroadcastController::index');
+    $routes->get('broadcast/form', 'BroadcastController::form');
+    $routes->post('broadcast/send', 'BroadcastController::send');
+    $routes->get('view-artikel', 'VerifikasiArtikel::viewArtikel');
+    $routes->get('view-acara', 'VerifikasiAcara::viewAcara');
+    $routes->get('view-broadcast', 'BroadcastController::viewBroadcast');
+});
 
-
-
-$routes->group('admin/bpn', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
+// Tambah Admin BPW (masih di bawah BPN)
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers\admin\TambahAdmin',
+    'filter' => 'role:bpn' // ⬅️ filter ditambah di sini juga
+], function ($routes) {
     $routes->get('adminbpw', 'BpwController::index');
     $routes->get('adminbpw/create', 'BpwController::create');
     $routes->post('adminbpw/store', 'BpwController::store');
     $routes->get('adminbpw/edit/(:num)', 'BpwController::edit/$1');
     $routes->post('adminbpw/update/(:num)', 'BpwController::update/$1');
     $routes->get('adminbpw/delete/(:num)', 'BpwController::delete/$1');
-
 });
 
-$routes->group('admin/bpn', ['namespace' => 'App\Controllers'], function ($routes) {
+// Verifikasi Artikel & Acara (tetap filter BPN)
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers',
+    'filter' => 'role:bpn' // ⬅️ filter BPN wajib
+], function ($routes) {
     $routes->get('verifikasi-artikel', 'VerifikasiArtikel::index');
     $routes->get('verifikasi-artikel/approve/(:num)', 'VerifikasiArtikel::approve/$1');
     $routes->get('verifikasi-artikel/reject/(:num)', 'VerifikasiArtikel::reject/$1');
@@ -277,86 +286,96 @@ $routes->group('admin/bpn', ['namespace' => 'App\Controllers'], function ($route
     $routes->get('verifikasi-acara/reject/(:num)', 'VerifikasiAcara::reject/$1');
 });
 
+
 // ==========================
 // BPD ADMIN AREA
 // ==========================
-$routes->group('admin/bpd', ['namespace' => 'App\Controllers\admin'], function ($routes) {
-    $routes->get('/', 'Bpd::index');
-    $routes->get('data-member', 'Bpd::dataMember');
-    // $routes->get('dashboard', 'Bpd::dashboard');
-    // $routes->get('verifikasi-member', 'Bpd::verifikasiMember');
-    $routes->get('aduan', 'Bpd::listAduan');
-    // $routes->post('aduan/kirim', 'Bpd::kirimAduan');
-    $routes->post('kirimRespons/(:num)', 'Bpd::kirimRespons/$1');
-    $routes->get('artikel', 'Bpd::indexArtikel');
-    $routes->get('buat-artikel', 'Bpd::buatArtikel');
-    $routes->post('simpan-artikel', 'Bpd::simpanArtikel');
-    $routes->get('edit-artikel/(:num)', 'Bpd::editArtikel/$1');
-    $routes->post('update-artikel/(:num)', 'Bpd::updateArtikel/$1');
-    $routes->post('delete-artikel/(:num)', 'Bpd::deleteArtikel/$1');
-    $routes->get('acara', 'Bpd::indexAcara');
-    $routes->get('buat-acara', 'Bpd::buatAcara');
-    $routes->post('simpan-acara', 'Bpd::simpanAcara');
-    $routes->get('edit-acara/(:num)', 'Bpd::editAcara/$1');
-    $routes->post('update-acara/(:num)', 'Bpd::updateAcara/$1');
-    $routes->post('delete-acara/(:num)', 'Bpd::deleteAcara/$1');
-    $routes->get('template', 'Bpd::template');
-    $routes->get('download-template/(:num)', 'Bpd::downloadTemplate/$1');
-});
+$routes->group('admin/bpd', [
+    'namespace' => 'App\Controllers\admin',
+    'filter' => 'role:bpd' // hanya bisa diakses oleh role 'bpd'
+    ], function ($routes) {
+        $routes->get('/', 'Bpd::index');
+        $routes->get('data-member', 'Bpd::dataMember');
+        $routes->get('aduan', 'Bpd::listAduan');
+        $routes->post('kirimRespons/(:num)', 'Bpd::kirimRespons/$1');
+        $routes->get('artikel', 'Bpd::indexArtikel');
+        $routes->get('buat-artikel', 'Bpd::buatArtikel');
+        $routes->post('simpan-artikel', 'Bpd::simpanArtikel');
+        $routes->get('edit-artikel/(:num)', 'Bpd::editArtikel/$1');
+        $routes->post('update-artikel/(:num)', 'Bpd::updateArtikel/$1');
+        $routes->post('delete-artikel/(:num)', 'Bpd::deleteArtikel/$1');
+        $routes->get('acara', 'Bpd::indexAcara');
+        $routes->get('buat-acara', 'Bpd::buatAcara');
+        $routes->post('simpan-acara', 'Bpd::simpanAcara');
+        $routes->get('edit-acara/(:num)', 'Bpd::editAcara/$1');
+        $routes->post('update-acara/(:num)', 'Bpd::updateAcara/$1');
+        $routes->post('delete-acara/(:num)', 'Bpd::deleteAcara/$1');
+        $routes->get('template', 'Bpd::template');
+        $routes->get('download-template/(:num)', 'Bpd::downloadTemplate/$1');
+    });
 
-$routes->group('admin/bpd', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-    $routes->get('adminbpdes', 'BpdesController::index');
-    $routes->get('adminbpdes/create', 'BpdesController::create');
-    $routes->post('adminbpdes/store', 'BpdesController::store');
-    $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
-    $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
-    $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
+    $routes->group('admin/bpd', [
+        'namespace' => 'App\Controllers\admin\TambahAdmin',
+        'filter' => 'role:bpd' // hanya bisa diakses oleh role 'bpd'
+    ], function ($routes) {
+        $routes->get('adminbpdes', 'BpdesController::index');
+        $routes->get('adminbpdes/create', 'BpdesController::create');
+        $routes->post('adminbpdes/store', 'BpdesController::store');
+        $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
+        $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
+        $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
+        $routes->get('adminbpdes/desa-by-kecamatan/(:num)', 'BpdesController::desaByKecamatan/$1');
+    });
 
-    $routes->get('adminbpdes/desa-by-kecamatan/(:num)', 'BpdesController::desaByKecamatan/$1');
-
-});
 
 
 // ==========================
 // BPW ADMIN AREA
 // ==========================
-$routes->group('admin/bpw', ['namespace' => 'App\Controllers\admin'], function ($routes) {
-    $routes->get('/', 'Bpw::index');
-    $routes->get('data-member', 'Bpw::dataMember');
-    $routes->get('artikel', 'Bpw::indexArtikel');
-    $routes->get('buat-artikel', 'Bpw::buatArtikel');
-    $routes->post('simpan-artikel', 'Bpw::simpanArtikel');
-    $routes->get('edit-artikel/(:num)', 'Bpw::editArtikel/$1');
-    $routes->post('update-artikel/(:num)', 'Bpw::updateArtikel/$1');
-    $routes->post('delete-artikel/(:num)', 'Bpw::deleteArtikel/$1');
-    $routes->get('acara', 'Bpw::indexAcara');
-    $routes->get('buat-acara', 'Bpw::buatAcara');
-    $routes->post('simpan-acara', 'Bpw::simpanAcara');
-    $routes->get('edit-acara/(:num)', 'Bpw::editAcara/$1');
-    $routes->post('update-acara/(:num)', 'Bpw::updateAcara/$1');
-    $routes->post('delete-acara/(:num)', 'Bpw::deleteAcara/$1');
-    $routes->get('template', 'Bpw::template');
-    $routes->get('download-template/(:num)', 'Bpw::downloadTemplate/$1');
-});
+$routes->group('admin/bpw', [
+    'namespace' => 'App\Controllers\admin',
+    'filter' => 'role:bpw' // hanya role BPW yang bisa mengakses
+    ], function ($routes) {
+        $routes->get('/', 'Bpw::index');
+        $routes->get('data-member', 'Bpw::dataMember');
+        $routes->get('artikel', 'Bpw::indexArtikel');
+        $routes->get('buat-artikel', 'Bpw::buatArtikel');
+        $routes->post('simpan-artikel', 'Bpw::simpanArtikel');
+        $routes->get('edit-artikel/(:num)', 'Bpw::editArtikel/$1');
+        $routes->post('update-artikel/(:num)', 'Bpw::updateArtikel/$1');
+        $routes->post('delete-artikel/(:num)', 'Bpw::deleteArtikel/$1');
+        $routes->get('acara', 'Bpw::indexAcara');
+        $routes->get('buat-acara', 'Bpw::buatAcara');
+        $routes->post('simpan-acara', 'Bpw::simpanAcara');
+        $routes->get('edit-acara/(:num)', 'Bpw::editAcara/$1');
+        $routes->post('update-acara/(:num)', 'Bpw::updateAcara/$1');
+        $routes->post('delete-acara/(:num)', 'Bpw::deleteAcara/$1');
+        $routes->get('template', 'Bpw::template');
+        $routes->get('download-template/(:num)', 'Bpw::downloadTemplate/$1');
+    });
 
-$routes->group('admin/bpw', ['namespace' => 'App\Controllers\admin\TambahAdmin'], function ($routes) {
-    $routes->get('adminbpd', 'BpdController::index');
-    $routes->get('adminbpd/create', 'BpdController::create');
-    $routes->post('adminbpd/store', 'BpdController::store');
-    $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
-    $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
-    $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
+    $routes->group('admin/bpw', [
+        'namespace' => 'App\Controllers\admin\TambahAdmin',
+        'filter' => 'role:bpw' // filter tambahan untuk bagian tambah admin
+    ], function ($routes) {
+        $routes->get('adminbpd', 'BpdController::index');
+        $routes->get('adminbpd/create', 'BpdController::create');
+        $routes->post('adminbpd/store', 'BpdController::store');
+        $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
+        $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
+        $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
+    });
 
-});
 
 // ==========================
 // BPDES ADMIN AREA
 // ==========================
-$routes->group('admin/bpdes', ['namespace' => 'App\Controllers\admin'], function ($routes) {
+$routes->group('admin/bpdes', [
+    'namespace' => 'App\Controllers\admin',
+    'filter' => 'role:bpdes' // hanya role BPDes yang boleh
+], function ($routes) {
     $routes->get('/', 'Bpdes::index');
     $routes->get('data-member', 'Bpdes::dataMember');
-    // $routes->get('dashboard', 'Bpdes::dashboard');
-    // $routes->get('verifikasi-member', 'Bpdes::verifikasiMember');
     $routes->get('aduan', 'Bpdes::listAduan');
     $routes->post('aduan/kirim', 'Bpdes::kirimAduan');
     $routes->get('artikel', 'Bpdes::indexArtikel');
@@ -374,6 +393,7 @@ $routes->group('admin/bpdes', ['namespace' => 'App\Controllers\admin'], function
     $routes->get('template', 'Bpdes::template');
     $routes->get('download-template/(:num)', 'Bpdes::downloadTemplate/$1');
 });
+
 
 
 
