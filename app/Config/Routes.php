@@ -278,7 +278,7 @@ $routes->group('admin/bpn', [
     'namespace' => 'App\Controllers\admin\TambahAdmin',
     'filter' => 'role:bpn' // ⬅ filter ditambah di sini juga
 ], function ($routes) {
-    $routes->get('adminbpd', 'BpdController::index');
+    $routes->get('adminbpd', 'BpdController::index_bpd');
     $routes->get('adminbpd/create', 'BpdController::create');
     $routes->post('adminbpd/store', 'BpdController::store');
     $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
@@ -291,7 +291,7 @@ $routes->group('admin/bpn', [
     'namespace' => 'App\Controllers\admin\TambahAdmin',
     'filter' => 'role:bpn' // ⬅ filter ditambah di sini juga
 ], function ($routes) {
-    $routes->get('adminbpdes', 'BpdesController::index');
+    $routes->get('adminbpdes', 'BpdesController::index_bpdes');
     $routes->get('adminbpdes/create', 'BpdesController::create');
     $routes->post('adminbpdes/store', 'BpdesController::store');
     $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');

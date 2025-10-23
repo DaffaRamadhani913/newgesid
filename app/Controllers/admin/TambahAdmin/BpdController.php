@@ -29,6 +29,18 @@ class BpdController extends BaseController
         return view('admin/bpw/tampilan/pengurus/index', $data);
     }
 
+        //  show bpd di bpn
+        public function index_bpd()
+    {
+        // Join tb_bpd with tb_kota_kabupaten to get kota name
+        $data['bpd_admins'] = $this->bpdModel
+            ->select('tb_bpd.*, tb_kota_kabupaten.nama_kota')
+            ->join('tb_kota_kabupaten', 'tb_kota_kabupaten.id_kota = tb_bpd.id_kota', 'left')
+            ->findAll();
+
+        return view('admin/bpn/tampilan/pengurus/index_bpd', $data);
+    }
+
     public function create()
     {
         $data['kota'] = $this->kotaModel->findAll();

@@ -38,7 +38,25 @@ class BpdesController extends BaseController
         return view('admin/bpd/tampilan/pengurus/index', $data);
     }
 
-    public function create()
+    // enampilkan bpdes di bpn
+    public function index_bpdes()
+    {
+        $idKota = session()->get('id_kota'); // set this at login for BPD
+        $qb = $this->bpdesModel
+            ->select('tb_bpdes.*, kec.nama_kecamatan AS nama_kecamatan, desa.nama_desa AS nama_desa')
+            ->join('tb_desa_kelurahan AS desa', 'desa.id_desa = tb_bpdes.id_desa')
+            ->join('tb_kecamatan AS kec', 'kec.id_kecamatan = desa.id_kecamatan');
+
+        if ($idKota) {
+            $qb->where('kec.id_kota', $idKota);
+        }
+
+        $data['bpdes_admins'] = $qb->findAll();
+
+        return view('admin/bpn/tampilan/pengurus/index_bpdes', $data);
+    }
+
+    public function create()    
     {
         $idKota = session()->get('id_kota');
 

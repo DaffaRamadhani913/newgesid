@@ -74,7 +74,7 @@
         </div>
     <?php endif; ?>
 
-    <a href="<?= base_url('admin/bpd/adminbpdes/create') ?>" class="btn btn-gold mb-3">
+    <a href="<?= base_url('admin/bpn/adminbpdes/create') ?>" class="btn btn-gold mb-3">
         <i class="bi bi-plus-circle me-1"></i> Tambah BPDes Admin
     </a>
 
@@ -109,10 +109,10 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="<?= base_url('admin/bpd/adminbpdes/edit/' . $bpdes['id']) ?>" class="btn btn-warning btn-sm">
+                                        <a href="<?= base_url('admin/bpn/adminbpdes/edit/' . $bpdes['id']) ?>" class="btn btn-warning btn-sm">
                                             <i class="bi bi-pencil-square"></i> Edit
                                         </a>
-                                        <a href="<?= base_url('admin/bpd/adminbpdes/delete/' . $bpdes['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus admin ini?')">
+                                        <a href="<?= base_url('admin/bpn/adminbpdes/delete/' . $bpdes['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus admin ini?')">
                                             <i class="bi bi-trash3"></i> Hapus
                                         </a>
                                     </div>
