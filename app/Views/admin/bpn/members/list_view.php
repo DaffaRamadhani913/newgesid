@@ -287,20 +287,79 @@
 <script>
   const base_url = "<?= base_url() ?>";
 </script>
-
 <script>
-  // 🔎 Combined search & filter
+  // 🔎 Ambil elemen filter & input
   const searchInput = document.getElementById("searchInput");
   const filterProvinsi = document.getElementById("filterProvinsi");
   const filterKota = document.getElementById("filterKota");
   const filterDesa = document.getElementById("filterDesa");
 
+  // 🚫 Nonaktifkan filter kota & desa di awal
+  filterKota.disabled = true;
+  filterDesa.disabled = true;
+
+  // 🔄 Update opsi kota berdasarkan provinsi
+  function updateKotaOptions() {
+    const provVal = filterProvinsi.value.toLowerCase();
+    const rows = document.querySelectorAll("#memberTable tbody tr");
+    const kotaSet = new Set();
+
+    rows.forEach(row => {
+      const prov = row.cells[6].textContent.toLowerCase();
+      const kota = row.cells[7].textContent;
+      if (!provVal || prov === provVal) kotaSet.add(kota);
+    });
+
+    filterKota.innerHTML = '<option value="">Semua Kota</option>';
+    kotaSet.forEach(k => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k;
+      filterKota.appendChild(opt);
+    });
+
+    // 🔧 Reset & disable desa ketika provinsi berubah
+    filterDesa.innerHTML = '<option value="">Semua Desa</option>';
+    filterDesa.disabled = true;
+
+    // 🔧 Aktifkan kota hanya jika provinsi dipilih
+    filterKota.disabled = !provVal;
+  }
+
+  // 🔄 Update opsi desa berdasarkan provinsi & kota
+  function updateDesaOptions() {
+    const provVal = filterProvinsi.value.toLowerCase();
+    const kotaVal = filterKota.value.toLowerCase();
+    const rows = document.querySelectorAll("#memberTable tbody tr");
+    const desaSet = new Set();
+
+    rows.forEach(row => {
+      const prov = row.cells[6].textContent.toLowerCase();
+      const kota = row.cells[7].textContent.toLowerCase();
+      const desa = row.cells[9].textContent;
+      if ((!provVal || prov === provVal) && (!kotaVal || kota === kotaVal)) {
+        desaSet.add(desa);
+      }
+    });
+
+    filterDesa.innerHTML = '<option value="">Semua Desa</option>';
+    desaSet.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d;
+      opt.textContent = d;
+      filterDesa.appendChild(opt);
+    });
+
+    // 🔧 Aktifkan desa hanya jika kota dipilih
+    filterDesa.disabled = !kotaVal;
+  }
+
+  // 🧩 Filter tabel gabungan
   function filterTable() {
     const searchVal = searchInput.value.toLowerCase();
     const provVal = filterProvinsi.value.toLowerCase();
     const kotaVal = filterKota.value.toLowerCase();
     const desaVal = filterDesa.value.toLowerCase();
-
     const rows = document.querySelectorAll("#memberTable tbody tr");
 
     rows.forEach(row => {
@@ -318,9 +377,20 @@
     });
   }
 
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => el.addEventListener("input", filterTable));
+  // 🔗 Event listener filter
+  filterProvinsi.addEventListener("change", () => {
+    updateKotaOptions();
+    filterTable();
+  });
 
-  // 🖼️ Zoom image modal
+  filterKota.addEventListener("change", () => {
+    updateDesaOptions();
+    filterTable();
+  });
+
+  [searchInput, filterDesa].forEach(el => el.addEventListener("input", filterTable));
+
+  // 🖼️ Zoom gambar modal
   document.querySelectorAll(".zoomable img").forEach(img => {
     img.addEventListener("click", function(e) {
       e.preventDefault();
@@ -329,22 +399,22 @@
     });
   });
 
-  // 🔽 Sort table
+  // 🔽 Sort tabel
   document.querySelectorAll("#memberTable thead th").forEach((th, index) => {
     th.addEventListener("click", () => {
       if (!th.querySelector(".sort-icons")) return;
-      let table = th.closest("table");
-      let tbody = table.querySelector("tbody");
-      let rows = Array.from(tbody.querySelectorAll("tr"));
-      let up = th.querySelector(".up");
-      let down = th.querySelector(".down");
-      let isAsc = up.classList.contains("active");
+      const table = th.closest("table");
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+      const up = th.querySelector(".up");
+      const down = th.querySelector(".down");
+      const isAsc = up.classList.contains("active");
 
       table.querySelectorAll(".sort-icons .up, .sort-icons .down").forEach(el => el.classList.remove("active"));
 
       rows.sort((a, b) => {
-        let aText = a.cells[index].innerText.trim().toLowerCase();
-        let bText = b.cells[index].innerText.trim().toLowerCase();
+        const aText = a.cells[index].innerText.trim().toLowerCase();
+        const bText = b.cells[index].innerText.trim().toLowerCase();
         if (!isNaN(aText) && !isNaN(bText)) {
           return isAsc ? bText - aText : aText - bText;
         }
@@ -356,7 +426,12 @@
       else up.classList.add("active");
     });
   });
+
+  // 🔁 Inisialisasi pertama kali
+  updateKotaOptions();
+  updateDesaOptions();
 </script>
+
 <script>
   // 🟡 Fitur "Tampilkan N Data"
   const showEntries = document.getElementById("showEntries");

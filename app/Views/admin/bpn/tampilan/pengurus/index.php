@@ -90,6 +90,7 @@
                             <th>Email</th>
                             <th>Admin Provinsi</th>
                             <th>Role</th>
+                            <th>Lihat Data BPD</th> <!-- ✅ Kolom baru -->
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -107,6 +108,13 @@
                                         <span class="badge bg-info text-dark badge-role"><?= esc(ucfirst($bpw['role'])) ?></span>
                                     </td>
                                     <td>
+                                        <!-- ✅ Tombol lihat data BPD per provinsi -->
+                                        <a href="<?= base_url('admin/bpn/memberbpd/provinsi/' . urlencode($bpw['nama_provinsi'])) ?>"
+                                            class="btn btn-info btn-sm">
+                                            <i class="bi bi-eye"></i> Lihat
+                                        </a>
+                                    </td>
+                                    <td>
                                         <div class="d-flex justify-content-center gap-2">
                                             <a href="<?= base_url('admin/bpn/adminbpw/edit/' . $bpw['id']) ?>" class="btn btn-warning btn-sm">
                                                 <i class="bi bi-pencil-square"></i> Edit
@@ -121,7 +129,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="7" class="text-center text-muted fst-italic">
+                                <td colspan="8" class="text-center text-muted fst-italic">
                                     <i class="bi bi-info-circle me-2"></i> Belum ada admin BPW
                                 </td>
                             </tr>

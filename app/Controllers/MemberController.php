@@ -3,18 +3,41 @@
 namespace App\Controllers;
 
 use App\Models\MemberModel;
+use App\Models\ProvinsiModel;
+use App\Models\KotaModel;
+use App\Models\DesaModel;
 use App\Models\AduanModel;
 use CodeIgniter\Controller;
+use App\Models\BpwModel;
+use App\Models\BpdModel;
+use App\Models\BpdesModel;
+
 
 class MemberController extends BaseController
 {
     protected $memberModel;
     protected $aduanModel;
+    protected $provinsiModel;
+    protected $kotaModel;
+    protected $desaModel;
+    protected $bpwModel;
+    protected $bpdModel;
+    protected $bpdesModel;
+
+
+
+
 
     public function __construct()
     {
         $this->memberModel = new MemberModel();
         $this->aduanModel = new AduanModel();
+        $this->provinsiModel = new ProvinsiModel();
+        $this->kotaModel     = new KotaModel();
+        $this->desaModel     = new DesaModel();
+        $this->bpwModel   = new BpwModel();
+        $this->bpdModel   = new BpdModel();
+        $this->bpdesModel = new BpdesModel();
     }
 
     // ========================
@@ -112,19 +135,54 @@ class MemberController extends BaseController
 
 
 
-
     // ============
     // FORM ADUAN
     // ============
-
     public function aduanForm()
     {
         $session = session();
-        if (!$session->get('user_id')) {
-            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        $memberId = $session->get('member_id');
+
+        $member = $this->memberModel->find($memberId);
+        if (!$member) {
+            return redirect()->back()->with('error', 'Data member tidak ditemukan.');
         }
 
-        return view('member/aduan_form');
+        // 🔍 Cek admin berdasarkan relasi wilayah
+        $adminBPW = $this->bpwModel
+            ->where('id_provinsi', $member['id_provinsi'])
+            ->first();
+
+        $adminBPD = $this->bpdModel
+            ->where('id_kota', $member['id_kota'])
+            ->first();
+
+        $adminBPDES = $this->bpdesModel
+            ->where('id_desa', $member['id_desa'])
+            ->first();
+
+        // 🧠 Siapkan daftar tujuan
+        $tujuanOptions = [];
+
+        if ($adminBPW) {
+            $tujuanOptions['BPW'] = 'BPW ' . ($adminBPW['nama'] ?? 'Wilayah');
+        }
+        if ($adminBPD) {
+            $tujuanOptions['BPD'] = 'BPD ' . ($adminBPD['nama'] ?? 'Wilayah');
+        }
+        if ($adminBPDES) {
+            $tujuanOptions['BPDES'] = 'BPDES ' . ($adminBPDES['nama'] ?? 'Wilayah');
+        }
+
+        // Jika semua kosong (tidak ada admin aktif)
+        if (empty($tujuanOptions)) {
+            $tujuanOptions['none'] = 'Tidak tersedia untuk wilayah Anda';
+        }
+
+        return view('member/aduan_form', [
+            'member' => $member,
+            'tujuanOptions' => $tujuanOptions,
+        ]);
     }
 
     public function kirimAduan()
@@ -136,9 +194,7 @@ class MemberController extends BaseController
             return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        // Ambil data member untuk mengetahui wilayahnya
         $member = $this->memberModel->where('user_id', $userId)->first();
-
         if (!$member) {
             return redirect()->back()->with('error', 'Data member tidak ditemukan.');
         }
@@ -146,6 +202,7 @@ class MemberController extends BaseController
         $rules = [
             'judul' => 'required|min_length[3]',
             'isi' => 'required|min_length[10]',
+            'tujuan' => 'required',
             'lampiran' => 'permit_empty|max_size[lampiran,2048]|ext_in[lampiran,jpg,jpeg,png,pdf,doc,docx]',
         ];
 
@@ -161,16 +218,20 @@ class MemberController extends BaseController
             $lampiran->move('uploads/aduan', $lampiranName);
         }
 
+        // Ambil data tujuan
+        $tujuan = explode('|', $this->request->getPost('tujuan'));
+        // Formatnya: BPW|id_provinsi|id_kota|id_desa
+
         $data = [
             'user_id' => $userId,
             'judul' => $this->request->getPost('judul'),
             'isi' => $this->request->getPost('isi'),
+            'tujuan' => $tujuan[0],
             'lampiran' => $lampiranName,
             'status' => 'Menunggu',
-            'id_provinsi' => $member['id_provinsi'],
-            'id_kota' => $member['id_kota'],
-            'id_kecamatan' => $member['id_kecamatan'],
-            'id_desa' => $member['id_desa'],
+            'id_provinsi' => $tujuan[1] ?: null,
+            'id_kota' => $tujuan[2] ?: null,
+            'id_desa' => $tujuan[3] ?: null,
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -178,7 +239,6 @@ class MemberController extends BaseController
 
         return redirect()->to('/member/aduan')->with('success', 'Aduan berhasil dikirim.');
     }
-
 
     public function respons()
     {
@@ -200,10 +260,9 @@ class MemberController extends BaseController
 
 
 
-
     // ===================
-// PROFIL MEMBER
-// ===================
+    // PROFIL MEMBER
+    // ===================
 
     public function profile()
     {
@@ -251,9 +310,8 @@ class MemberController extends BaseController
 
         $this->memberModel->update($member['id'], $data);
 
-        return redirect()->to('/member/profil')->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->to('/member/profile')->with('success', 'Profil berhasil diperbarui.');
     }
-
     public function downloadCard()
 {
     // helpers & session

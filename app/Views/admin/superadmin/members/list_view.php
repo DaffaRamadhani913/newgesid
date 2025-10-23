@@ -212,74 +212,76 @@
 </div>
 
 <script>
-  // 🔍 Text search filter
   const searchInput = document.getElementById("searchInput");
   const filterProvinsi = document.getElementById("filterProvinsi");
   const filterKota = document.getElementById("filterKota");
   const filterDesa = document.getElementById("filterDesa");
-
-  function filterTable() {
-    const searchVal = searchInput.value.toLowerCase();
-    const provinsiVal = filterProvinsi.value.toLowerCase();
-    const kotaVal = filterKota.value.toLowerCase();
-    const desaVal = filterDesa.value.toLowerCase();
-
-    const rows = document.querySelectorAll("#memberTable tbody tr");
-
-    rows.forEach(row => {
-      const rowText = row.textContent.toLowerCase();
-      const provinsi = row.cells[6].textContent.toLowerCase();
-      const kota = row.cells[7].textContent.toLowerCase();
-      const desa = row.cells[9].textContent.toLowerCase();
-
-      const matchSearch = rowText.includes(searchVal);
-      const matchProv = !provinsiVal || provinsi === provinsiVal;
-      const matchKota = !kotaVal || kota === kotaVal;
-      const matchDesa = !desaVal || desa === desaVal;
-
-      row.style.display = (matchSearch && matchProv && matchKota && matchDesa) ? "" : "none";
-    });
-  }
-
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el => {
-    el.addEventListener("input", filterTable);
-  });
-
-  // 🖼️ Zoom image modal
-  document.querySelectorAll(".zoomable img").forEach(img => {
-    img.addEventListener("click", function() {
-      document.getElementById("modalImage").src = this.src;
-      new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-  });
-</script>
-<script>
-  // 🟡 Fitur "Tampilkan N Data"
   const showEntries = document.getElementById("showEntries");
   const memberTable = document.getElementById("memberTable");
   const tableRows = memberTable.querySelectorAll("tbody tr");
 
-  function updateVisibleRows() {
-    const val = showEntries.value;
-    let visibleCount = 0;
+  // 🔒 Awal: kota & desa dikunci (tidak bisa diklik)
+  filterKota.disabled = true;
+  filterDesa.disabled = true;
 
-    tableRows.forEach((row, index) => {
-      const isVisible = row.style.display !== "none";
-      if (isVisible) {
-        if (val === "all" || visibleCount < parseInt(val)) {
-          row.style.visibility = "visible";
-          row.style.display = "";
-          visibleCount++;
-        } else {
-          row.style.display = "none";
-        }
-      } else {
-        row.style.display = "none";
-      }
-    });
+  // 🔎 Buat relasi provinsi → kota → desa
+  const dataMap = {};
+  tableRows.forEach(row => {
+    const prov = row.cells[6]?.textContent.trim();
+    const kota = row.cells[7]?.textContent.trim();
+    const desa = row.cells[9]?.textContent.trim();
+
+    if (!dataMap[prov]) dataMap[prov] = {};
+    if (!dataMap[prov][kota]) dataMap[prov][kota] = new Set();
+    dataMap[prov][kota].add(desa);
+  });
+
+  // 🔁 Update dropdown kota sesuai provinsi
+  function updateKotaOptions() {
+    const provSelected = filterProvinsi.value;
+    filterKota.innerHTML = `<option value="">Semua Kota</option>`;
+    filterDesa.innerHTML = `<option value="">Semua Desa</option>`;
+    filterDesa.disabled = true; // desa dikunci lagi saat ganti provinsi
+
+    if (provSelected && dataMap[provSelected]) {
+      filterKota.disabled = false; // buka kota
+      Object.keys(dataMap[provSelected]).sort().forEach(kota => {
+        const opt = document.createElement("option");
+        opt.value = kota;
+        opt.textContent = kota;
+        filterKota.appendChild(opt);
+      });
+    } else {
+      filterKota.disabled = true; // tetap dikunci jika belum pilih provinsi
+    }
+
+    filterTable();
   }
 
-  // Integrasi dengan filter
+  // 🔁 Update dropdown desa sesuai kota
+  function updateDesaOptions() {
+    const provSelected = filterProvinsi.value;
+    const kotaSelected = filterKota.value;
+    filterDesa.innerHTML = `<option value="">Semua Desa</option>`;
+
+    if (provSelected && kotaSelected && dataMap[provSelected]?.[kotaSelected]) {
+      filterDesa.disabled = false; // buka desa
+      Array.from(dataMap[provSelected][kotaSelected])
+        .sort()
+        .forEach(desa => {
+          const opt = document.createElement("option");
+          opt.value = desa;
+          opt.textContent = desa;
+          filterDesa.appendChild(opt);
+        });
+    } else {
+      filterDesa.disabled = true; // tetap dikunci kalau belum pilih kota
+    }
+
+    filterTable();
+  }
+
+  // 🔍 Fungsi filter tabel utama
   function filterTable() {
     const searchVal = searchInput.value.toLowerCase();
     const provVal = filterProvinsi.value.toLowerCase();
@@ -304,14 +306,40 @@
     updateVisibleRows();
   }
 
-  [searchInput, filterProvinsi, filterKota, filterDesa].forEach(el =>
-    el.addEventListener("input", filterTable)
-  );
+  // 🟡 Batasi jumlah data ditampilkan
+  function updateVisibleRows() {
+    const val = showEntries.value;
+    const visibleRows = Array.from(tableRows).filter(row => row.style.display !== "none");
 
+    visibleRows.forEach((row, index) => {
+      row.style.display = (val === "all" || index < parseInt(val)) ? "" : "none";
+    });
+
+    let no = 1;
+    visibleRows.forEach(row => {
+      if (row.style.display !== "none") {
+        row.cells[0].textContent = no++;
+      }
+    });
+  }
+
+  // 🧩 Event listeners
+  searchInput.addEventListener("input", filterTable);
   showEntries.addEventListener("change", updateVisibleRows);
+  filterProvinsi.addEventListener("change", updateKotaOptions);
+  filterKota.addEventListener("change", updateDesaOptions);
+  filterDesa.addEventListener("change", filterTable);
 
-  // Jalankan pertama kali
-  updateVisibleRows();
+  // 🖼️ Zoom gambar modal
+  document.querySelectorAll(".zoomable img").forEach(img => {
+    img.addEventListener("click", function() {
+      document.getElementById("modalImage").src = this.src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+  });
+
+  // 🚀 Jalankan pertama kali
+  filterTable();
 </script>
 
 <?= $this->endSection() ?>

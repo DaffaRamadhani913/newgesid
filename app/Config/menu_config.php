@@ -11,8 +11,8 @@ return [
       ['url' => 'admin/bpn/data-member', 'icon' => 'mdi:account-multiple-outline', 'label' => 'Data Member'],
       ['url' => 'admin/bpn/verifikasi-member', 'icon' => 'mdi:account-check-outline', 'label' => 'Verifikasi Member'],
       ['url' => 'admin/bpn/adminbpw', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPW'], // 🔥 restored
-      ['url' => 'admin/superadmin/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPD'],
-      ['url' => 'admin/superadmin/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPDes'],
+      ['url' => 'admin/bpn/adminbpd', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPD'],
+      ['url' => 'admin/bpn/adminbpdes', 'icon' => 'mdi:account-tie-outline', 'label' => 'BPDes'],
     ],
 
     // ✅ Extra menu for Humas BPN

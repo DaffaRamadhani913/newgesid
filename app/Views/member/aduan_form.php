@@ -2,7 +2,6 @@
 
 <?= $this->section('content') ?>
 <style>
-    /* Form modern dan jelas */
     .form-container {
         background-color: #fff;
         border: 1px solid #d4af37;
@@ -60,25 +59,11 @@
         padding: 14px 20px;
         font-size: 0.95rem;
     }
-
-    @media (max-width: 576px) {
-        .form-container {
-            padding: 25px 20px;
-        }
-
-        .form-container h2 {
-            font-size: 1.5rem;
-        }
-
-        .form-label {
-            font-size: 0.95rem;
-        }
-    }
 </style>
 
-<!-- 🔹 Hamburger Button (use same class the CSS expects) -->
+<!-- 🔹 Tombol Sidebar -->
 <button class="gesid-hamburger btn btn-outline-warning d-lg-none" id="toggleSidebar" aria-label="Toggle sidebar">
-  <i class="bi bi-list fs-4"></i>
+    <i class="bi bi-list fs-4"></i>
 </button>
 
 <div class="container mt-4">
@@ -94,6 +79,8 @@
         <form action="<?= base_url('member/aduan') ?>" method="post" enctype="multipart/form-data">
             <?= csrf_field() ?>
 
+
+
             <div class="mb-3">
                 <label for="judul" class="form-label">Judul Aduan</label>
                 <input type="text" name="judul" id="judul" class="form-control" required>
@@ -108,6 +95,24 @@
                 <label for="lampiran" class="form-label">Lampiran (Opsional)</label>
                 <input type="file" name="lampiran" id="lampiran" class="form-control">
             </div>
+
+            <div class="mb-3">
+                <label for="tujuan" class="form-label">Tujuan Aduan</label>
+                <select name="tujuan" id="tujuan" class="form-control" required>
+                    <option value="">-- Pilih Tujuan --</option>
+
+                    <?php foreach ($tujuanOptions as $key => $label) : ?>
+                        <?php if ($key === 'none') : ?>
+                            <option value="" disabled><?= esc($label) ?></option>
+                        <?php else : ?>
+                            <option value="<?= esc($key) ?>"><?= esc($label) ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+
+
 
             <button type="submit" class="btn btn-submit">Kirim Aduan</button>
         </form>

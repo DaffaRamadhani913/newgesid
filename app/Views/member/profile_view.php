@@ -67,7 +67,7 @@
 
 <!-- 🔹 Hamburger Button (use same class the CSS expects) -->
 <button class="gesid-hamburger btn btn-outline-warning d-lg-none" id="toggleSidebar" aria-label="Toggle sidebar">
-  <i class="bi bi-list fs-4"></i>
+    <i class="bi bi-list fs-4"></i>
 </button>
 
 <div class="container mt-4">
@@ -109,4 +109,4 @@
     </div>
 </div>
 
-<?= $this->endSection() ?>  
+<?= $this->endSection() ?>

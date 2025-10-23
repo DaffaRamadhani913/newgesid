@@ -71,10 +71,11 @@ $routes->get('data', 'Home::dataMember'); // member_data.php
             $routes->get('aduan', 'MemberController::aduanForm');
             $routes->post('aduan', 'MemberController::kirimAduan');
 
-            $routes->get('profile', 'MemberController::profile');
-            $routes->post('profil/update', 'MemberController::updateProfile');
+    $routes->get('profile', 'MemberController::profile');
+    $routes->post('profil/update', 'MemberController::updateProfile');
 
-            $routes->get('respons', 'MemberController::respons');
+
+    $routes->get('respons', 'MemberController::respons');
 
             $routes->get('downloadCard', 'MemberController::downloadCard');
         });
@@ -271,6 +272,31 @@ $routes->group('admin/bpn', [
     $routes->get('adminbpw/edit/(:num)', 'BpwController::edit/$1');
     $routes->post('adminbpw/update/(:num)', 'BpwController::update/$1');
     $routes->get('adminbpw/delete/(:num)', 'BpwController::delete/$1');
+});
+// Tambah Admin BPD (masih di bawah BPN)
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers\admin\TambahAdmin',
+    'filter' => 'role:bpn' // ⬅ filter ditambah di sini juga
+], function ($routes) {
+    $routes->get('adminbpd', 'BpdController::index');
+    $routes->get('adminbpd/create', 'BpdController::create');
+    $routes->post('adminbpd/store', 'BpdController::store');
+    $routes->get('adminbpd/edit/(:num)', 'BpdController::edit/$1');
+    $routes->post('adminbpd/update/(:num)', 'BpdController::update/$1');
+    $routes->get('adminbpd/delete/(:num)', 'BpdController::delete/$1');
+});
+
+// Tambah Admin BPW (masih di bawah BPN)
+$routes->group('admin/bpn', [
+    'namespace' => 'App\Controllers\admin\TambahAdmin',
+    'filter' => 'role:bpn' // ⬅ filter ditambah di sini juga
+], function ($routes) {
+    $routes->get('adminbpdes', 'BpdesController::index');
+    $routes->get('adminbpdes/create', 'BpdesController::create');
+    $routes->post('adminbpdes/store', 'BpdesController::store');
+    $routes->get('adminbpdes/edit/(:num)', 'BpdesController::edit/$1');
+    $routes->post('adminbpdes/update/(:num)', 'BpdesController::update/$1');
+    $routes->get('adminbpdes/delete/(:num)', 'BpdesController::delete/$1');
 });
 
 // Verifikasi Artikel & Acara (tetap filter BPN)
